@@ -1,0 +1,64 @@
+:root {
+  --white: #fff;
+  --poke-red: #ba4949;
+  --poke-yellow: #fbcc05;
+
+  /* types */
+  --water: rgb(86, 187, 233);
+  --fire: rgb(253, 16, 0);
+  --electric: rgb(253, 216, 76);
+  --grass: rgb(14, 155, 92);
+  --ice: rgb(2, 250, 255);
+  --fighting: rgb(185, 66, 70);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Josefin Sans", sans-serif;
+}
+
+ul {
+  padding: none;
+  list-style: none;
+}
+
+img {
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--poke-yellow);
+}
+
+.lorem {
+  line-height: 3;
+}
+
+.container {
+  max-width: 1400px;
+  margin-inline: auto;
+}
+
+.header-sm {
+  font-size: 1.1rem;
+  color: var(--white);
+  font-weight: 500;
+}
