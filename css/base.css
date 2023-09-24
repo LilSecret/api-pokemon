@@ -1,7 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Josefin+Sans&family=Nunito&display=swap");
+
 :root {
   --white: #fff;
   --poke-red: #ba4949;
   --poke-yellow: #fbcc05;
+  --poke-blue: #294895;
   --poke-dark: #4c4747;
 
   /* types */
@@ -13,12 +16,6 @@
   --fighting: rgb(185, 66, 70);
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -28,15 +25,15 @@ body {
   color: var(--poke-dark);
 }
 
-::-webkit-scrollbar {
+body::-webkit-scrollbar {
   width: 7px;
 }
 
-::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track {
   background-color: var(--poke-dark);
 }
 
-::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb {
   background: var(--poke-yellow);
   border-radius: 8px;
 }
@@ -45,11 +42,6 @@ h1,
 h2,
 h3 {
   font-family: "Josefin Sans", sans-serif;
-}
-
-ul {
-  padding: none;
-  list-style: none;
 }
 
 img {
@@ -66,5 +58,5 @@ a {
 }
 
 .header-md {
-  font-size: 1.875rem;
+  font-size: 2.875rem;
 }

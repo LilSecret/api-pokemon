@@ -69,12 +69,38 @@
 }
 
 .pokedex h2 {
-  margin-block-start: 70px;
+  color: var(--poke-yellow);
+  margin-block-start: 100px;
   margin-block-end: 30px;
   text-align: center;
-  text-shadow: 2px 2px 4px var(--poke-yellow);
+  filter: drop-shadow(0px 0px 4px var(--poke-blue));
 }
 
-.pokemon-deck {
+.pokedex h2::before,
+.pokedex h2::after {
+  content: "";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 75px;
+  width: 75px;
+  background: url(../assets/images/pika.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+  bottom: 10px;
+  margin-inline: 20px;
+}
+
+.pokedex h2::before {
+  background: url(../assets/images/pika.png) no-repeat center / cover;
+}
+.pokedex h2::after {
+  background: url(../assets/images/charzard.png) no-repeat center / cover;
+  bottom: 30px;
+}
+
+.pokedex {
   display: flex;
+  justify-content: center;
 }
