@@ -101,6 +101,86 @@
 }
 
 .pokedex {
+  text-align: center;
+}
+
+.pokedex-grid {
+  margin-block: 50px 50px;
   display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
   justify-content: center;
+}
+
+.pokedex-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "left left right"
+    "base base base";
+  border-radius: 15px;
+  background: linear-gradient(145deg, var(--white) 1%, var(--water));
+  /* height: 178px; */
+  width: 210px;
+  box-shadow: 0px 3px 10px var(--poke-dark);
+  padding: 22px;
+}
+
+.pokedex-card:nth-child(2) {
+  background: linear-gradient(145deg, var(--white) 1%, var(--ice));
+}
+
+.card-left {
+  grid-area: left;
+}
+
+.card-right {
+  grid-area: right;
+}
+
+.card-base {
+  grid-area: base;
+}
+
+.stats-grid {
+  align-content: space-between;
+  align-items: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 1.15rem;
+}
+
+.stats-grid .icon-wrapper {
+  width: 25px;
+  pointer-events: none;
+}
+
+.card-base {
+  display: flex;
+}
+
+.card-base .type {
+  margin-top: 15px;
+  padding: 5px 8px;
+  border-radius: 8px;
+  outline: solid 3px var(--white);
+}
+
+.card-base .type-water {
+  background-color: var(--water);
+}
+.card-base .type-fire {
+  background-color: var(--fire);
+}
+.card-base .type-electric {
+  background-color: var(--electric);
+}
+.card-base .type-grass {
+  background-color: var(--grass);
+}
+.card-base .type-ice {
+  background-color: var(--ice);
+}
+.card-base .type-fighting {
+  background-color: var(--fighting);
 }

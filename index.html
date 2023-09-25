@@ -8,6 +8,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Stylesheets -->
     <link rel="stylesheet" href="./css/main.css" />
+    <!-- Font Awesome  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
   </head>
   <body>
     <nav class="navbar">
@@ -98,10 +103,57 @@
       </svg>
     </div>
 
-    <div id="pokedex" class="pokedex">
+    <section id="pokedex" class="pokedex">
       <h2 class="header-md">Pokédex</h2>
-      <!-- <div class="pokemon-card"></div> -->
-    </div>
+      <div class="pokedex-grid">
+        <div class="pokedex-card">
+          <div class="card-left">
+            <div class="pokemon-img-wrapper">
+              <img src="" alt="" />
+            </div>
+            <h3 class="pokemon-name">Totodile</h3>
+          </div>
+          <div class="card-right stats-grid">
+            <i class="fa-solid fa-heart"></i>
+            <div class="stat">48</div>
+            <i class="fa-solid fa-heart"></i>
+            <div class="stat">48</div>
+            <i class="fa-solid fa-shield"></i>
+            <div class="stat">48</div>
+          </div>
+          <div class="card-base">
+            <div class="type type-water">Water</div>
+            <div class="type type-fire">Fire</div>
+          </div>
+        </div>
+        <div class="pokedex-card">
+          <div class="card-left">
+            <div class="pokemon-img-wrapper">
+              <img src="" alt="" />
+            </div>
+            <h3 class="pokemon-name">Totodile</h3>
+          </div>
+          <div class="card-right stats-grid">
+            <div class="icon-wrapper">
+              <img src="./assets/images/heart.png" alt="heart" />
+            </div>
+            <div class="stat">48</div>
+            <div class="icon-wrapper">
+              <img src="/assets/images/sword.png" alt="sword" />
+            </div>
+            <div class="stat">48</div>
+            <div class="icon-wrapper">
+              <img src="./assets/images/shield.png" alt="shield" />
+            </div>
+            <div class="stat">48</div>
+          </div>
+          <div class="card-base">
+            <div class="type type-water">Water</div>
+            <div class="type type-fire">Fire</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <section class="about-modal"></section>
     <script src="index.js" async defer></script>
