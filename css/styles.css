@@ -44,17 +44,6 @@
   position: relative;
 }
 
-.parallax::before {
-  background-color: rgba(0, 0, 0, 0.2);
-  content: "";
-  display: block;
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
 .separator {
   background-color: rgb(60, 55, 62);
   color: var(--poke-red);
@@ -73,7 +62,6 @@
   margin-block-start: 100px;
   margin-block-end: 30px;
   text-align: center;
-  filter: drop-shadow(0px 0px 4px var(--poke-blue));
 }
 
 .pokedex h2::before,
@@ -104,34 +92,53 @@
   text-align: center;
 }
 
-.pokedex-grid {
-  margin-block: 50px 50px;
+.pokedex-grid-wrapper {
+  margin-block: 83px 50px;
   display: flex;
-  gap: 25px;
+  gap: 100px 35px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
-.pokedex-card {
+.pokemon-card {
   display: grid;
+  gap: 10px 65px;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas:
     "left left right"
     "base base base";
   border-radius: 15px;
-  background: linear-gradient(145deg, var(--white) 1%, var(--water));
-  /* height: 178px; */
-  width: 210px;
+  background-color: var(--poke-dark);
+  color: var(--light);
   box-shadow: 0px 3px 10px var(--poke-dark);
-  padding: 22px;
-}
-
-.pokedex-card:nth-child(2) {
-  background: linear-gradient(145deg, var(--white) 1%, var(--ice));
+  width: 240px;
+  padding: 22px 22px 22px 27px;
 }
 
 .card-left {
   grid-area: left;
+  display: flex;
+  justify-content: start;
+  align-items: end;
+  margin-top: 50px;
+  position: relative;
+}
+
+.pokemon-img-wrapper {
+  width: 130px;
+  position: absolute;
+  bottom: 40px;
+  left: -20px;
+}
+
+.pokemon-card:hover .pokemon-img-wrapper {
+  filter: drop-shadow(0 0 10px var(--poke-yellow));
+}
+
+.pokemon-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
 }
 
 .card-right {
@@ -146,6 +153,7 @@
   align-content: space-between;
   align-items: center;
   display: grid;
+  gap: 5px;
   grid-template-columns: 1fr 1fr;
   font-size: 1.15rem;
 }
@@ -161,26 +169,8 @@
 
 .card-base .type {
   margin-top: 15px;
-  padding: 5px 8px;
+  padding: 8px 15px;
   border-radius: 8px;
-  outline: solid 3px var(--white);
-}
-
-.card-base .type-water {
-  background-color: var(--water);
-}
-.card-base .type-fire {
-  background-color: var(--fire);
-}
-.card-base .type-electric {
-  background-color: var(--electric);
-}
-.card-base .type-grass {
-  background-color: var(--grass);
-}
-.card-base .type-ice {
-  background-color: var(--ice);
-}
-.card-base .type-fighting {
-  background-color: var(--fighting);
+  margin-right: 15px;
+  font-size: 17px;
 }

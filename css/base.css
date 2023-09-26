@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Josefin+Sans&family=Nunito&display=swap");
 
 :root {
-  --white: #f9f8f8;
+  --light: #f9f8f8;
   --poke-red: #ba4949;
   --poke-yellow: #fbcc05;
   --poke-blue: #294895;
@@ -53,10 +53,10 @@ a {
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1280px;
   margin-inline: auto;
 }
 
 .header-md {
-  font-size: 2.875rem;
+  font-size: 3.875rem;
 }
