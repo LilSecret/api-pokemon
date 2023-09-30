@@ -1,0 +1,28 @@
+:root {
+  --light: #fff;
+  --dark: #0f0f0f;
+
+  --poke-red: #ba4949;
+  --poke-yellow: #fbcc05;
+  --poke-blue: #294895;
+  --poke-dark: #4c4747;
+  /* types */
+  --water: rgb(10, 201, 235);
+  --fire: rgb(253, 16, 0);
+  --electric: rgb(253, 216, 76);
+  --grass: rgb(14, 155, 92);
+  --ice: rgb(2, 250, 255);
+  --fighting: rgb(185, 66, 70);
+}
+
+html[data-theme|="light"] {
+  --body-bg-color: var(--light);
+  --pokemon-card-bg: var(--poke-dark);
+  --pokemon-card-text: var(--light);
+}
+
+html[data-theme|="dark"] {
+  --body-bg-color: var(--dark);
+  --pokemon-card-bg: var(--light);
+  --pokemon-card-text: var(--poke-dark);
+}

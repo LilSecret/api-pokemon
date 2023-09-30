@@ -1,21 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Josefin+Sans&family=Nunito&display=swap");
 
-:root {
-  --light: #f9f8f8;
-  --poke-red: #ba4949;
-  --poke-yellow: #fbcc05;
-  --poke-blue: #294895;
-  --poke-dark: #4c4747;
-
-  /* types */
-  --water: rgb(10, 201, 235);
-  --fire: rgb(253, 16, 0);
-  --electric: rgb(253, 216, 76);
-  --grass: rgb(14, 155, 92);
-  --ice: rgb(2, 250, 255);
-  --fighting: rgb(185, 66, 70);
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -23,6 +7,8 @@ html {
 body {
   font-family: "Nunito", sans-serif;
   color: var(--poke-dark);
+  background-color: var(--body-bg-color);
+  position: relative;
 }
 
 body::-webkit-scrollbar {
