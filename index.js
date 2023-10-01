@@ -1,6 +1,9 @@
 const themeTab = document.getElementById("theme-tab");
 const themeTabIcon = themeTab.querySelector("i");
 
+// const pokemonCards = document.querySelectorAll(".pokemon-card");
+// const pokemonCardFavTab = document.querySelector(".favorite-tab");
+
 const html = document.querySelector("html");
 // const documentTheme = html.getAttribute("data-theme");
 
@@ -23,3 +26,13 @@ const toggleTheme = () => {
 };
 
 themeTab.addEventListener("click", toggleTheme);
+
+// pokemonCards.forEach((card) => {
+//   card.addEventListener("mouseover", () => {
+//     pokemonCardFavTab.classList.add("active");
+//   });
+// });
+
+// pokemonCards.addEventListener("mouseover", () => {
+//   pokemonCardFavTab.classList.add
+// });

@@ -38,18 +38,16 @@
 .theme-tab {
   display: flex;
   align-items: center;
+  justify-content: start;
   width: 70px;
   background-color: var(--light);
   border: 6px solid var(--poke-dark);
   border-radius: 50rem;
-  bottom: 50px;
+  bottom: 20px;
   right: 10px;
   position: fixed;
   z-index: 5;
-}
-
-.theme-tab.theme-light {
-  justify-content: start;
+  transition: 0.6s ease-in;
 }
 
 .theme-tab.theme-dark {
@@ -97,6 +95,7 @@
 }
 
 .pokedex h2 {
+  display: inline-block;
   color: var(--poke-yellow);
   margin-block-start: 100px;
   margin-block-end: 30px;
@@ -129,6 +128,7 @@
 
 .pokedex {
   text-align: center;
+  z-index: -2;
 }
 
 .pokedex-grid-wrapper {
@@ -152,7 +152,36 @@
   box-shadow: 0px 3px 10px var(--poke-dark);
   width: 240px;
   padding: 22px 22px 22px 27px;
+  position: relative;
+  z-index: 1;
 }
+
+.pokemon-card .favorite-tab {
+  position: absolute;
+  right: 0px;
+  top: 10px;
+  /* top: -25px; */
+  background-color: var(--poke-yellow);
+  border-radius: 10px;
+  padding: 7px 8px 40px;
+  transition: 0.2s ease-in;
+  /* z-index: -1; */
+  z-index: 0;
+}
+
+.pokemon-card .favorite-tab:hover {
+  background-color: green;
+}
+
+.pokemon-card:hover .favorite-tab,
+.favorite-tab:hover {
+  top: -25px;
+  /* top: -50px; */
+}
+
+/* .pokemon-card .favorite-tab.active {
+  top: -25px;
+} */
 
 .card-left {
   grid-area: left;
