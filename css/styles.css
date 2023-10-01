@@ -152,30 +152,29 @@
   box-shadow: 0px 3px 10px var(--poke-dark);
   width: 240px;
   padding: 22px 22px 22px 27px;
+  cursor: pointer;
   position: relative;
-  z-index: 1;
+}
+
+.pokemon-card:hover {
+  top: -10px;
 }
 
 .pokemon-card .favorite-tab {
   position: absolute;
   right: 0px;
   top: 10px;
-  /* top: -25px; */
   background-color: var(--poke-yellow);
   border-radius: 10px;
+  font-size: 1.4rem;
   padding: 7px 8px 40px;
-  transition: 0.2s ease-in;
-  /* z-index: -1; */
-  z-index: 0;
-}
-
-.pokemon-card .favorite-tab:hover {
-  background-color: green;
+  transition: 0.3s ease-in;
+  z-index: -1;
 }
 
 .pokemon-card:hover .favorite-tab,
 .favorite-tab:hover {
-  top: -25px;
+  top: -35px;
   /* top: -50px; */
 }
 

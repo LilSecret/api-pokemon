@@ -26,13 +26,3 @@ const toggleTheme = () => {
 };
 
 themeTab.addEventListener("click", toggleTheme);
-
-// pokemonCards.forEach((card) => {
-//   card.addEventListener("mouseover", () => {
-//     pokemonCardFavTab.classList.add("active");
-//   });
-// });
-
-// pokemonCards.addEventListener("mouseover", () => {
-//   pokemonCardFavTab.classList.add
-// });
