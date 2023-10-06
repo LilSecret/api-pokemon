@@ -1,28 +1,17 @@
-const themeTab = document.getElementById("theme-tab");
-const themeTabIcon = themeTab.querySelector("i");
+const body = document.querySelector("body");
+
+const themeTab = document.querySelector("#theme-btn");
 
 // const pokemonCards = document.querySelectorAll(".pokemon-card");
 // const pokemonCardFavTab = document.querySelector(".favorite-tab");
 
 const html = document.querySelector("html");
-// const documentTheme = html.getAttribute("data-theme");
 
-const toggleTheme = () => {
+const toggleSiteTheme = () => {
   const documentTheme = html.getAttribute("data-theme");
-  const newTheme = documentTheme === "light" ? "dark" : "light";
-  const oldTheme = newTheme === "dark" ? "light" : "dark";
-
-  // change Theme on document
-  html.setAttribute("data-theme", newTheme);
-
-  // update themeTab position
-  themeTab.classList.toggle(`theme-${oldTheme}`);
-  themeTab.classList.toggle(`theme-${newTheme}`);
-
-  // update themeTab icon
-  themeTabIcon.className = `fa-solid fa-${
-    newTheme === "light" ? "sun" : "moon"
-  }`;
+  html.setAttribute("data-theme", documentTheme === "light" ? "dark" : "light");
 };
 
-themeTab.addEventListener("click", toggleTheme);
+themeTab.addEventListener("click", function (e) {
+  toggleSiteTheme();
+});
