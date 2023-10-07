@@ -13,6 +13,9 @@
   --grass: rgb(14, 155, 92);
   --ice: rgb(2, 250, 255);
   --fighting: rgb(185, 66, 70);
+
+  /* --pokedex-heading-size: 7.5rem; */
+  --pokedex-heading-size: 120px;
 }
 
 html[data-theme|="light"] {

@@ -1,11 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Chakra+Petch&family=Josefin+Sans&family=Nunito&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans&family=Russo+One&family=Signika+Negative&display=swap");
 
 html {
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: "Nunito", sans-serif;
+  font-family: "Signika Negative", sans-serif;
   color: var(--poke-dark);
   background-color: var(--body-bg-color);
   position: relative;
@@ -27,7 +27,7 @@ body::-webkit-scrollbar-thumb {
 h1,
 h2,
 h3 {
-  font-family: "Josefin Sans", sans-serif;
+  font-family: "Russo One", sans-serif;
 }
 
 img {
@@ -43,6 +43,8 @@ a {
   margin-inline: auto;
 }
 
-.header-md {
+.header-lg {
+  font-family: "Josefin Sans", sans-serif;
   font-size: 3.875rem;
+  font-weight: 900;
 }
