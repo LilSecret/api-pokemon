@@ -13,18 +13,17 @@
 }
 
 .navbar .logo-wrapper {
-  width: 150px;
+  width: 135px;
   min-width: 120px;
-  position: relative;
 }
 
 .navbar .nav-links {
   display: flex;
-  position: relative;
 }
 
 .navbar .nav-item {
-  font-size: 1.1rem;
+  font-size: 1rem;
+  letter-spacing: 1.3px;
   color: var(--light);
   font-weight: 500;
   margin-inline: 15px;
@@ -60,11 +59,11 @@
   overflow: hidden;
 }
 
-.theme-toggle .theme-btn {
+.theme-toggle input {
   display: none;
 }
 
-.theme-toggle i {
+.theme-toggle .icon {
   color: var(--poke-dark);
   font-size: 1.3rem;
   position: absolute;
@@ -82,18 +81,19 @@
   color: orange;
 }
 
-.theme-btn:checked ~ label .fa-moon {
+input:checked ~ label .fa-moon {
   opacity: 1;
   transform: translateX(0);
 }
 
-.theme-btn:checked ~ label .fa-sun {
+input:checked ~ label .fa-sun {
   opacity: 0;
   transform: translateX(2rem);
 }
 
 .theme-toggle:hover {
   transform: scale(1.11);
+  filter: drop-shadow(0px 0px 3px var(--poke-blue));
 }
 
 .parallax {
@@ -119,6 +119,7 @@
 }
 
 .pokedex-heading {
+  user-select: none;
   max-width: 600px;
   margin-inline: auto;
   display: flex;
@@ -277,6 +278,7 @@
   border-radius: 8px;
   margin-right: 15px;
   font-size: 17px;
+  color: var(--body-background-color);
 }
 
 .pokemon-card .favorite-tab {
@@ -288,6 +290,7 @@
   font-size: 1.4rem;
   aspect-ratio: 1 / 2;
   width: 35px;
+  cursor: pointer;
   padding: 7px 8px 20px;
   transition: 0.3s ease-in;
   z-index: 1;
@@ -297,23 +300,16 @@
   position: absolute;
   top: 30%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  backface-visibility: visible;
+  translate: -50% -50%;
+  transition: rotate 400ms;
 }
 
 .pokemon-card .favorite-tab .fa-solid {
   color: red;
 }
 
-/* .pokemon-card .fa-heart {
-  animation: heartBounce 0.4s ease-in;
-} */
-
 .pokemon-card .favorite-tab:hover .fa-heart {
   color: var(--poke-red);
-  font-size: 1.6rem;
-  cursor: pointer;
-  animation: heartBounce 0.45s ease-in;
 }
 
 .pokemon-card:hover .favorite-tab,
@@ -322,25 +318,14 @@
 }
 
 @keyframes heartBounce {
-  10% {
-    font-size: 1rem;
-  }
-  20% {
-    font-size: 1.1rem;
-  }
-  40% {
-    font-size: 1.38rem;
-    transform: rotateY(180deg);
-    top: 15%;
+  30% {
+    top: 10%;
+    rotate: y 0.5turn;
   }
   60% {
-    font-size: 1.38rem;
-  }
-  80% {
     top: 25%;
   }
-  100% {
-    font-size: 1.4rem;
-    top: 30%;
+  90% {
+    top: 10%;
   }
 }
