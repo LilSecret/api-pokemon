@@ -1,6 +1,7 @@
 const html = document.querySelector("html");
 const themeTab = document.querySelector("#theme-btn");
 
+const pokemonDeck = document.querySelectorAll(".pokemon-card");
 const pokemonFavs = "pokemonFavorites";
 const pokemonHeartIcons = document.querySelectorAll(".favorite-tab i");
 
@@ -11,7 +12,7 @@ const toggleSiteTheme = () => {
 
 const togglePokemonFavorites = (target) => {
   const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
-  const status = toggleHeartIcon(target);
+  const status = toggleIcon(target);
   const pokemonName = target.parentElement.parentElement.querySelector(
     ".card-content .pokemon-name"
   ).innerHTML;
@@ -24,7 +25,7 @@ const togglePokemonFavorites = (target) => {
   localStorage.setItem(pokemonFavs, JSON.stringify(pokemonFavsData));
 };
 
-const toggleHeartIcon = (target) => {
+const toggleIcon = (target) => {
   // remove old class
   const notFavorite = target.classList.contains("fa-regular");
   target.classList.remove(
@@ -35,6 +36,18 @@ const toggleHeartIcon = (target) => {
   return `${notFavorite === true ? "favored" : "unfavored"}`;
 };
 
+const updateHeartIcons = () => {
+  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
+  for (let pokemon of pokemonFavsData) {
+    for (let pokemonCard of pokemonDeck) {
+      const icon = pokemonCard.querySelector(".favorite-tab i");
+      if (pokemonCard.querySelector(".pokemon-name").innerHTML === pokemon) {
+        toggleIcon(icon);
+      }
+    }
+  }
+};
+
 const heartAnimation = (target) => {
   target.style.animation = "heartBounce 500ms ease";
   setTimeout(() => {
@@ -43,8 +56,11 @@ const heartAnimation = (target) => {
 };
 
 const setPokemonFavs = () => {
+  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
   if (!localStorage.getItem(pokemonFavs)) {
     localStorage.setItem(pokemonFavs, JSON.stringify([]));
+  } else {
+    updateHeartIcons();
   }
 };
 
