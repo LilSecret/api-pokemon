@@ -1,11 +1,8 @@
+const html = document.querySelector("html");
 const themeTab = document.querySelector("#theme-btn");
 
+const pokemonFavs = "pokemonFavorites";
 const pokemonHeartIcons = document.querySelectorAll(".favorite-tab i");
-
-// const pokemonCards = document.querySelectorAll(".pokemon-card");
-// const pokemonCardFavTab = document.querySelector(".favorite-tab");
-
-const html = document.querySelector("html");
 
 const toggleSiteTheme = () => {
   const documentTheme = html.getAttribute("data-theme");
@@ -13,7 +10,18 @@ const toggleSiteTheme = () => {
 };
 
 const togglePokemonFavorites = (target) => {
-  console.log(toggleHeartIcon(target));
+  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
+  const status = toggleHeartIcon(target);
+  const pokemonName = target.parentElement.parentElement.querySelector(
+    ".card-content .pokemon-name"
+  ).innerHTML;
+
+  if (status === "favored") {
+    pokemonFavsData.push(pokemonName);
+  } else {
+    pokemonFavsData.splice(pokemonFavsData.indexOf(pokemonName), 1);
+  }
+  localStorage.setItem(pokemonFavs, JSON.stringify(pokemonFavsData));
 };
 
 const toggleHeartIcon = (target) => {
@@ -27,17 +35,28 @@ const toggleHeartIcon = (target) => {
   return `${notFavorite === true ? "favored" : "unfavored"}`;
 };
 
+const heartAnimation = (target) => {
+  target.style.animation = "heartBounce 500ms ease";
+  setTimeout(() => {
+    target.style.removeProperty("animation");
+  }, 550);
+};
+
+const setPokemonFavs = () => {
+  if (!localStorage.getItem(pokemonFavs)) {
+    localStorage.setItem(pokemonFavs, JSON.stringify([]));
+  }
+};
+
+setPokemonFavs();
+
 themeTab.addEventListener("click", function (e) {
   toggleSiteTheme();
 });
 
 pokemonHeartIcons.forEach((heart) => {
   heart.addEventListener("click", (e) => {
-    // heart click animation
-    e.target.style.animation = "heartBounce 500ms ease";
-    setTimeout(() => {
-      e.target.style.removeProperty("animation");
-    }, 550);
+    heartAnimation(e.target);
     togglePokemonFavorites(e.target);
   });
 });
