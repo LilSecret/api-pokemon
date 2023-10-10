@@ -1,5 +1,3 @@
-const body = document.querySelector("body");
-
 const themeTab = document.querySelector("#theme-btn");
 
 const pokemonHeartIcons = document.querySelectorAll(".favorite-tab i");
@@ -14,16 +12,32 @@ const toggleSiteTheme = () => {
   html.setAttribute("data-theme", documentTheme === "light" ? "dark" : "light");
 };
 
+const togglePokemonFavorites = (target) => {
+  console.log(toggleHeartIcon(target));
+};
+
+const toggleHeartIcon = (target) => {
+  // remove old class
+  const notFavorite = target.classList.contains("fa-regular");
+  target.classList.remove(
+    `${notFavorite === true ? "fa-regular" : "fa-solid"}`
+  );
+  // add new class
+  target.classList.add(`${notFavorite === true ? "fa-solid" : "fa-regular"}`);
+  return `${notFavorite === true ? "favored" : "unfavored"}`;
+};
+
 themeTab.addEventListener("click", function (e) {
   toggleSiteTheme();
 });
 
 pokemonHeartIcons.forEach((heart) => {
   heart.addEventListener("click", (e) => {
+    // heart click animation
     e.target.style.animation = "heartBounce 500ms ease";
     setTimeout(() => {
       e.target.style.removeProperty("animation");
     }, 550);
-    // console.log(e.target);
+    togglePokemonFavorites(e.target);
   });
 });
