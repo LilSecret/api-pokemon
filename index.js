@@ -25,15 +25,14 @@ const togglePokemonFavorites = (target) => {
   localStorage.setItem(pokemonFavs, JSON.stringify(pokemonFavsData));
 };
 
-const toggleIcon = (target) => {
-  // remove old class
-  const notFavorite = target.classList.contains("fa-regular");
-  target.classList.remove(
-    `${notFavorite === true ? "fa-regular" : "fa-solid"}`
-  );
-  // add new class
-  target.classList.add(`${notFavorite === true ? "fa-solid" : "fa-regular"}`);
-  return `${notFavorite === true ? "favored" : "unfavored"}`;
+const toggleIcon = (icon) => {
+  const regular = icon.classList.contains("fa-regular");
+  icon.classList.remove(`${regular === true ? "fa-regular" : "fa-solid"}`);
+  icon.classList.add(`${regular === true ? "fa-solid" : "fa-regular"}`);
+
+  if (icon.classList.contains("fa-heart")) {
+    return `${regular === true ? "favored" : "unfavored"}`;
+  }
 };
 
 const updateHeartIcons = () => {
@@ -48,7 +47,7 @@ const updateHeartIcons = () => {
   }
 };
 
-const heartAnimation = (target) => {
+const bounceAnimation = (target) => {
   target.style.animation = "heartBounce 500ms ease";
   setTimeout(() => {
     target.style.removeProperty("animation");
@@ -72,7 +71,7 @@ themeTab.addEventListener("click", function (e) {
 
 pokemonHeartIcons.forEach((heart) => {
   heart.addEventListener("click", (e) => {
-    heartAnimation(e.target);
+    bounceAnimation(e.target);
     togglePokemonFavorites(e.target);
   });
 });
