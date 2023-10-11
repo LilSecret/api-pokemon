@@ -1,12 +1,13 @@
 :root {
-  --light: #fff;
-  --dark: #0f0f0f;
+  --clr-neutral-100: #fffaeb;
+  --clr-neutral-400: #7d7c7c;
+  --clr-neutral-900: #161615;
+  --clr-primary-400: #ba4a4a;
+  --clr-primary-200: #ff7575;
+  --clr-accent-100: #fbce04;
+  --clr-accent-900: #00beff;
 
-  --poke-red: #ba4949;
-  --poke-yellow: #fbcc05;
-  --poke-blue: #294895;
-  --poke-dark: #4c4747;
-  /* types */
+  /* pokemon types */
   --water: rgb(10, 201, 235);
   --fire: rgb(253, 16, 0);
   --electric: rgb(253, 216, 76);
@@ -18,13 +19,15 @@
 }
 
 html[data-theme|="light"] {
-  --body-bg-color: var(--light);
-  --pokemon-card-bg: var(--poke-dark);
-  --pokemon-card-text: var(--light);
+  --body-bg-color: var(--clr-neutral-100);
+  --pokemon-card-bg: var(--clr-primary-400);
+  --pokemon-card-text: var(--clr-neutral-100);
+  --pokemon-card-shadow: var(--clr-neutral-400);
 }
 
 html[data-theme|="dark"] {
-  --body-bg-color: var(--dark);
-  --pokemon-card-bg: var(--light);
-  --pokemon-card-text: var(--poke-dark);
+  --body-bg-color: var(--clr-neutral-900);
+  --pokemon-card-bg: var(--clr-primary-200);
+  --pokemon-card-text: var(--clr-neutral-900);
+  --pokemon-card-shadow: var(--clr-primary-400);
 }
