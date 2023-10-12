@@ -115,8 +115,14 @@ input:checked ~ label .fa-sun {
   padding-block: 7px;
 }
 
-.separator svg {
+.separator img {
   max-width: 50px;
+  filter: invert(77%) sepia(93%) saturate(2978%) hue-rotate(2deg)
+    brightness(107%) contrast(97%);
+}
+
+.pokedex-wrapper {
+  margin-block: 100px 200px;
 }
 
 .pokedex-heading {
@@ -315,6 +321,28 @@ input:checked ~ label .fa-sun {
 .pokemon-card:hover .favorite-tab,
 .favorite-tab:hover {
   top: -35px;
+}
+
+.favorites {
+  display: grid;
+  place-items: center;
+  background-color: var(--clr-primary-400);
+  height: 80vh;
+  position: relative;
+  isolation: isolate;
+}
+
+.wave-wrapper {
+  position: absolute;
+  top: -10%;
+  width: 100%;
+  height: 20%;
+  z-index: -1;
+}
+
+.favorites p {
+  font-size: 2rem;
+  width: 40%;
 }
 
 @keyframes heartBounce {

@@ -1,5 +1,6 @@
 const html = document.querySelector("html");
 const themeTab = document.querySelector("#theme-btn");
+const waveBgImg = document.querySelector(".wave-bg");
 
 const pokemonDeck = document.querySelectorAll(".pokemon-card");
 const pokemonFavs = "pokemonFavorites";
@@ -7,7 +8,10 @@ const pokemonHeartIcons = document.querySelectorAll(".favorite-tab i");
 
 const toggleSiteTheme = () => {
   const documentTheme = html.getAttribute("data-theme");
-  html.setAttribute("data-theme", documentTheme === "light" ? "dark" : "light");
+  const theme = documentTheme === "light" ? "dark" : "light";
+  html.setAttribute("data-theme", theme);
+
+  waveBgImg.setAttribute("src", `./assets/images/wave-bg-${theme}.svg`);
 };
 
 const togglePokemonFavorites = (target) => {
