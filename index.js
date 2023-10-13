@@ -1,10 +1,15 @@
 const html = document.querySelector("html");
-const themeTab = document.querySelector("#theme-btn");
+const themeBtn = document.querySelector("#theme-btn");
 const waveBgImg = document.querySelector(".wave-bg");
 
-const pokemonDeck = document.querySelectorAll(".pokemon-card");
 const pokemonFavs = "pokemonFavorites";
-const pokemonHeartIcons = document.querySelectorAll(".favorite-tab i");
+const pokemonCardTab = ".pokemon-card-tab";
+const pokemonCardName = ".pokemon-card-name";
+const pokemonDeck = document.querySelectorAll(".pokedex-grid-item");
+const pokemonHeartIcons = document.querySelectorAll(".pokemon-card-tab i");
+
+const pokemonType = ".type";
+const pokemonTypes = document.querySelectorAll(pokemonType);
 
 const toggleSiteTheme = () => {
   const documentTheme = html.getAttribute("data-theme");
@@ -17,9 +22,8 @@ const toggleSiteTheme = () => {
 const togglePokemonFavorites = (target) => {
   const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
   const status = toggleIcon(target);
-  const pokemonName = target.parentElement.parentElement.querySelector(
-    ".card-content .pokemon-name"
-  ).innerHTML;
+  const pokemonName =
+    target.parentElement.parentElement.querySelector(pokemonCardName).innerHTML;
 
   if (status === "favored") {
     pokemonFavsData.push(pokemonName);
@@ -41,10 +45,11 @@ const toggleIcon = (icon) => {
 
 const updateHeartIcons = () => {
   const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
+  const pokemonName = document.querySelector(pokemonCardName);
   for (let pokemon of pokemonFavsData) {
     for (let pokemonCard of pokemonDeck) {
-      const icon = pokemonCard.querySelector(".favorite-tab i");
-      if (pokemonCard.querySelector(".pokemon-name").innerHTML === pokemon) {
+      const icon = pokemonCard.querySelector(`${pokemonCardTab} i`);
+      if (pokemonName.innerHTML === pokemon) {
         toggleIcon(icon);
       }
     }
@@ -69,7 +74,7 @@ const setPokemonFavs = () => {
 
 setPokemonFavs();
 
-themeTab.addEventListener("click", function (e) {
+themeBtn.addEventListener("click", () => {
   toggleSiteTheme();
 });
 
@@ -77,5 +82,12 @@ pokemonHeartIcons.forEach((heart) => {
   heart.addEventListener("click", (e) => {
     bounceAnimation(e.target);
     togglePokemonFavorites(e.target);
+    console.log(e.target);
   });
+});
+
+pokemonTypes.forEach((type) => {
+  const typeClass = type.className;
+  const pokemonType = typeClass.slice(10, typeClass.length);
+  type.style.backgroundColor = `var(--${pokemonType})`;
 });

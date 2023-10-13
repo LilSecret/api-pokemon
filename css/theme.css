@@ -1,5 +1,6 @@
 :root {
   --clr-neutral-100: #fffaeb;
+  --clr-neutral-200: #fbce04;
   --clr-neutral-400: #7d7c7c;
   --clr-neutral-900: #161615;
   --clr-primary-400: #ba4a4a;
@@ -8,12 +9,24 @@
   --clr-accent-900: #00beff;
 
   /* pokemon types */
-  --water: rgb(10, 201, 235);
-  --fire: rgb(253, 16, 0);
-  --electric: rgb(253, 216, 76);
-  --grass: rgb(14, 155, 92);
-  --ice: rgb(2, 250, 255);
+  --normal: rgb(167, 167, 167);
   --fighting: rgb(185, 66, 70);
+  --flying: rgb(74, 103, 125);
+  --poison: rgb(94, 45, 136);
+  --ground: rgb(169, 112, 44);
+  --rock: rgb(72, 24, 11);
+  --bug: rgb(28, 75, 39);
+  --ghost: rgb(144, 103, 144);
+  --steel: rgb(66, 189, 148);
+  --water: rgb(134, 168, 252);
+  --fire: rgb(253, 76, 90);
+  --electric: rgb(251, 251, 114);
+  --grass: rgb(39, 203, 79);
+  --ice: rgb(215, 239, 250);
+  --psychic: rgb(248, 28, 145);
+  --dragon: rgb(68, 139, 149);
+  --dark: rgb(90, 89, 121);
+  --fairy: rgb(234, 19, 105);
 
   --pokedex-heading-size: 120px;
 }
