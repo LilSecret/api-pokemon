@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Electrolize&family=Russo+One&family=Signika+Negative&family=Titan+One&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Concert+One&family=Electrolize&family=Russo+One&display=swap");
 html {
   scroll-behavior: smooth;
 }
@@ -43,7 +43,7 @@ a {
 }
 
 .header-lg {
-  font-family: "Josefin Sans", sans-serif;
+  font-family: "Russo One", sans-serif;
   font-size: 3.875rem;
   font-weight: 900;
 }

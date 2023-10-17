@@ -86,6 +86,15 @@ pokemonHeartIcons.forEach((heart) => {
   });
 });
 
+pokemonDeck.forEach((card) => {
+  const cardName = card.querySelector(pokemonCardName).innerHTML;
+  const firstLett = cardName.slice(0, 1).toUpperCase();
+  card.querySelector(pokemonCardName).innerHTML = `${firstLett}${cardName.slice(
+    1,
+    cardName.length
+  )}`;
+});
+
 pokemonTypes.forEach((type) => {
   const typeClass = type.className;
   const pokemonType = typeClass.slice(10, typeClass.length);

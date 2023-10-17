@@ -20,7 +20,7 @@
   --steel: rgb(66, 189, 148);
   --water: rgb(134, 168, 252);
   --fire: rgb(253, 76, 90);
-  --electric: rgb(251, 251, 114);
+  --electric: rgb(245, 245, 55);
   --grass: rgb(39, 203, 79);
   --ice: rgb(215, 239, 250);
   --psychic: rgb(248, 28, 145);
@@ -33,6 +33,7 @@
 
 html[data-theme|="light"] {
   --body-bg-color: var(--clr-neutral-100);
+  --card-type-color: var(--clr-neutral-900);
   --pokemon-card-bg: var(--clr-primary-400);
   --pokemon-card-text: var(--clr-neutral-100);
   --pokemon-card-shadow: var(--clr-neutral-400);
