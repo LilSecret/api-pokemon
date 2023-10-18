@@ -246,6 +246,7 @@ input:checked ~ label .fa-sun {
 }
 
 .pokemon-card-name {
+  text-wrap: nowrap;
   font-size: 1.55rem;
   font-weight: 400;
   letter-spacing: 1.4px;
