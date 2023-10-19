@@ -32,6 +32,7 @@
 }
 
 html[data-theme|="light"] {
+  --hero-chatbox-text: var(--clr-neutral-900);
   --body-bg-color: var(--clr-neutral-100);
   --pokemon-card-bg: var(--clr-primary-400);
   --pokemon-card-text: var(--clr-neutral-100);
@@ -39,6 +40,7 @@ html[data-theme|="light"] {
 }
 
 html[data-theme|="dark"] {
+  --hero-chatbox-text: var(--clr-neutral-100);
   --body-bg-color: var(--clr-neutral-900);
   --pokemon-card-bg: var(--clr-primary-200);
   --pokemon-card-text: var(--clr-neutral-900);

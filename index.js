@@ -1,6 +1,7 @@
 const html = document.querySelector("html");
 const themeBtn = document.querySelector("#theme-btn");
 const waveBgImg = document.querySelector(".wave-bg");
+const heroChatBox = document.querySelector(".chat-box-wrapper img");
 
 const pokemonFavs = "pokemonFavorites";
 const pokemonCardTab = ".pokemon-card-tab";
@@ -12,7 +13,6 @@ const pokemonHeartIcons = document.querySelectorAll(".pokemon-card-tab i");
 const pokemonType = ".type";
 const pokemonTypes = document.querySelectorAll(pokemonType);
 
-// <----- FETCH REQUEST --->
 let offset = 0;
 
 const toggleSiteTheme = () => {
@@ -20,6 +20,7 @@ const toggleSiteTheme = () => {
   const theme = documentTheme === "light" ? "dark" : "light";
   html.setAttribute("data-theme", theme);
 
+  heroChatBox.setAttribute("src", `./assets/images/chatbox-${theme}.svg`);
   waveBgImg.setAttribute("src", `./assets/images/wave-bg-${theme}.svg`);
 };
 
