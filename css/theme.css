@@ -33,7 +33,7 @@
 
 html[data-theme|="light"] {
   --body-bg-color: var(--clr-neutral-100);
-  --card-type-color: var(--clr-neutral-900);
+  --type-tag-color: var(--clr-neutral-900);
   --pokemon-card-bg: var(--clr-primary-400);
   --pokemon-card-text: var(--clr-neutral-100);
   --pokemon-card-shadow: var(--clr-neutral-400);
@@ -41,6 +41,7 @@ html[data-theme|="light"] {
 
 html[data-theme|="dark"] {
   --body-bg-color: var(--clr-neutral-900);
+  --type-tag-color: var(--clr-neutral-400);
   --pokemon-card-bg: var(--clr-primary-200);
   --pokemon-card-text: var(--clr-neutral-900);
   --pokemon-card-shadow: var(--clr-primary-400);
