@@ -1,6 +1,7 @@
 .navbar {
   display: flex;
   background-color: var(--clr-primary-400);
+  /* background-color: var(--clr-primary-200); */
   justify-content: space-between;
   align-items: center;
   padding-inline: 250px;
@@ -367,6 +368,10 @@ input:checked ~ label .fa-sun {
 .pokedex-grid-item:hover .pokemon-card-tab,
 .pokemon-card-tab:hover {
   top: -45px;
+}
+
+.btn[data-type="load-more"] {
+  margin-top: 55px;
 }
 
 .favorites {
