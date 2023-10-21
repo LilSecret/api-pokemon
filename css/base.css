@@ -21,7 +21,7 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: var(--clr-accent-100);
+  background: var(--accent-400);
   border-radius: 8px;
   width: 1.5rem;
   height: 0.75rem;
