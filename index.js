@@ -4,14 +4,10 @@ const waveBgImg = document.querySelector(".wave-bg");
 const heroChatBox = document.querySelector(".chat-box-wrapper img");
 
 const pokemonFavs = "pokemonFavorites";
-const pokemonCardTab = ".pokemon-card-tab";
 const pokemonCardName = ".pokemon-card-name";
-const pokemonDeck = document.querySelectorAll(".pokedex-grid-item");
 const pokedexGrid = document.querySelector(".pokedex-grid");
-const pokemonHeartIcons = document.querySelectorAll(".pokemon-card-tab i");
 
 const pokemonType = ".type";
-const pokemonTypes = document.querySelectorAll(pokemonType);
 
 let offset = 0;
 
@@ -38,6 +34,7 @@ const buildPokemonCard = async (url) => {
 
     const gridItem = document.createElement("div");
     gridItem.classList.add("pokedex-grid-item");
+    gridItem.setAttribute("data-pokemon", pokemonName);
 
     const content = `
       <div class="pokemon-card">
@@ -78,7 +75,7 @@ const buildPokemonCard = async (url) => {
       </div>`;
 
     gridItem.innerHTML = content;
-    addItemToPokedex(gridItem);
+    pokedexGrid.appendChild(gridItem);
   } catch (err) {
     console.log(err);
   }
@@ -90,26 +87,22 @@ const updatePokedex = async () => {
     let response = await fetch(url);
     response = await response.json();
     for (let result of response.results) {
-      buildPokemonCard(result.url);
+      await buildPokemonCard(result.url);
     }
   } catch (err) {
     console.log(err);
+  } finally {
+    setPokemonFavs();
+    uppercasePokemonNames();
+    colorCardTypeTags();
+    favesClickListener();
   }
-};
-
-const addItemToPokedex = (item) => {
-  pokedexGrid.appendChild(item);
-  uppercasePokemonNames();
-  colorCardTypeTags();
-  favesClickListener();
-  updateHeartIcons();
 };
 
 const togglePokemonFavorites = (target) => {
   const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
   const status = toggleIcon(target);
-  const pokemonName =
-    target.parentElement.parentElement.querySelector(pokemonCardName).innerHTML;
+  const pokemonName = target.parentElement.parentElement.dataset.pokemon;
 
   if (status === "favored") {
     pokemonFavsData.push(pokemonName);
@@ -131,15 +124,10 @@ const toggleIcon = (icon) => {
 
 const updateHeartIcons = () => {
   const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
-  const pokemonName = document.querySelector(pokemonCardName);
-  for (let pokemon of pokemonFavsData) {
-    for (let pokemonCard of pokemonDeck) {
-      const icon = pokemonCard.querySelector(`${pokemonCardTab} i`);
-      if (pokemonName.innerHTML === pokemon) {
-        toggleIcon(icon);
-      }
-    }
-  }
+
+  pokemonFavsData.forEach((pokemon) => {
+    toggleIcon(document.querySelector(`[data-pokemon="${pokemon}"] i`));
+  });
 };
 
 const bounceAnimation = (target) => {
@@ -180,16 +168,11 @@ const favesClickListener = () => {
     heart.addEventListener("click", (e) => {
       bounceAnimation(e.target);
       togglePokemonFavorites(e.target);
-      console.log(e.target);
     });
   });
 };
 
 updatePokedex();
-setPokemonFavs();
-uppercasePokemonNames();
-colorCardTypeTags();
-favesClickListener();
 
 themeBtn.addEventListener("click", () => {
   toggleSiteTheme();

@@ -48,10 +48,9 @@
   position: relative;
 }
 
-.theme-toggle label {
+.theme-toggle .theme-btn {
   background-color: var(--body-bg-color);
   position: relative;
-  /* background-color: transparent; */
   border: 3px solid var(--clr-accent-900);
   border-radius: 50%;
   cursor: pointer;
