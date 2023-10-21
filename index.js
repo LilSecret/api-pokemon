@@ -4,10 +4,7 @@ const waveBgImg = document.querySelector(".wave-bg");
 const heroChatBox = document.querySelector(".chat-box-wrapper img");
 
 const pokemonFavs = "pokemonFavorites";
-const pokemonCardName = ".pokemon-card-name";
 const pokedexGrid = document.querySelector(".pokedex-grid");
-
-const pokemonType = ".type";
 
 let offset = 0;
 
@@ -45,7 +42,7 @@ const buildPokemonCard = async (url) => {
               alt="pokemon"
             />
           </div>
-          <h3 class="pokemon-card-name">${pokemonName}</h3>
+          <h3 class="pokemon-card-name">${titleCase(pokemonName)}</h3>
         </div>
         <div class="right stats-grid">
           <div class="icon-wrapper">
@@ -93,8 +90,6 @@ const updatePokedex = async () => {
     console.log(err);
   } finally {
     setPokemonFavs();
-    uppercasePokemonNames();
-    // colorCardTypeTags();
     favesClickListener();
   }
 };
@@ -145,14 +140,8 @@ const setPokemonFavs = () => {
   }
 };
 
-const uppercasePokemonNames = () => {
-  document.querySelectorAll(".pokedex-grid-item").forEach((card) => {
-    const cardName = card.querySelector(pokemonCardName).innerHTML;
-    const firstLett = cardName.slice(0, 1).toUpperCase();
-    card.querySelector(
-      pokemonCardName
-    ).innerHTML = `${firstLett}${cardName.slice(1, cardName.length)}`;
-  });
+const titleCase = (string) => {
+  return string.charAt(0).toUpperCase() + string.substring(1);
 };
 
 const favesClickListener = () => {
