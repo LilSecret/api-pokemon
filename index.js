@@ -62,10 +62,10 @@ const buildPokemonCard = async (url) => {
           <div class="stat">${baseDef}</div>
         </div>
         <div class="base">
-          <div class="type type-${type1}">${type1}</div>
+          <div class="type" data-type="${type1}">${type1}</div>
           ${
             type2 !== null
-              ? `<div class="type type-${type2}">${type2}</div>`
+              ? `<div class="type" data-type="${type2}">${type2}</div>`
               : ""
           }
         </div>
@@ -94,7 +94,7 @@ const updatePokedex = async () => {
   } finally {
     setPokemonFavs();
     uppercasePokemonNames();
-    colorCardTypeTags();
+    // colorCardTypeTags();
     favesClickListener();
   }
 };
@@ -152,14 +152,6 @@ const uppercasePokemonNames = () => {
     card.querySelector(
       pokemonCardName
     ).innerHTML = `${firstLett}${cardName.slice(1, cardName.length)}`;
-  });
-};
-
-const colorCardTypeTags = () => {
-  document.querySelectorAll(pokemonType).forEach((type) => {
-    const typeClass = type.className;
-    const pokemonType = typeClass.slice(10, typeClass.length);
-    type.style.backgroundColor = `var(--${pokemonType})`;
   });
 };
 

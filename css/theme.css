@@ -7,26 +7,6 @@
   --accent-400: #fbce04;
   --secondary-400: #00beff;
 
-  /* pokemon types */
-  --normal: rgb(167, 167, 167);
-  --fighting: rgb(185, 66, 70);
-  --flying: rgb(74, 103, 125);
-  --poison: rgb(94, 45, 136);
-  --ground: rgb(169, 112, 44);
-  --rock: rgb(72, 24, 11);
-  --bug: rgb(28, 75, 39);
-  --ghost: rgb(144, 103, 144);
-  --steel: rgb(66, 189, 148);
-  --water: rgb(134, 168, 252);
-  --fire: rgb(253, 76, 90);
-  --electric: rgb(245, 245, 55);
-  --grass: rgb(39, 203, 79);
-  --ice: rgb(215, 239, 250);
-  --psychic: rgb(248, 28, 145);
-  --dragon: rgb(68, 139, 149);
-  --dark: rgb(90, 89, 121);
-  --fairy: rgb(234, 19, 105);
-
   --pokedex-heading-size: 120px;
 }
 
@@ -48,4 +28,76 @@ html[data-theme|="dark"] {
   --pokemon-card-bg: var(--primary-200);
   --pokemon-card-text: var(--neutral-900);
   --pokemon-card-shadow: transparent;
+}
+
+.type[data-type="normal"] {
+  background-color: rgb(167, 167, 167);
+}
+
+.type[data-type="fighting"] {
+  background-color: rgb(185, 66, 70);
+}
+
+.type[data-type="flying"] {
+  background-color: rgb(74, 103, 125);
+}
+
+.type[data-type="poison"] {
+  background-color: rgb(94, 45, 136);
+}
+
+.type[data-type="ground"] {
+  background-color: rgb(169, 112, 44);
+}
+
+.type[data-type="rock"] {
+  background-color: rgb(72, 24, 11);
+}
+
+.type[data-type="bug"] {
+  background-color: rgb(28, 75, 39);
+}
+
+.type[data-type="ghost"] {
+  background-color: rgb(144, 103, 144);
+}
+
+.type[data-type="steel"] {
+  background-color: rgb(66, 189, 148);
+}
+
+.type[data-type="water"] {
+  background-color: rgb(134, 168, 252);
+}
+
+.type[data-type="fire"] {
+  background-color: rgb(253, 76, 90);
+}
+
+.type[data-type="electric"] {
+  background-color: rgb(245, 245, 55);
+}
+
+.type[data-type="grass"] {
+  background-color: rgb(39, 203, 79);
+}
+
+.type[data-type="ice"] {
+  background-color: rgb(215, 239, 250);
+}
+
+.type[data-type="psychic"] {
+  background-color: rgb(248, 28, 145);
+}
+
+.type[data-type="dragon"] {
+  background-color: rgb(68, 139, 149);
+}
+
+.type[data-type="dark"] {
+  background-color: rgb(90, 89, 121);
+}
+
+.type[data-type="fairy"] {
+  background-color: rgb(234, 19, 105);
 }
