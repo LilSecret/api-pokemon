@@ -5,7 +5,9 @@ const heroChatBox = document.querySelector(".chat-box-wrapper img");
 
 const pokemonFavs = "pokemonFavorites";
 const pokedexGrid = document.querySelector(".pokedex-grid");
+const loadMoreBtn = document.querySelector("[data-type='load-more']");
 
+const gridLoadLimit = 30;
 let offset = 0;
 
 const toggleSiteTheme = () => {
@@ -80,7 +82,7 @@ const buildPokemonCard = async (url) => {
 
 const updatePokedex = async () => {
   try {
-    const url = `https://pokeapi.co/api/v2/pokemon?limit=30&offset=${offset}`;
+    const url = `https://pokeapi.co/api/v2/pokemon?limit=${gridLoadLimit}&offset=${offset}`;
     let response = await fetch(url);
     response = await response.json();
     for (let result of response.results) {
@@ -91,6 +93,7 @@ const updatePokedex = async () => {
   } finally {
     setPokemonFavs();
     favesClickListener();
+    offset += gridLoadLimit;
   }
 };
 
@@ -108,6 +111,9 @@ const togglePokemonFavorites = (target) => {
 };
 
 const toggleIcon = (icon) => {
+  if (!icon) {
+    return;
+  }
   const regular = icon.classList.contains("fa-regular");
   icon.classList.remove(`${regular === true ? "fa-regular" : "fa-solid"}`);
   icon.classList.add(`${regular === true ? "fa-solid" : "fa-regular"}`);
@@ -147,6 +153,7 @@ const titleCase = (string) => {
 const favesClickListener = () => {
   document.querySelectorAll(".pokemon-card-tab i").forEach((heart) => {
     heart.addEventListener("click", (e) => {
+      console.log(e.target);
       bounceAnimation(e.target);
       togglePokemonFavorites(e.target);
     });
@@ -157,4 +164,8 @@ updatePokedex();
 
 themeBtn.addEventListener("click", () => {
   toggleSiteTheme();
+});
+
+loadMoreBtn.addEventListener("click", () => {
+  updatePokedex();
 });
