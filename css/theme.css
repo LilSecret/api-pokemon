@@ -6,8 +6,9 @@
   --primary-200: #ff7575;
   --accent-400: #fbce04;
   --secondary-400: #00beff;
+  --secondary-900: #1d5e75;
 
-  --pokedex-heading-size: 120px;
+  --pokedex-heading-size: 8.625rem;
 }
 
 html[data-theme|="light"] {
@@ -17,7 +18,8 @@ html[data-theme|="light"] {
   --body-bg-color: var(--neutral-100);
   --pokemon-card-text: var(--neutral-100);
   --pokemon-card-bg: var(--primary-400);
-  --pokemon-card-shadow: var(--neutral-400);
+  --pokemon-card-shadow: var(--secondary-400);
+  --pokemon-card-outline: var(--neutral-900);
 }
 
 html[data-theme|="dark"] {
@@ -27,7 +29,8 @@ html[data-theme|="dark"] {
   --body-bg-color: var(--neutral-900);
   --pokemon-card-bg: var(--primary-200);
   --pokemon-card-text: var(--neutral-900);
-  --pokemon-card-shadow: transparent;
+  --pokemon-card-shadow: var(--secondary-400);
+  --pokemon-card-outline: var(--primary-400);
 }
 
 .type[data-type="normal"] {
