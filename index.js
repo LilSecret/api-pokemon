@@ -123,14 +123,6 @@ const toggleIcon = (icon) => {
   }
 };
 
-const updateHeartIcons = () => {
-  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
-
-  pokemonFavsData.forEach((pokemon) => {
-    toggleIcon(document.querySelector(`[data-pokemon="${pokemon}"] i`));
-  });
-};
-
 const bounceAnimation = (target) => {
   target.style.animation = "heartBounce 500ms ease";
   setTimeout(() => {
@@ -139,10 +131,19 @@ const bounceAnimation = (target) => {
 };
 
 const setPokemonFavs = () => {
+  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
   if (!localStorage.getItem(pokemonFavs)) {
     localStorage.setItem(pokemonFavs, JSON.stringify([]));
   } else {
-    updateHeartIcons();
+    pokemonFavsData.forEach((pokemon) => {
+      const icon = document.querySelector(`[data-pokemon=${pokemon}] i`);
+      if (!icon || icon.classList.contains("fa-solid")) {
+        return;
+      } else {
+        icon.classList.remove("fa-regular");
+        icon.classList.add("fa-solid");
+      }
+    });
   }
 };
 
