@@ -180,7 +180,7 @@ input:checked ~ label .fa-sun {
   color: var(--accent-400);
   font-size: 5rem;
   margin-block-start: 100px;
-  margin-block-end: 120px;
+  margin-block-end: 60px;
   letter-spacing: 0.05em;
   position: relative;
 }
@@ -218,6 +218,22 @@ input:checked ~ label .fa-sun {
 .pokedex {
   text-align: center;
   z-index: -2;
+}
+
+.pokedex-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 100px;
+}
+
+.pokedex-navigation .type {
+  border: solid 3px var(--pokemon-card-outline);
+  cursor: pointer;
+}
+
+.pokedex-navigation .type:hover {
+  border: solid 3px var(--accent-400);
 }
 
 .pokedex-grid-wrapper {
@@ -315,14 +331,6 @@ input:checked ~ label .fa-sun {
 }
 
 .pokemon-card .type {
-  border-radius: 8px;
-  color: var(--neutral-100);
-  text-shadow: 0px 0px 5px var(--neutral-900);
-  font-family: "Concert One", sans-serif;
-  font-weight: 600;
-  font-size: 16px;
-  text-transform: uppercase;
-  padding: 8px 15px;
   margin-top: 15px;
   margin-right: 12px;
 }
