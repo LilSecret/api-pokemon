@@ -8,7 +8,7 @@
   --secondary-400: #00beff;
   --secondary-900: #1d5e75;
 
-  --pokedex-heading-size: 8.625rem;
+  --pokedex-heading-size: 8.656rem;
 }
 
 html[data-theme|="light"] {
@@ -29,7 +29,7 @@ html[data-theme|="dark"] {
   --body-bg-color: var(--neutral-900);
   --pokemon-card-bg: var(--primary-200);
   --pokemon-card-text: var(--neutral-900);
-  --pokemon-card-shadow: var(--secondary-400);
+  --pokemon-card-shadow: var(--accent-400);
   --pokemon-card-outline: var(--primary-400);
 }
 
