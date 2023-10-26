@@ -92,7 +92,7 @@ const updatePokedex = async () => {
     console.log(err);
   } finally {
     setPokemonFavs();
-    favesClickListener();
+    // favesClickListener();
     offset += gridLoadLimit;
   }
 };
@@ -111,9 +111,6 @@ const togglePokemonFavorites = (target) => {
 };
 
 const toggleIcon = (icon) => {
-  if (!icon) {
-    return;
-  }
   const regular = icon.classList.contains("fa-regular");
   icon.classList.remove(`${regular === true ? "fa-regular" : "fa-solid"}`);
   icon.classList.add(`${regular === true ? "fa-solid" : "fa-regular"}`);
@@ -151,17 +148,18 @@ const titleCase = (string) => {
   return string.charAt(0).toUpperCase() + string.substring(1);
 };
 
-const favesClickListener = () => {
-  document.querySelectorAll(".pokemon-card-tab i").forEach((heart) => {
-    heart.addEventListener("click", (e) => {
-      console.log(e.target);
-      bounceAnimation(e.target);
-      togglePokemonFavorites(e.target);
-    });
+const addGlobalEventListener = (type, selector, callback) => {
+  document.addEventListener(type, (e) => {
+    if (e.target.matches(selector)) callback(e);
   });
 };
 
 updatePokedex();
+
+addGlobalEventListener("click", ".fa-heart", (e) => {
+  bounceAnimation(e.target);
+  togglePokemonFavorites(e.target);
+});
 
 themeBtn.addEventListener("click", () => {
   toggleSiteTheme();

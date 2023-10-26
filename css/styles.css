@@ -292,7 +292,7 @@ input:checked ~ label .fa-sun {
 }
 
 .pokedex-grid-item:hover .pokemon-img-wrapper {
-  filter: drop-shadow(0 0 10px var(--accent-400));
+  filter: drop-shadow(0 0 10px var(--pokemon-card-shadow));
 }
 
 .pokemon-card-name {
