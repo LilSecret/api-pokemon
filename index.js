@@ -11,6 +11,7 @@ const loadMoreBtn = document.querySelector("[data-type='load-more']");
 
 const gridLoadLimit = 30;
 let offset = 0;
+let currentData;
 
 const toggleSiteTheme = () => {
   const newTheme =
@@ -96,9 +97,9 @@ const buildPokemonCard = async (url) => {
   }
 };
 
-const updatePokedex = async () => {
+const loadMoreAllTypes = async (limit) => {
   try {
-    const url = `https://pokeapi.co/api/v2/pokemon?limit=${gridLoadLimit}&offset=${offset}`;
+    const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
     let response = await fetch(url);
     response = await response.json();
     for (let result of response.results) {
@@ -108,8 +109,13 @@ const updatePokedex = async () => {
     console.log(err);
   } finally {
     setPokemonFavs();
-    offset += gridLoadLimit;
+    offset += limit;
   }
+};
+
+const resetPokedex = () => {
+  pokedexGrid.innerHTML = "";
+  offset = 0;
 };
 
 const togglePokemonFavorites = (target) => {
@@ -160,15 +166,14 @@ const setPokemonFavs = () => {
 };
 
 const pokedexToType = async (type) => {
-  pokedexGrid.innerHTML = "";
   const typeNum = pokemonTypeData[type];
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
     const responseJson = await response.json();
-    for (let i = 0; i < 30; i++) {
-      const url = responseJson.pokemon[i].pokemon.url;
-      buildPokemonCard(url);
-    }
+    currentData = responseJson;
+    resetPokedex();
+    pokedexGrid.setAttribute("data-filter", type);
+    loadMoreType();
   } catch (err) {
     console.log(err);
   } finally {
@@ -176,7 +181,19 @@ const pokedexToType = async (type) => {
   }
 };
 
-const loadMoreHandler = () => {};
+const loadMoreType = () => {
+  const completion = offset + gridLoadLimit;
+  for (let i = offset; i < completion; i++) {
+    const url = currentData.pokemon[i].pokemon.url;
+    buildPokemonCard(url);
+  }
+  offset = completion;
+};
+
+const loadMoreHandler = () => {
+  const currentFilter = pokedexGrid.getAttribute("data-filter");
+  currentData === "all" ? loadMoreAllTypes(gridLoadLimit) : loadMoreType();
+};
 
 const titleCase = (string) => {
   return string.charAt(0).toUpperCase() + string.substring(1);
@@ -190,7 +207,7 @@ const addGlobalEventListener = (type, selector, callback) => {
 
 const startup = async () => {
   setSiteTheme();
-  await updatePokedex();
+  loadMoreAllTypes(gridLoadLimit);
 };
 
 const pokemonTypeData = {
@@ -219,7 +236,13 @@ startup();
 pokedexNav.forEach((type) => {
   type.addEventListener("click", (e) => {
     const type = e.target.getAttribute("data-type");
-    pokedexToType(type);
+    if (type === "all") {
+      pokedexGrid.setAttribute("data-filter", "all");
+      resetPokedex();
+      loadMoreAllTypes(gridLoadLimit);
+    } else {
+      pokedexToType(type);
+    }
   });
 });
 
@@ -232,6 +255,4 @@ themeBtn.addEventListener("click", () => {
   toggleSiteTheme();
 });
 
-loadMoreBtn.addEventListener("click", () => {
-  updatePokedex();
-});
+loadMoreBtn.addEventListener("click", loadMoreHandler);

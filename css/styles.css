@@ -236,6 +236,11 @@ input:checked ~ label .fa-sun {
   border: solid 3px var(--accent-400);
 }
 
+.type[data-type="all"] {
+  background-color: var(--primary-400);
+  border-color: transparent;
+}
+
 .pokedex-grid-wrapper {
   margin-block: 83px 50px;
   display: flex;
