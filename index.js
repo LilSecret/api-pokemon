@@ -145,26 +145,26 @@ const setPokemonFavs = () => {
 };
 
 const pokedexToType = async (type) => {
-  // remove original children 
-  removeChildren(pokedexGrid);
+  pokedexGrid.innerHTML = "";
+  const typeNum = pokemonTypeData[type];
+  try {
+    const response = await fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
+    const responseJson = await response.json();
+    for (let i = 0; i < 30; i++) {
+      const url = responseJson.pokemon[i].pokemon.url;
+      buildPokemonCard(url);
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setPokemonFavs();
+  }
+};
 
-  // get type number 
-  const typeNum = ;
-  
-  // fetch data and build pokedex 
-  const data = fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
-}
+const loadMoreHandler = () => {};
 
 const titleCase = (string) => {
   return string.charAt(0).toUpperCase() + string.substring(1);
-};
-
-const removeChildren = (parent) => {
-  const childrenCount = parent.children.length;
-  for (let i = 0; i < childrenCount; i++) {
-    const child = parent.children[i];
-    parent.removeChild(child);
-  }
 };
 
 const addGlobalEventListener = (type, selector, callback) => {
@@ -177,7 +177,7 @@ const startup = async () => {
   await updatePokedex();
 };
 
-const typeData = {
+const pokemonTypeData = {
   normal: "1",
   fighting: "2",
   flying: "3",
@@ -196,13 +196,14 @@ const typeData = {
   dragon: "16",
   dark: "17",
   fairy: "18",
-}
+};
 
 startup();
 
 pokedexNav.forEach((type) => {
   type.addEventListener("click", (e) => {
-    console.log(e.target);
+    const type = e.target.getAttribute("data-type");
+    pokedexToType(type);
   });
 });
 
