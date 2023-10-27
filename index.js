@@ -1,3 +1,4 @@
+const siteTheme = "pokeTheme";
 const html = document.querySelector("html");
 const themeBtn = document.querySelector("#theme-btn");
 const waveBgImg = document.querySelector(".wave-bg");
@@ -12,10 +13,24 @@ const gridLoadLimit = 30;
 let offset = 0;
 
 const toggleSiteTheme = () => {
-  const documentTheme = html.getAttribute("data-theme");
-  const theme = documentTheme === "light" ? "dark" : "light";
-  html.setAttribute("data-theme", theme);
+  const newTheme =
+    html.getAttribute("data-theme") === "light" ? "dark" : "light";
 
+  localStorage.setItem(siteTheme, newTheme);
+  changeThemedElements(newTheme);
+};
+
+const setSiteTheme = () => {
+  const theme = localStorage.getItem("pokeTheme");
+  if (!theme) {
+    localStorage.setItem(siteTheme, "light");
+  } else {
+    changeThemedElements(theme);
+  }
+};
+
+const changeThemedElements = (theme) => {
+  html.setAttribute("data-theme", theme);
   heroChatBox.setAttribute("src", `./assets/images/chatbox-${theme}.svg`);
   waveBgImg.setAttribute("src", `./assets/images/wave-bg-${theme}.svg`);
 };
@@ -174,6 +189,7 @@ const addGlobalEventListener = (type, selector, callback) => {
 };
 
 const startup = async () => {
+  setSiteTheme();
   await updatePokedex();
 };
 
