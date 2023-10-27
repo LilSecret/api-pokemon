@@ -5,6 +5,7 @@ const heroChatBox = document.querySelector(".chat-box-wrapper img");
 
 const pokemonFavs = "pokemonFavorites";
 const pokedexGrid = document.querySelector(".pokedex-grid");
+const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
 const loadMoreBtn = document.querySelector("[data-type='load-more']");
 
 const gridLoadLimit = 30;
@@ -92,7 +93,6 @@ const updatePokedex = async () => {
     console.log(err);
   } finally {
     setPokemonFavs();
-    // favesClickListener();
     offset += gridLoadLimit;
   }
 };
@@ -144,8 +144,27 @@ const setPokemonFavs = () => {
   }
 };
 
+const pokedexToType = async (type) => {
+  // remove original children 
+  removeChildren(pokedexGrid);
+
+  // get type number 
+  const typeNum = ;
+  
+  // fetch data and build pokedex 
+  const data = fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
+}
+
 const titleCase = (string) => {
   return string.charAt(0).toUpperCase() + string.substring(1);
+};
+
+const removeChildren = (parent) => {
+  const childrenCount = parent.children.length;
+  for (let i = 0; i < childrenCount; i++) {
+    const child = parent.children[i];
+    parent.removeChild(child);
+  }
 };
 
 const addGlobalEventListener = (type, selector, callback) => {
@@ -154,7 +173,38 @@ const addGlobalEventListener = (type, selector, callback) => {
   });
 };
 
-updatePokedex();
+const startup = async () => {
+  await updatePokedex();
+};
+
+const typeData = {
+  normal: "1",
+  fighting: "2",
+  flying: "3",
+  poison: "4",
+  ground: "5",
+  rock: "6",
+  bug: "7",
+  ghost: "8",
+  steel: "9",
+  fire: "10",
+  water: "11",
+  grass: "12",
+  electric: "13",
+  psychic: "14",
+  ice: "15",
+  dragon: "16",
+  dark: "17",
+  fairy: "18",
+}
+
+startup();
+
+pokedexNav.forEach((type) => {
+  type.addEventListener("click", (e) => {
+    console.log(e.target);
+  });
+});
 
 addGlobalEventListener("click", ".fa-heart", (e) => {
   bounceAnimation(e.target);
