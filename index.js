@@ -8,7 +8,7 @@ const pokemonFavs = "pokemonFavorites";
 const pokedexGrid = document.querySelector(".pokedex-grid");
 const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
 
-const load = "load-more";
+const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
 
 const gridLoadLimit = 30;
@@ -120,9 +120,9 @@ const loadMoreAllTypes = async (limit) => {
 
 const validate = (item, action) => {
   if (!item) {
-    if (action === load) {
+    if (action === loadAction) {
       loadMoreBtn.setAttribute("data-load", false);
-      console.log("max pokemon");
+      console.log("max pokemon reached");
     }
     return false;
   } else {
@@ -133,6 +133,7 @@ const validate = (item, action) => {
 const resetPokedex = () => {
   pokedexGrid.innerHTML = "";
   offset = 0;
+  loadMoreBtn.setAttribute("data-load", true);
 };
 
 const togglePokemonFavorites = (target) => {
@@ -201,10 +202,10 @@ const pokedexToType = async (type) => {
 const loadMoreType = () => {
   const completion = offset + gridLoadLimit;
   for (let i = offset; i < completion; i++) {
-    console.log(currentData.pokemon);
+    const currentPokemon = currentData.pokemon[i];
+    if (!validate(currentPokemon, loadAction)) return;
     const url = currentData.pokemon[i].pokemon.url;
 
-    if (!validate(url, load)) return;
     buildPokemonCard(url);
   }
   offset = completion;
