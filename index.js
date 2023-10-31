@@ -7,7 +7,9 @@ const heroChatBox = document.querySelector(".chat-box-wrapper img");
 const pokemonFavs = "pokemonFavorites";
 const pokedexGrid = document.querySelector(".pokedex-grid");
 const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
-const loadMoreBtn = document.querySelector("[data-type='load-more']");
+
+const load = "load-more";
+const loadMoreBtn = document.querySelector("[data-load]");
 
 const gridLoadLimit = 30;
 let offset = 0;
@@ -40,7 +42,10 @@ const buildPokemonCard = async (url) => {
   try {
     let res = await fetch(url);
     res = await res.json();
-    const pokemonImg = res.sprites.other.dream_world.front_default;
+
+    const defaultImg = res.sprites.other.dream_world.front_default;
+    const backupImg = res.sprites.other["official-artwork"].front_default;
+    const pokemonImg = defaultImg !== null ? defaultImg : backupImg;
     const pokemonName = res.name;
     const baseHp = res.stats[0].base_stat;
     const baseAtt = res.stats[1].base_stat;
@@ -93,7 +98,7 @@ const buildPokemonCard = async (url) => {
     gridItem.innerHTML = content;
     pokedexGrid.appendChild(gridItem);
   } catch (err) {
-    console.log(err);
+    console.log(err.message);
   }
 };
 
@@ -110,6 +115,18 @@ const loadMoreAllTypes = async (limit) => {
   } finally {
     setPokemonFavs();
     offset += limit;
+  }
+};
+
+const validate = (item, action) => {
+  if (!item) {
+    if (action === load) {
+      loadMoreBtn.setAttribute("data-load", false);
+      console.log("max pokemon");
+    }
+    return false;
+  } else {
+    return true;
   }
 };
 
@@ -184,7 +201,10 @@ const pokedexToType = async (type) => {
 const loadMoreType = () => {
   const completion = offset + gridLoadLimit;
   for (let i = offset; i < completion; i++) {
+    console.log(currentData.pokemon);
     const url = currentData.pokemon[i].pokemon.url;
+
+    if (!validate(url, load)) return;
     buildPokemonCard(url);
   }
   offset = completion;
@@ -192,7 +212,10 @@ const loadMoreType = () => {
 
 const loadMoreHandler = () => {
   const currentFilter = pokedexGrid.getAttribute("data-filter");
-  currentData === "all" ? loadMoreAllTypes(gridLoadLimit) : loadMoreType();
+
+  if (loadMoreBtn.getAttribute("data-load") == "true") {
+    currentData === "all" ? loadMoreAllTypes(gridLoadLimit) : loadMoreType();
+  }
 };
 
 const titleCase = (string) => {
@@ -208,6 +231,7 @@ const addGlobalEventListener = (type, selector, callback) => {
 const startup = async () => {
   setSiteTheme();
   loadMoreAllTypes(gridLoadLimit);
+  // buildPokemonCard("https://pokeapi.co/api/v2/pokemon/amaura");
 };
 
 const pokemonTypeData = {

@@ -285,15 +285,16 @@ input:checked ~ label .fa-sun {
 }
 
 .pokemon-img-wrapper {
-  max-width: 140px;
-  max-height: 150px;
   position: absolute;
-  bottom: calc(100% - 4.5rem);
-  left: 2rem;
+  bottom: calc(100% - 5rem);
+  left: 40%;
+  transform: translateX(-50%);
 }
 
 .pokemon-img-wrapper img {
-  max-height: 140px;
+  min-width: 115px;
+  max-width: 140px;
+  max-height: 150px;
 }
 
 .pokedex-grid-item:hover .pokemon-img-wrapper {
@@ -373,8 +374,13 @@ input:checked ~ label .fa-sun {
   top: -50px;
 }
 
-.btn[data-type="load-more"] {
+.btn[data-load="true"] {
   margin-top: 55px;
+}
+
+.btn[data-load="false"] {
+  pointer-events: none;
+  opacity: 0.4;
 }
 
 .favorites {
