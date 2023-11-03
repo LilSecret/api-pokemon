@@ -5,11 +5,13 @@ const waveBgImg = document.querySelector(".wave-bg");
 const heroChatBox = document.querySelector(".chat-box-wrapper img");
 
 const pokemonFavs = "pokemonFavorites";
+const defaultPokemonImg = "./assets/images/default-pokemon.png";
 const pokedexGrid = document.querySelector(".pokedex-grid");
 const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
 
 const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
+let loading = false;
 
 const gridLoadLimit = 30;
 let offset = 0;
@@ -43,9 +45,10 @@ const buildPokemonCard = async (url) => {
     let res = await fetch(url);
     res = await res.json();
 
-    const defaultImg = res.sprites.other.dream_world.front_default;
-    const backupImg = res.sprites.other["official-artwork"].front_default;
-    const pokemonImg = defaultImg !== null ? defaultImg : backupImg;
+    const pokemonImg = getPokemonImg(
+      res.sprites.other.dream_world.front_default,
+      res.sprites.other["official-artwork"].front_default
+    );
     const pokemonName = res.name;
     const baseHp = res.stats[0].base_stat;
     const baseAtt = res.stats[1].base_stat;
@@ -102,7 +105,19 @@ const buildPokemonCard = async (url) => {
   }
 };
 
+const getPokemonImg = (attempt1, attempt2) => {
+  if (attempt1) {
+    return attempt1;
+  }
+  if (attempt2) {
+    return attempt2;
+  }
+  return defaultPokemonImg;
+};
+
 const loadMoreAllTypes = async (limit) => {
+  if (loading) return;
+  loading = true;
   try {
     const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
     let response = await fetch(url);
@@ -115,6 +130,7 @@ const loadMoreAllTypes = async (limit) => {
   } finally {
     setPokemonFavs();
     offset += limit;
+    loading = false;
   }
 };
 
@@ -185,6 +201,8 @@ const setPokemonFavs = () => {
 
 const pokedexToType = async (type) => {
   const typeNum = pokemonTypeData[type];
+  if (loading) return;
+  loading = true;
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
     const responseJson = await response.json();
@@ -196,6 +214,7 @@ const pokedexToType = async (type) => {
     console.log(err);
   } finally {
     setPokemonFavs();
+    loading = false;
   }
 };
 
@@ -215,7 +234,7 @@ const loadMoreHandler = () => {
   const currentFilter = pokedexGrid.getAttribute("data-filter");
 
   if (loadMoreBtn.getAttribute("data-load") == "true") {
-    currentData === "all" ? loadMoreAllTypes(gridLoadLimit) : loadMoreType();
+    currentFilter === "all" ? loadMoreAllTypes(gridLoadLimit) : loadMoreType();
   }
 };
 
