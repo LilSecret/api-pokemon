@@ -241,6 +241,21 @@ input:checked ~ label .fa-sun {
   border-color: transparent;
 }
 
+.pokedex-loader-wrapper {
+  display: none;
+  position: fixed;
+  width: 50px;
+  left: 50%;
+  translate: -50% -50%;
+  bottom: 0px;
+  z-index: 10;
+  animation: gridLoader 500ms infinite;
+}
+
+.pokedex-loader-wrapper[data-visible="true"] {
+  display: block;
+}
+
 .pokedex-grid-wrapper {
   margin-block: 83px 50px;
   display: flex;
@@ -405,6 +420,15 @@ input:checked ~ label .fa-sun {
 .favorites p {
   font-size: 2rem;
   width: 40%;
+}
+
+@keyframes gridLoader {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes upDown {

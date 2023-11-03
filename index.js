@@ -11,6 +11,7 @@ const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
 
 const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
+const loaderIcon = document.querySelector(".pokedex-loader-wrapper");
 let loading = false;
 
 const gridLoadLimit = 30;
@@ -117,7 +118,7 @@ const getPokemonImg = (attempt1, attempt2) => {
 
 const loadMoreAllTypes = async (limit) => {
   if (loading) return;
-  loading = true;
+  toggleLoader();
   try {
     const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
     let response = await fetch(url);
@@ -130,7 +131,7 @@ const loadMoreAllTypes = async (limit) => {
   } finally {
     setPokemonFavs();
     offset += limit;
-    loading = false;
+    toggleLoader();
   }
 };
 
@@ -201,8 +202,13 @@ const setPokemonFavs = () => {
 
 const pokedexToType = async (type) => {
   const typeNum = pokemonTypeData[type];
-  if (loading) return;
-  loading = true;
+  if (loading || pokedexGrid.getAttribute("data-filter") === type) {
+    console.error(
+      "Something is Loading or You Clicked the Same Type of Pokemon"
+    );
+    return;
+  }
+  toggleLoader();
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
     const responseJson = await response.json();
@@ -214,7 +220,7 @@ const pokedexToType = async (type) => {
     console.log(err);
   } finally {
     setPokemonFavs();
-    loading = false;
+    toggleLoader();
   }
 };
 
@@ -248,10 +254,15 @@ const addGlobalEventListener = (type, selector, callback) => {
   });
 };
 
+const toggleLoader = () => {
+  const newAction = loading === false ? true : false;
+  loaderIcon.setAttribute("data-visible", newAction);
+  loading = newAction;
+};
+
 const startup = async () => {
   setSiteTheme();
   loadMoreAllTypes(gridLoadLimit);
-  // buildPokemonCard("https://pokeapi.co/api/v2/pokemon/amaura");
 };
 
 const pokemonTypeData = {
