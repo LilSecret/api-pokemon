@@ -219,7 +219,6 @@ const pokedexToType = async (type) => {
   } catch (err) {
     console.log(err);
   } finally {
-    setPokemonFavs();
     toggleLoader();
   }
 };
@@ -233,6 +232,9 @@ const loadMoreType = () => {
 
     buildPokemonCard(url);
   }
+  setTimeout(() => {
+    setPokemonFavs();
+  }, 100);
   offset = completion;
 };
 

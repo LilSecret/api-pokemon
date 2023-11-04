@@ -221,10 +221,17 @@ input:checked ~ label .fa-sun {
 }
 
 .pokedex-navigation {
+  padding-inline: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 100px;
+}
+
+.navigation-types {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 100px;
+  position: relative;
 }
 
 .pokedex-navigation .type {
@@ -239,6 +246,28 @@ input:checked ~ label .fa-sun {
 .type[data-type="all"] {
   background-color: var(--primary-400);
   border-color: transparent;
+}
+
+.navigation-search-wrapper {
+  display: flex;
+  border-radius: 24px;
+  align-items: center;
+  justify-content: end;
+  place-self: center end;
+}
+
+[data-search-expanded="true"] {
+  background-color: var(--neutral-100);
+}
+
+[data-search-expanded="false"] {
+  padding: 8px;
+  background: transparent;
+  border: solid 3px var(--primary-200);
+}
+
+[data-search-expanded="false"] input {
+  display: none;
 }
 
 .pokedex-loader-wrapper {
