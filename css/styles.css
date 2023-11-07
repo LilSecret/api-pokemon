@@ -254,16 +254,33 @@ input:checked ~ label .fa-sun {
   align-items: center;
   justify-content: end;
   place-self: center end;
+  padding: 5px 15px;
+  border: solid 3px var(--pokemon-card-outline);
+  background-color: var(--neutral-100);
+  transition: 300ms ease;
+  cursor: pointer;
+}
+
+.navigation-search-wrapper input {
+  font-family: "Electrolize", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.navigation-search-wrapper i {
+  pointer-events: none;
+}
+
+.navigation-search-wrapper:hover {
+  border-color: var(--accent-400);
 }
 
 [data-search-expanded="true"] {
-  background-color: var(--neutral-100);
+  font: inherit;
 }
 
 [data-search-expanded="false"] {
   padding: 8px;
-  background: transparent;
-  border: solid 3px var(--primary-200);
 }
 
 [data-search-expanded="false"] input {
@@ -388,7 +405,7 @@ input:checked ~ label .fa-sun {
 
 .pokemon-card-tab {
   position: absolute;
-  right: 0px;
+  right: 5px;
   top: 10px;
   background-color: var(--accent-400);
   color: var(--primary-400);

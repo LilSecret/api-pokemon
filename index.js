@@ -5,6 +5,7 @@ const waveBgImg = document.querySelector(".wave-bg");
 const heroChatBox = document.querySelector(".chat-box-wrapper img");
 
 const pokemonFavs = "pokemonFavorites";
+const pokedexFilter = "data-filter";
 const defaultPokemonImg = "./assets/images/default-pokemon.png";
 const pokedexGrid = document.querySelector(".pokedex-grid");
 const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
@@ -12,9 +13,9 @@ const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
 const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
 const loaderIcon = document.querySelector(".pokedex-loader-wrapper");
-let loading = false;
 
 const gridLoadLimit = 30;
+let loading = false;
 let offset = 0;
 let currentData;
 
@@ -138,13 +139,17 @@ const loadMoreAllTypes = async (limit) => {
 const validate = (item, action) => {
   if (!item) {
     if (action === loadAction) {
-      loadMoreBtn.setAttribute("data-load", false);
+      disableLoadMore();
       console.log("max pokemon reached");
     }
     return false;
   } else {
     return true;
   }
+};
+
+const disableLoadMore = () => {
+  loadMoreBtn.setAttribute("data-load", false);
 };
 
 const resetPokedex = () => {
@@ -202,7 +207,7 @@ const setPokemonFavs = () => {
 
 const pokedexToType = async (type) => {
   const typeNum = pokemonTypeData[type];
-  if (loading || pokedexGrid.getAttribute("data-filter") === type) {
+  if (loading || pokedexGrid.getAttribute(pokedexFilter) === type) {
     console.error(
       "Something is Loading or You Clicked the Same Type of Pokemon"
     );
@@ -214,7 +219,7 @@ const pokedexToType = async (type) => {
     const responseJson = await response.json();
     currentData = responseJson;
     resetPokedex();
-    pokedexGrid.setAttribute("data-filter", type);
+    pokedexGrid.setAttribute(pokedexFilter, type);
     loadMoreType();
   } catch (err) {
     console.log(err);
@@ -238,8 +243,17 @@ const loadMoreType = () => {
   offset = completion;
 };
 
+const loadSinglePokemon = (pokemon) => {
+  pokemon = pokemon.toLowerCase();
+  const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
+  resetPokedex();
+  disableLoadMore();
+  buildPokemonCard(url);
+  pokedexGrid.setAttribute(pokedexFilter, pokemon);
+};
+
 const loadMoreHandler = () => {
-  const currentFilter = pokedexGrid.getAttribute("data-filter");
+  const currentFilter = pokedexGrid.getAttribute(pokedexFilter);
 
   if (loadMoreBtn.getAttribute("data-load") == "true") {
     currentFilter === "all" ? loadMoreAllTypes(gridLoadLimit) : loadMoreType();
@@ -294,7 +308,7 @@ pokedexNav.forEach((type) => {
   type.addEventListener("click", (e) => {
     const type = e.target.getAttribute("data-type");
     if (type === "all") {
-      pokedexGrid.setAttribute("data-filter", "all");
+      pokedexGrid.setAttribute(pokedexFilter, "all");
       resetPokedex();
       loadMoreAllTypes(gridLoadLimit);
     } else {
@@ -307,6 +321,20 @@ addGlobalEventListener("click", ".fa-heart", (e) => {
   bounceAnimation(e.target);
   togglePokemonFavorites(e.target);
 });
+
+document
+  .querySelector(".navigation-search-wrapper")
+  .addEventListener("click", (e) => {
+    e.target.setAttribute("data-search-expanded", true);
+  });
+
+document
+  .querySelector(".navigation-search-wrapper")
+  .addEventListener("submit", (event) => {
+    const pokemon = document.getElementById("pokemon").value;
+    event.preventDefault(); // stops auto submit
+    loadSinglePokemon(pokemon);
+  });
 
 themeBtn.addEventListener("click", () => {
   toggleSiteTheme();
