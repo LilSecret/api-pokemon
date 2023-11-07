@@ -47,20 +47,22 @@ const changeThemedElements = (theme) => {
 };
 
 const setPokemonFavs = () => {
-  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
-  if (!localStorage.getItem(pokemonFavs)) {
-    localStorage.setItem(pokemonFavs, JSON.stringify([]));
-  } else {
-    pokemonFavsData.forEach((pokemon) => {
-      const icon = document.querySelector(`[data-pokemon=${pokemon}] i`);
-      if (!icon || icon.classList.contains("fa-solid")) {
-        return;
-      } else {
-        icon.classList.remove("fa-regular");
-        icon.classList.add("fa-solid");
-      }
-    });
-  }
+  setTimeout(() => {
+    const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
+    if (!localStorage.getItem(pokemonFavs)) {
+      localStorage.setItem(pokemonFavs, JSON.stringify([]));
+    } else {
+      pokemonFavsData.forEach((pokemon) => {
+        const icon = document.querySelector(`[data-pokemon=${pokemon}] i`);
+        if (!icon || icon.classList.contains("fa-solid")) {
+          return;
+        } else {
+          icon.classList.remove("fa-regular");
+          icon.classList.add("fa-solid");
+        }
+      });
+    }
+  }, 100);
 };
 
 const togglePokemonFavorites = (target) => {
@@ -206,20 +208,24 @@ const loadMoreType = () => {
 
     placePokemonCard(url);
   }
-  setTimeout(() => {
-    setPokemonFavs();
-  }, 100);
+  setPokemonFavs();
   offset = completion;
 };
 
 const loadSinglePokemon = (pokemon) => {
-  pokemon = pokemon.toLowerCase();
-  const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-  resetPokedex();
-  disableLoadMore();
-  placePokemonCard(url);
-  pokedexGrid.setAttribute(pokedexFilter, pokemon);
-  navigationSearch.reset();
+  try {
+    pokemon = pokemon.toLowerCase();
+    const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
+    resetPokedex();
+    disableLoadMore();
+    placePokemonCard(url);
+    pokedexGrid.setAttribute(pokedexFilter, pokemon);
+    navigationSearch.reset();
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setPokemonFavs();
+  }
 };
 
 const disableLoadMore = () => {
