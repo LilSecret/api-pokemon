@@ -1,4 +1,6 @@
+// Change the Theme for Site
 const siteTheme = "pokeTheme";
+
 const html = document.querySelector("html");
 const themeBtn = document.querySelector("#theme-btn");
 const waveBgImg = document.querySelector(".wave-bg");
@@ -6,26 +8,19 @@ const heroChatBox = document.querySelector(".chat-box-wrapper img");
 
 const pokemonFavs = "pokemonFavorites";
 const pokedexFilter = "data-filter";
+
 const defaultPokemonImg = "./assets/images/default-pokemon.png";
-const pokedexGrid = document.querySelector(".pokedex-grid");
 const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
+const pokedexGrid = document.querySelector(".pokedex-grid");
 
 const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
 const loaderIcon = document.querySelector(".pokedex-loader-wrapper");
 
 const gridLoadLimit = 30;
-let loading = false;
+let siteLoading = false;
 let offset = 0;
 let currentData;
-
-const toggleSiteTheme = () => {
-  const newTheme =
-    html.getAttribute("data-theme") === "light" ? "dark" : "light";
-
-  localStorage.setItem(siteTheme, newTheme);
-  changeThemedElements(newTheme);
-};
 
 const setSiteTheme = () => {
   const theme = localStorage.getItem("pokeTheme");
@@ -36,13 +31,51 @@ const setSiteTheme = () => {
   }
 };
 
+const toggleSiteTheme = () => {
+  const newTheme =
+    html.getAttribute("data-theme") === "light" ? "dark" : "light";
+
+  localStorage.setItem(siteTheme, newTheme);
+  changeThemedElements(newTheme);
+};
+
 const changeThemedElements = (theme) => {
   html.setAttribute("data-theme", theme);
   heroChatBox.setAttribute("src", `./assets/images/chatbox-${theme}.svg`);
   waveBgImg.setAttribute("src", `./assets/images/wave-bg-${theme}.svg`);
 };
 
-const buildPokemonCard = async (url) => {
+const setPokemonFavs = () => {
+  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
+  if (!localStorage.getItem(pokemonFavs)) {
+    localStorage.setItem(pokemonFavs, JSON.stringify([]));
+  } else {
+    pokemonFavsData.forEach((pokemon) => {
+      const icon = document.querySelector(`[data-pokemon=${pokemon}] i`);
+      if (!icon || icon.classList.contains("fa-solid")) {
+        return;
+      } else {
+        icon.classList.remove("fa-regular");
+        icon.classList.add("fa-solid");
+      }
+    });
+  }
+};
+
+const togglePokemonFavorites = (target) => {
+  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
+  const status = toggleIcon(target);
+  const pokemonName = target.parentElement.parentElement.dataset.pokemon;
+
+  if (status === "favored") {
+    pokemonFavsData.push(pokemonName);
+  } else {
+    pokemonFavsData.splice(pokemonFavsData.indexOf(pokemonName), 1);
+  }
+  localStorage.setItem(pokemonFavs, JSON.stringify(pokemonFavsData));
+};
+
+const placePokemonCard = async (url) => {
   try {
     let res = await fetch(url);
     res = await res.json();
@@ -107,107 +140,15 @@ const buildPokemonCard = async (url) => {
   }
 };
 
-const getPokemonImg = (attempt1, attempt2) => {
-  if (attempt1) {
-    return attempt1;
-  }
-  if (attempt2) {
-    return attempt2;
-  }
-  return defaultPokemonImg;
-};
-
-const loadMoreAllTypes = async (limit) => {
-  if (loading) return;
-  toggleLoader();
-  try {
-    const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
-    let response = await fetch(url);
-    response = await response.json();
-    for (let result of response.results) {
-      await buildPokemonCard(result.url);
-    }
-  } catch (err) {
-    console.log(err);
-  } finally {
-    setPokemonFavs();
-    offset += limit;
-    toggleLoader();
-  }
-};
-
-const validate = (item, action) => {
-  if (!item) {
-    if (action === loadAction) {
-      disableLoadMore();
-      console.log("max pokemon reached");
-    }
-    return false;
-  } else {
-    return true;
-  }
-};
-
-const disableLoadMore = () => {
-  loadMoreBtn.setAttribute("data-load", false);
-};
-
 const resetPokedex = () => {
   pokedexGrid.innerHTML = "";
   offset = 0;
   loadMoreBtn.setAttribute("data-load", true);
 };
 
-const togglePokemonFavorites = (target) => {
-  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
-  const status = toggleIcon(target);
-  const pokemonName = target.parentElement.parentElement.dataset.pokemon;
-
-  if (status === "favored") {
-    pokemonFavsData.push(pokemonName);
-  } else {
-    pokemonFavsData.splice(pokemonFavsData.indexOf(pokemonName), 1);
-  }
-  localStorage.setItem(pokemonFavs, JSON.stringify(pokemonFavsData));
-};
-
-const toggleIcon = (icon) => {
-  const regular = icon.classList.contains("fa-regular");
-  icon.classList.remove(`${regular === true ? "fa-regular" : "fa-solid"}`);
-  icon.classList.add(`${regular === true ? "fa-solid" : "fa-regular"}`);
-
-  if (icon.classList.contains("fa-heart")) {
-    return `${regular === true ? "favored" : "unfavored"}`;
-  }
-};
-
-const bounceAnimation = (target) => {
-  target.style.animation = "heartBounce 500ms ease";
-  setTimeout(() => {
-    target.style.removeProperty("animation");
-  }, 550);
-};
-
-const setPokemonFavs = () => {
-  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
-  if (!localStorage.getItem(pokemonFavs)) {
-    localStorage.setItem(pokemonFavs, JSON.stringify([]));
-  } else {
-    pokemonFavsData.forEach((pokemon) => {
-      const icon = document.querySelector(`[data-pokemon=${pokemon}] i`);
-      if (!icon || icon.classList.contains("fa-solid")) {
-        return;
-      } else {
-        icon.classList.remove("fa-regular");
-        icon.classList.add("fa-solid");
-      }
-    });
-  }
-};
-
 const pokedexToType = async (type) => {
   const typeNum = pokemonTypeData[type];
-  if (loading || pokedexGrid.getAttribute(pokedexFilter) === type) {
+  if (siteLoading || pokedexGrid.getAttribute(pokedexFilter) === type) {
     console.error(
       "Something is Loading or You Clicked the Same Type of Pokemon"
     );
@@ -228,6 +169,33 @@ const pokedexToType = async (type) => {
   }
 };
 
+const loadMoreHandler = () => {
+  const currentFilter = pokedexGrid.getAttribute(pokedexFilter);
+
+  if (loadMoreBtn.getAttribute("data-load") == "true") {
+    currentFilter === "all" ? loadMoreAllTypes(gridLoadLimit) : loadMoreType();
+  }
+};
+
+const loadMoreAllTypes = async (limit) => {
+  if (siteLoading) return;
+  toggleLoader();
+  try {
+    const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
+    let response = await fetch(url);
+    response = await response.json();
+    for (let result of response.results) {
+      await placePokemonCard(result.url);
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    setPokemonFavs();
+    offset += limit;
+    toggleLoader();
+  }
+};
+
 const loadMoreType = () => {
   const completion = offset + gridLoadLimit;
   for (let i = offset; i < completion; i++) {
@@ -235,7 +203,7 @@ const loadMoreType = () => {
     if (!validate(currentPokemon, loadAction)) return;
     const url = currentData.pokemon[i].pokemon.url;
 
-    buildPokemonCard(url);
+    placePokemonCard(url);
   }
   setTimeout(() => {
     setPokemonFavs();
@@ -248,20 +216,61 @@ const loadSinglePokemon = (pokemon) => {
   const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
   resetPokedex();
   disableLoadMore();
-  buildPokemonCard(url);
+  placePokemonCard(url);
   pokedexGrid.setAttribute(pokedexFilter, pokemon);
 };
 
-const loadMoreHandler = () => {
-  const currentFilter = pokedexGrid.getAttribute(pokedexFilter);
+const disableLoadMore = () => {
+  loadMoreBtn.setAttribute("data-load", false);
+};
 
-  if (loadMoreBtn.getAttribute("data-load") == "true") {
-    currentFilter === "all" ? loadMoreAllTypes(gridLoadLimit) : loadMoreType();
+const toggleLoader = () => {
+  const newAction = siteLoading === false ? true : false;
+  loaderIcon.setAttribute("data-visible", newAction);
+  siteLoading = newAction;
+};
+
+const toggleIcon = (icon) => {
+  const regular = icon.classList.contains("fa-regular");
+  icon.classList.remove(`${regular === true ? "fa-regular" : "fa-solid"}`);
+  icon.classList.add(`${regular === true ? "fa-solid" : "fa-regular"}`);
+
+  if (icon.classList.contains("fa-heart")) {
+    return `${regular === true ? "favored" : "unfavored"}`;
+  }
+};
+
+const getPokemonImg = (attempt1, attempt2) => {
+  if (attempt1) {
+    return attempt1;
+  }
+  if (attempt2) {
+    return attempt2;
+  }
+  return defaultPokemonImg;
+};
+
+const validate = (item, action) => {
+  if (!item) {
+    if (action === loadAction) {
+      disableLoadMore();
+      console.log("You have reached max load");
+    }
+    return false;
+  } else {
+    return true;
   }
 };
 
 const titleCase = (string) => {
   return string.charAt(0).toUpperCase() + string.substring(1);
+};
+
+const bounceAnimation = (target) => {
+  target.style.animation = "heartBounce 500ms ease";
+  setTimeout(() => {
+    target.style.removeProperty("animation");
+  }, 550);
 };
 
 const addGlobalEventListener = (type, selector, callback) => {
@@ -270,13 +279,7 @@ const addGlobalEventListener = (type, selector, callback) => {
   });
 };
 
-const toggleLoader = () => {
-  const newAction = loading === false ? true : false;
-  loaderIcon.setAttribute("data-visible", newAction);
-  loading = newAction;
-};
-
-const startup = async () => {
+const onStartup = () => {
   setSiteTheme();
   loadMoreAllTypes(gridLoadLimit);
 };
@@ -302,7 +305,7 @@ const pokemonTypeData = {
   fairy: "18",
 };
 
-startup();
+onStartup();
 
 pokedexNav.forEach((type) => {
   type.addEventListener("click", (e) => {
