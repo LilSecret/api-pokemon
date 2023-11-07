@@ -250,13 +250,14 @@ input:checked ~ label .fa-sun {
 
 .navigation-search-wrapper {
   display: flex;
-  border-radius: 24px;
+  border-radius: 8px;
   align-items: center;
   justify-content: end;
   place-self: center end;
   padding: 5px 15px;
   border: solid 3px var(--pokemon-card-outline);
-  background-color: var(--neutral-100);
+  background-color: var(--pokemon-card-bg);
+  color: var(--body-bg-color);
   transition: 300ms ease;
   cursor: pointer;
 }
@@ -265,6 +266,12 @@ input:checked ~ label .fa-sun {
   font-family: "Electrolize", sans-serif;
   font-weight: 600;
   font-size: 16px;
+  caret-color: var(--accent-400);
+}
+
+.navigation-search-wrapper input::placeholder {
+  color: var(--body-bg-color);
+  opacity: 0.8;
 }
 
 .navigation-search-wrapper i {
