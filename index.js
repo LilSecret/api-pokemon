@@ -12,6 +12,7 @@ const pokedexFilter = "data-filter";
 const defaultPokemonImg = "./assets/images/default-pokemon.png";
 const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
 const pokedexGrid = document.querySelector(".pokedex-grid");
+const navigationSearch = document.querySelector(".navigation-search-wrapper");
 
 const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
@@ -218,6 +219,7 @@ const loadSinglePokemon = (pokemon) => {
   disableLoadMore();
   placePokemonCard(url);
   pokedexGrid.setAttribute(pokedexFilter, pokemon);
+  navigationSearch.reset();
 };
 
 const disableLoadMore = () => {
@@ -238,6 +240,14 @@ const toggleIcon = (icon) => {
   if (icon.classList.contains("fa-heart")) {
     return `${regular === true ? "favored" : "unfavored"}`;
   }
+};
+
+const toggleSearchNavigation = () => {
+  const value = navigationSearch.getAttribute("data-expanded");
+  navigationSearch.setAttribute(
+    "data-expanded",
+    value == "true" ? "false" : "true"
+  );
 };
 
 const getPokemonImg = (attempt1, attempt2) => {
@@ -317,6 +327,9 @@ pokedexNav.forEach((type) => {
     } else {
       pokedexToType(type);
     }
+    if (navigationSearch.getAttribute("data-expanded") === "true") {
+      toggleSearchNavigation();
+    }
   });
 });
 
@@ -325,19 +338,17 @@ addGlobalEventListener("click", ".fa-heart", (e) => {
   togglePokemonFavorites(e.target);
 });
 
-document
-  .querySelector(".navigation-search-wrapper")
-  .addEventListener("click", (e) => {
-    e.target.setAttribute("data-search-expanded", true);
-  });
+navigationSearch.addEventListener("click", () => {
+  if (navigationSearch.getAttribute("data-expanded") === "false") {
+    toggleSearchNavigation();
+  }
+});
 
-document
-  .querySelector(".navigation-search-wrapper")
-  .addEventListener("submit", (event) => {
-    const pokemon = document.getElementById("pokemon").value;
-    event.preventDefault(); // stops auto submit
-    loadSinglePokemon(pokemon);
-  });
+navigationSearch.addEventListener("submit", (event) => {
+  const pokemon = document.getElementById("pokemon").value;
+  event.preventDefault(); // stops auto submit
+  loadSinglePokemon(pokemon);
+});
 
 themeBtn.addEventListener("click", () => {
   toggleSiteTheme();

@@ -282,15 +282,15 @@ input:checked ~ label .fa-sun {
   border-color: var(--accent-400);
 }
 
-[data-search-expanded="true"] {
+[data-expanded="true"] {
   font: inherit;
 }
 
-[data-search-expanded="false"] {
+[data-expanded="false"] {
   padding: 8px;
 }
 
-[data-search-expanded="false"] input {
+[data-expanded="false"] input {
   display: none;
 }
 
