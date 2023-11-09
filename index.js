@@ -143,7 +143,7 @@ const placePokemonCard = async (url) => {
       "It looks like the Pokemon you have entered does not exist. Please Try again.";
     pokedexError(errorMessage);
     disableLoadMore();
-    console.log(err.message);
+    console.error(err.message);
   }
 };
 
@@ -185,8 +185,9 @@ const pokedexToType = async (type) => {
     pokedexGrid.setAttribute(pokedexFilter, type);
     await loadMoreType();
   } catch (err) {
-    console.log(err);
+    console.error(err.message);
     pokedexError("The Pokemon Type was unable to load.");
+    stopLoader();
   }
 };
 
@@ -209,7 +210,8 @@ const loadMoreAllTypes = async (limit) => {
       await placePokemonCard(result.url);
     }
   } catch (err) {
-    console.log(err);
+    console.error(err.message);
+    pokedexError("An unexpected error has occurred.");
   } finally {
     setPokemonFavs();
     offset += limit;
@@ -252,6 +254,11 @@ const toggleLoader = () => {
   const newAction = siteLoading === false ? true : false;
   loaderIcon.setAttribute("data-visible", newAction);
   siteLoading = newAction;
+};
+
+const stopLoader = () => {
+  loaderIcon.setAttribute("data-visible", false);
+  siteLoading = false;
 };
 
 const toggleIcon = (icon) => {
