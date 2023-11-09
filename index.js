@@ -139,9 +139,9 @@ const placePokemonCard = async (url) => {
     gridItem.innerHTML = content;
     pokedexGrid.appendChild(gridItem);
   } catch (err) {
-    let message =
+    const errorMessage =
       "It looks like the Pokemon you have entered does not exist. Please Try again.";
-    pokedexError(message);
+    pokedexError(errorMessage);
     disableLoadMore();
     console.log(err.message);
   }
@@ -218,33 +218,27 @@ const loadMoreAllTypes = async (limit) => {
   }
 };
 
-const loadMoreType = () => {
+const loadMoreType = async () => {
   const completion = offset + gridLoadLimit;
   for (let i = offset; i < completion; i++) {
     const currentPokemon = currentData.pokemon[i];
     if (!validate(currentPokemon, loadAction)) return;
     const url = currentData.pokemon[i].pokemon.url;
-
-    placePokemonCard(url);
+    await placePokemonCard(url);
   }
   setPokemonFavs();
   offset = completion;
 };
 
-const loadSinglePokemon = (pokemon) => {
-  try {
-    pokemon = pokemon.toLowerCase();
-    const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-    resetPokedex();
-    disableLoadMore();
-    placePokemonCard(url);
-    pokedexGrid.setAttribute(pokedexFilter, pokemon);
-    navigationSearch.reset();
-  } catch (err) {
-    console.log(err);
-  } finally {
-    setPokemonFavs();
-  }
+const loadSinglePokemon = async (pokemon) => {
+  pokemon = pokemon.toLowerCase();
+  const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
+  resetPokedex();
+  disableLoadMore();
+  await placePokemonCard(url);
+  pokedexGrid.setAttribute(pokedexFilter, pokemon);
+  navigationSearch.reset();
+  setPokemonFavs();
 };
 
 const disableLoadMore = () => {
