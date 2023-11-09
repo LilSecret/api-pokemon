@@ -373,11 +373,13 @@ input:checked ~ label .fa-sun {
 
 .pokemon-card-name {
   text-wrap: nowrap;
-  overflow-x: clip;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   font-size: 1.55rem;
   font-weight: 5 00;
   letter-spacing: 1.4px;
-  max-width: 166px;
+  width: 165px;
 }
 
 .pokemon-card .stats-grid {
