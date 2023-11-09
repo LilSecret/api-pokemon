@@ -176,7 +176,7 @@ const pokedexToType = async (type) => {
     );
     return;
   }
-  toggleLoader();
+  startLoadSpinner();
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
     const responseJson = await response.json();
@@ -187,7 +187,7 @@ const pokedexToType = async (type) => {
   } catch (err) {
     console.error(err.message);
     pokedexError("The Pokemon Type was unable to load.");
-    stopLoader();
+    stopLoadSpinner();
   }
 };
 
@@ -201,7 +201,7 @@ const loadMoreHandler = () => {
 
 const loadMoreAllTypes = async (limit) => {
   if (siteLoading) return;
-  toggleLoader();
+  startLoadSpinner();
   try {
     const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
     let response = await fetch(url);
@@ -215,13 +215,13 @@ const loadMoreAllTypes = async (limit) => {
   } finally {
     setPokemonFavs();
     offset += limit;
-    toggleLoader();
+    stopLoadSpinner();
   }
 };
 
 const loadMoreType = async () => {
   const completion = offset + gridLoadLimit;
-  if (!siteLoading) toggleLoader();
+  if (!siteLoading) startLoadSpinner();
   for (let i = offset; i < completion; i++) {
     const currentPokemon = currentData.pokemon[i];
     if (!validate(currentPokemon, loadAction)) return;
@@ -230,7 +230,7 @@ const loadMoreType = async () => {
   }
   setPokemonFavs();
   offset = completion;
-  toggleLoader();
+  stopLoadSpinner();
 };
 
 const loadSinglePokemon = async (pokemon) => {
@@ -238,9 +238,9 @@ const loadSinglePokemon = async (pokemon) => {
   const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
   resetPokedex();
   disableLoadMore();
-  toggleLoader();
+  startLoadSpinner();
   await placePokemonCard(url);
-  toggleLoader();
+  stopLoadSpinner();
   pokedexGrid.setAttribute(pokedexFilter, pokemon);
   navigationSearch.reset();
   setPokemonFavs();
@@ -250,13 +250,12 @@ const disableLoadMore = () => {
   loadMoreBtn.setAttribute("data-load", false);
 };
 
-const toggleLoader = () => {
-  const newAction = siteLoading === false ? true : false;
-  loaderIcon.setAttribute("data-visible", newAction);
-  siteLoading = newAction;
+const startLoadSpinner = () => {
+  loaderIcon.setAttribute("data-visible", true);
+  siteLoading = true;
 };
 
-const stopLoader = () => {
+const stopLoadSpinner = () => {
   loaderIcon.setAttribute("data-visible", false);
   siteLoading = false;
 };
