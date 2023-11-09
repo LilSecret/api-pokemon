@@ -139,6 +139,10 @@ const placePokemonCard = async (url) => {
     gridItem.innerHTML = content;
     pokedexGrid.appendChild(gridItem);
   } catch (err) {
+    let message =
+      "It looks like the Pokemon you have entered does not exist. Please Try again.";
+    pokedexError(message);
+    disableLoadMore();
     console.log(err.message);
   }
 };
@@ -147,6 +151,21 @@ const resetPokedex = () => {
   pokedexGrid.innerHTML = "";
   offset = 0;
   loadMoreBtn.setAttribute("data-load", true);
+};
+
+const pokedexError = (message) => {
+  pokedexGrid.innerHTML = "";
+  const pokedexError = document.createElement("div");
+  pokedexError.classList.add("pokedex-error-wrapper");
+  pokedexError.innerHTML = `
+  <div class="error-img-wrapper">
+    <img src="./assets/images/error-img.svg" alt="error img" />
+  </div>
+  <h2>Oops Something Went Wrong</h2>
+  <p>
+    ${message}
+  </p>`;
+  pokedexGrid.appendChild(pokedexError);
 };
 
 const pokedexToType = async (type) => {

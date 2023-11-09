@@ -162,7 +162,7 @@ input:checked ~ label .fa-sun {
 }
 
 .pokedex-wrapper {
-  margin-block: 100px 200px;
+  margin-block: 100px;
 }
 
 .pokedex-header {
@@ -324,6 +324,7 @@ input:checked ~ label .fa-sun {
 .pokedex-grid-item .pokemon-card {
   box-shadow: 0px 3px 10px transparent;
   display: grid;
+  cursor: pointer;
   gap: 10px 65px;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-areas:
@@ -473,6 +474,17 @@ input:checked ~ label .fa-sun {
 .favorites p {
   font-size: 2rem;
   width: 40%;
+}
+
+.pokedex-error-wrapper {
+  max-width: 350px;
+  margin-inline: auto;
+  color: var(--hero-chatbox-text);
+}
+
+.pokedex-error-wrapper h2 {
+  padding-block: 14px;
+  font-size: 1.8rem;
 }
 
 @keyframes gridLoader {
