@@ -183,11 +183,10 @@ const pokedexToType = async (type) => {
     currentData = responseJson;
     resetPokedex();
     pokedexGrid.setAttribute(pokedexFilter, type);
-    loadMoreType();
+    await loadMoreType();
   } catch (err) {
     console.log(err);
-  } finally {
-    toggleLoader();
+    pokedexError("The Pokemon Type was unable to load.");
   }
 };
 
@@ -220,6 +219,7 @@ const loadMoreAllTypes = async (limit) => {
 
 const loadMoreType = async () => {
   const completion = offset + gridLoadLimit;
+  if (!siteLoading) toggleLoader();
   for (let i = offset; i < completion; i++) {
     const currentPokemon = currentData.pokemon[i];
     if (!validate(currentPokemon, loadAction)) return;
@@ -228,6 +228,7 @@ const loadMoreType = async () => {
   }
   setPokemonFavs();
   offset = completion;
+  toggleLoader();
 };
 
 const loadSinglePokemon = async (pokemon) => {
@@ -235,7 +236,9 @@ const loadSinglePokemon = async (pokemon) => {
   const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
   resetPokedex();
   disableLoadMore();
+  toggleLoader();
   await placePokemonCard(url);
+  toggleLoader();
   pokedexGrid.setAttribute(pokedexFilter, pokemon);
   navigationSearch.reset();
   setPokemonFavs();
