@@ -179,8 +179,8 @@ const pokedexToType = async (type) => {
   startLoadSpinner();
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
-    const responseJson = await response.json();
-    currentData = responseJson;
+    const data = await response.json();
+    currentData = data;
     resetPokedex();
     pokedexGrid.setAttribute(pokedexFilter, type);
     await loadMoreType();

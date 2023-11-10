@@ -15,7 +15,7 @@
     />
   </head>
   <body>
-    <nav class="navbar">
+    <header class="navbar">
       <a href="#" class="logo-wrapper">
         <img src="/assets/images/pokemon-logo.png" alt="pokemon-logo" />
       </a>
@@ -33,106 +33,108 @@
           </label>
         </div>
       </div>
-    </nav>
+    </header>
 
-    <section id="parallax" class="parallax">
-      <div class="chat-box-wrapper">
-        <img src="./assets/images/chatbox-light.svg" alt="chat box" />
-        <span class="chat-box-text">Pick your favorite Pokemon</span>
+    <main>
+      <section id="parallax" class="parallax">
+        <div class="chat-box-wrapper">
+          <img src="./assets/images/chatbox-light.svg" alt="chat box" />
+          <span class="chat-box-text">Pick your favorite Pokemon</span>
+        </div>
+        <div class="hero-arrow-wrapper">
+          <a href="#pokedex">
+            <img src="./assets/images/arcade-arrow.svg" alt="arcade arrow" />
+          </a>
+        </div>
+      </section>
+
+      <div class="separator">
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
+        <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
       </div>
-      <div class="hero-arrow-wrapper">
-        <a href="#pokedex">
-          <img src="./assets/images/arcade-arrow.svg" alt="arcade arrow" />
-        </a>
-      </div>
-    </section>
 
-    <div class="separator">
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-      <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
-    </div>
+      <section id="pokedex" class="pokedex pokedex-wrapper">
+        <div class="pokedex-header">
+          <h1 class="heading header-lg">Pokédex</h1>
+          <div class="header-img-wrapper">
+            <img
+              class="pokemon-img"
+              src="./assets/images/pickachu.svg"
+              alt="pokemon"
+            />
+          </div>
+        </div>
 
-    <section id="pokedex" class="pokedex pokedex-wrapper">
-      <div class="pokedex-header">
-        <h1 class="heading header-lg">Pokédex</h1>
-        <div class="header-img-wrapper">
+        <div class="pokedex-navigation container-md">
+          <div class="navigation-types">
+            <div class="type" data-type="all">all</div>
+            <div class="type" data-type="fire">fire</div>
+            <div class="type" data-type="water">water</div>
+            <div class="type" data-type="grass">grass</div>
+            <div class="type" data-type="electric">electric</div>
+            <div class="type" data-type="ice">ice</div>
+            <div class="type" data-type="psychic">psychic</div>
+            <div class="type" data-type="dragon">dragon</div>
+            <div class="type" data-type="dark">dark</div>
+            <div class="type" data-type="fairy">fairy</div>
+            <div class="type" data-type="steel">steel</div>
+            <div class="type" data-type="ghost">ghost</div>
+            <div class="type" data-type="bug">bug</div>
+            <div class="type" data-type="rock">rock</div>
+            <div class="type" data-type="ground">ground</div>
+            <div class="type" data-type="poison">poison</div>
+            <div class="type" data-type="flying">flying</div>
+            <div class="type" data-type="fighting">fighting</div>
+            <div class="type" data-type="normal">normal</div>
+            <form class="navigation-search-wrapper" data-expanded="false">
+              <input type="text" id="pokemon" placeholder="Enter Pokemon" />
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </form>
+          </div>
+        </div>
+
+        <!-- Pokemon Grid  -->
+        <div
+          class="pokedex-grid pokedex-grid-wrapper container"
+          data-filter="all"
+        ></div>
+        <div class="btn btn-primary" data-load="true">Load More</div>
+        <!-- Loader  -->
+        <div class="pokedex-loader-wrapper" data-visible="false">
+          <img src="./assets/images/pokeball.png" alt="pokeball" />
+        </div>
+      </section>
+
+      <section id="favorites" class="favorites">
+        <div class="wave-wrapper">
           <img
-            class="pokemon-img"
-            src="./assets/images/pickachu.svg"
-            alt="pokemon"
+            src="./assets/images/wave-bg-light.svg"
+            alt="waves"
+            class="wave-bg"
           />
         </div>
-      </div>
-
-      <div class="pokedex-navigation container-md">
-        <div class="navigation-types">
-          <div class="type" data-type="all">all</div>
-          <div class="type" data-type="fire">fire</div>
-          <div class="type" data-type="water">water</div>
-          <div class="type" data-type="grass">grass</div>
-          <div class="type" data-type="electric">electric</div>
-          <div class="type" data-type="ice">ice</div>
-          <div class="type" data-type="psychic">psychic</div>
-          <div class="type" data-type="dragon">dragon</div>
-          <div class="type" data-type="dark">dark</div>
-          <div class="type" data-type="fairy">fairy</div>
-          <div class="type" data-type="steel">steel</div>
-          <div class="type" data-type="ghost">ghost</div>
-          <div class="type" data-type="bug">bug</div>
-          <div class="type" data-type="rock">rock</div>
-          <div class="type" data-type="ground">ground</div>
-          <div class="type" data-type="poison">poison</div>
-          <div class="type" data-type="flying">flying</div>
-          <div class="type" data-type="fighting">fighting</div>
-          <div class="type" data-type="normal">normal</div>
-          <form class="navigation-search-wrapper" data-expanded="false">
-            <input type="text" id="pokemon" placeholder="Enter Pokemon" />
-            <i class="fa-solid fa-magnifying-glass"></i>
-          </form>
-        </div>
-      </div>
-
-      <!-- Pokemon Grid  -->
-      <div
-        class="pokedex-grid pokedex-grid-wrapper container"
-        data-filter="all"
-      ></div>
-      <div class="btn btn-primary" data-load="true">Load More</div>
-      <!-- Loader  -->
-      <div class="pokedex-loader-wrapper" data-visible="false">
-        <img src="./assets/images/pokeball.png" alt="pokeball" />
-      </div>
-    </section>
-
-    <section id="favorites" class="favorites">
-      <div class="wave-wrapper">
-        <img
-          src="./assets/images/wave-bg-light.svg"
-          alt="waves"
-          class="wave-bg"
-        />
-      </div>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-        mollit anim id est laborum.
-      </p>
-    </section>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </section>
+    </main>
 
     <script src="index.js" async defer></script>
   </body>
