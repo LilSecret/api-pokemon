@@ -78,25 +78,25 @@
 
         <div class="pokedex-navigation container-md">
           <div class="navigation-types">
-            <div class="type" data-type="all">all</div>
-            <div class="type" data-type="fire">fire</div>
-            <div class="type" data-type="water">water</div>
-            <div class="type" data-type="grass">grass</div>
-            <div class="type" data-type="electric">electric</div>
-            <div class="type" data-type="ice">ice</div>
-            <div class="type" data-type="psychic">psychic</div>
-            <div class="type" data-type="dragon">dragon</div>
-            <div class="type" data-type="dark">dark</div>
-            <div class="type" data-type="fairy">fairy</div>
-            <div class="type" data-type="steel">steel</div>
-            <div class="type" data-type="ghost">ghost</div>
-            <div class="type" data-type="bug">bug</div>
-            <div class="type" data-type="rock">rock</div>
-            <div class="type" data-type="ground">ground</div>
-            <div class="type" data-type="poison">poison</div>
-            <div class="type" data-type="flying">flying</div>
-            <div class="type" data-type="fighting">fighting</div>
-            <div class="type" data-type="normal">normal</div>
+            <div class="type type-tag" data-type="all">all</div>
+            <div class="type type-tag" data-type="fire">fire</div>
+            <div class="type type-tag" data-type="water">water</div>
+            <div class="type type-tag" data-type="grass">grass</div>
+            <div class="type type-tag" data-type="electric">electric</div>
+            <div class="type type-tag" data-type="ice">ice</div>
+            <div class="type type-tag" data-type="psychic">psychic</div>
+            <div class="type type-tag" data-type="dragon">dragon</div>
+            <div class="type type-tag" data-type="dark">dark</div>
+            <div class="type type-tag" data-type="fairy">fairy</div>
+            <div class="type type-tag" data-type="steel">steel</div>
+            <div class="type type-tag" data-type="ghost">ghost</div>
+            <div class="type type-tag" data-type="bug">bug</div>
+            <div class="type type-tag" data-type="rock">rock</div>
+            <div class="type type-tag" data-type="ground">ground</div>
+            <div class="type type-tag" data-type="poison">poison</div>
+            <div class="type type-tag" data-type="flying">flying</div>
+            <div class="type type-tag" data-type="fighting">fighting</div>
+            <div class="type type-tag" data-type="normal">normal</div>
             <form class="navigation-search-wrapper" data-expanded="false">
               <input type="text" id="pokemon" placeholder="Enter Pokemon" />
               <i class="fa-solid fa-magnifying-glass"></i>
@@ -125,7 +125,7 @@
           />
         </div>
 
-        <div class="favorite-card-wrapper">
+        <div class="favorite-card-wrapper favortite-card">
           <div class="fav-card-img-wrapper">
             <img
               class="pokemon-img-big"
@@ -135,172 +135,50 @@
           </div>
 
           <div class="fav-card-left">
-            <div class="fav-stats">
-              <div class="stat">
-                <div class="stat-progress-bar">
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                </div>
+            <div class="fav-card-graph">
+              <div class="stat-container">
+                <div class="stat-progress-bar"></div>
                 <h4 class="stat-name">HP</h4>
               </div>
-              <div class="stat">
-                <div class="stat-progress-bar">
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                </div>
-                <h4 class="stat-name">Attack</h4>
+              <div class="stat-container">
+                <div class="stat-progress-bar"></div>
+                <h4 class="stat-name">Att</h4>
               </div>
-              <div class="stat">
-                <div class="stat-progress-bar">
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                </div>
-                <h4 class="stat-name">Defense</h4>
+              <div class="stat-container">
+                <div class="stat-progress-bar"></div>
+                <h4 class="stat-name">Def</h4>
               </div>
-              <div class="stat">
-                <div class="stat-progress-bar">
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                </div>
-                <h4 class="stat-name">Spec-Att</h4>
+              <div class="stat-container">
+                <div class="stat-progress-bar"></div>
+                <h4 class="stat-name">S-Att</h4>
               </div>
-              <div class="stat">
-                <div class="stat-progress-bar">
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                </div>
-                <h4 class="stat-name">Spec-Def</h4>
+              <div class="stat-container">
+                <div class="stat-progress-bar"></div>
+                <h4 class="stat-name">S-Def</h4>
               </div>
-              <div class="stat">
-                <div class="stat-progress-bar">
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                  <div class="stat-box"></div>
-                </div>
+              <div class="stat-container">
+                <div class="stat-progress-bar"></div>
                 <h4 class="stat-name">Speed</h4>
               </div>
             </div>
             <div class="separator-horizontal"></div>
             <div class="fav-card-against fav-card-weak">
               <h3>Weak Against:</h3>
-              <div class="against-container">
-                <div class="against-img-wrapper">
-                  <img src="" alt="" />
-                </div>
-                <div class="type">Electric</div>
-              </div>
-              <div class="against-container">
-                <div class="against-img-wrapper">
-                  <img src="" alt="" />
-                </div>
-                <div class="type">Electric</div>
+              <div class="against-table">
+                <div class="type type-img" data-type="grass"></div>
+                <div class="type type-img" data-type="electric"></div>
               </div>
             </div>
             <div class="fav-card-against fav-card-strong">
               <h3>Strong Against:</h3>
               <div class="against-container">
-                <div class="against-img-wrapper">
+                <div class="img-type">
                   <img src="" alt="" />
                 </div>
                 <div class="type">Electric</div>
               </div>
               <div class="against-container">
-                <div class="against-img-wrapper">
+                <div class="img-type">
                   <img src="" alt="" />
                 </div>
                 <div class="type">Electric</div>
@@ -308,36 +186,38 @@
             </div>
           </div>
 
-          <div class="evolutions">
+          <div class="evolutions-wrapper">
             <h3>Evolutions:</h3>
             <div class="evolution-container">
-              <div class="evolution-img-wrapper">
-                <img
-                  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/158.png"
-                  alt=""
-                />
+              <div class="evolution-box">
+                <div class="evolution-img-wrapper">
+                  <img
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/158.png"
+                    alt=""
+                  />
+                </div>
+                <h4 class="evolution-name">Totodile</h4>
               </div>
-              <h4 class="evolution-name">Totodile</h4>
-            </div>
-            <i class="fa-solid fa-arrow-right-long"></i>
-            <div class="evolution-container">
-              <div class="evolution-img-wrapper">
-                <img
-                  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/159.png"
-                  alt=""
-                />
+              <i class="fa-solid fa-arrow-right-long"></i>
+              <div class="evolution-box">
+                <div class="evolution-img-wrapper">
+                  <img
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/159.png"
+                    alt=""
+                  />
+                </div>
+                <h4 class="evolution-name">Croconaw</h4>
               </div>
-              <h4 class="evolution-name">Croconaw</h4>
-            </div>
-            <i class="fa-solid fa-arrow-right-long"></i>
-            <div class="evolution-container">
-              <div class="evolution-img-wrapper">
-                <img
-                  src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/160.png"
-                  alt=""
-                />
+              <i class="fa-solid fa-arrow-right-long"></i>
+              <div class="evolution-box">
+                <div class="evolution-img-wrapper">
+                  <img
+                    src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/160.png"
+                    alt=""
+                  />
+                </div>
+                <h4 class="evolution-name">Feraligatr</h4>
               </div>
-              <h4 class="evolution-name">Feraligatr</h4>
             </div>
           </div>
         </div>

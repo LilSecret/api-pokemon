@@ -124,10 +124,10 @@ const placePokemonCard = async (url) => {
           <div class="stat">${baseDef}</div>
         </div>
         <div class="base">
-          <div class="type" data-type="${type1}">${type1}</div>
+          <div class="type type-tag" data-type="${type1}">${type1}</div>
           ${
             type2 !== null
-              ? `<div class="type" data-type="${type2}">${type2}</div>`
+              ? `<div class="type type-tag" data-type="${type2}">${type2}</div>`
               : ""
           }
         </div>

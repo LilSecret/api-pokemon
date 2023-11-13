@@ -377,7 +377,7 @@ input:checked ~ label .fa-sun {
   overflow: hidden;
   white-space: nowrap;
   font-size: 1.55rem;
-  font-weight: 5 00;
+  font-weight: 500;
   letter-spacing: 1.4px;
   width: 165px;
 }
@@ -406,10 +406,10 @@ input:checked ~ label .fa-sun {
 .pokemon-card .base {
   grid-area: base;
   display: flex;
+  margin-top: 15px;
 }
 
 .pokemon-card .type {
-  margin-top: 15px;
   margin-right: 12px;
 }
 
@@ -456,28 +456,6 @@ input:checked ~ label .fa-sun {
   opacity: 0.4;
 }
 
-.favorites {
-  display: grid;
-  place-items: center;
-  background-color: var(--primary-400);
-  height: 80vh;
-  position: relative;
-  isolation: isolate;
-}
-
-.wave-wrapper {
-  position: absolute;
-  top: -10%;
-  width: 100%;
-  height: 20%;
-  z-index: -1;
-}
-
-.favorites p {
-  font-size: 2rem;
-  width: 40%;
-}
-
 .pokedex-error-wrapper {
   max-width: 350px;
   margin-inline: auto;
@@ -487,6 +465,115 @@ input:checked ~ label .fa-sun {
 .pokedex-error-wrapper h2 {
   padding-block: 14px;
   font-size: 1.8rem;
+}
+
+/* Favorites Section  */
+.wave-wrapper {
+  position: absolute;
+  top: -10%;
+  width: 100%;
+  height: 20%;
+  z-index: -1;
+}
+
+.favorites {
+  background-color: var(--primary-400);
+  padding-block: 2rem;
+}
+
+.favorite-card-wrapper {
+  background-color: var(--favorite-card-bg);
+  width: min(1080px, 75%);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-areas:
+    "main-image main-image main-image aside aside"
+    "main-image main-image main-image aside aside"
+    "evolution evolution evolution aside aside";
+  margin-inline: auto;
+}
+
+.fav-card-img-wrapper {
+  background-image: url(../assets/images/favorites-section-img/forest.webp);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-right: solid 3px var(--favorite-img-outline);
+  border-bottom: solid 3px var(--favorite-img-outline);
+  border-bottom-right-radius: 8px;
+  grid-area: main-image;
+  display: flex;
+  justify-content: center;
+}
+
+.fav-card-img-wrapper img {
+  width: 250px;
+}
+
+.fav-card-left {
+  grid-area: aside;
+}
+
+.fav-card-graph {
+  display: flex;
+  justify-content: space-around;
+  padding: 30px 10px;
+}
+
+.stat-container {
+  position: relative;
+}
+
+.stat-progress-bar {
+  background: linear-gradient(
+    var(--neutral-400) 0% 50%,
+    var(--primary-400) 50% 100%
+  );
+  height: 150px;
+  width: 16px;
+  background-clip: text;
+}
+
+.stat-name {
+  position: absolute;
+  left: 50%;
+  translate: -50% 30%;
+  font-size: 14px;
+  text-wrap: nowrap;
+  font-family: "Electrolize", sans-serif;
+}
+
+.against-table {
+  display: flex;
+}
+
+.against-container {
+  margin-right: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.evolutions-wrapper {
+  grid-area: evolution;
+  padding: 6px 15px;
+  border-radius: 4px;
+}
+
+.evolution-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.evolution-box {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.evolution-img-wrapper {
+  width: 100px;
 }
 
 @keyframes gridLoader {

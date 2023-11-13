@@ -9,6 +9,8 @@
   --secondary-900: #1d5e75;
 
   --pokedex-heading-size: 8.656rem;
+
+  --large-container: 1080px;
 }
 
 html[data-theme|="light"] {
@@ -20,6 +22,9 @@ html[data-theme|="light"] {
   --pokemon-card-bg: var(--primary-400);
   --pokemon-card-shadow: var(--secondary-400);
   --pokemon-card-outline: var(--neutral-900);
+
+  --favorite-card-bg: var(--neutral-100);
+  --favorite-img-outline: var(--neutral-900);
 }
 
 html[data-theme|="dark"] {
@@ -31,76 +36,115 @@ html[data-theme|="dark"] {
   --pokemon-card-text: var(--neutral-900);
   --pokemon-card-shadow: var(--accent-400);
   --pokemon-card-outline: var(--primary-400);
+
+  --favorite-card-bg: var(--neutral-900);
+  --favorite-img-outline: var(--neutral-100);
 }
 
-.type[data-type="normal"] {
-  background-color: rgb(167, 167, 167);
+[data-type="normal"] {
+  --color: rgb(167, 167, 167);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/52.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="fighting"] {
-  background-color: rgb(137, 51, 12);
+[data-type="fighting"] {
+  --color: rgb(137, 51, 12);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/57.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="flying"] {
-  background-color: rgb(0, 102, 108);
+[data-type="flying"] {
+  --color: rgb(0, 102, 108);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/373.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="poison"] {
-  background-color: rgb(94, 45, 136);
+[data-type="poison"] {
+  --color: rgb(94, 45, 136);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/24.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="ground"] {
-  background-color: rgb(169, 112, 44);
+[data-type="ground"] {
+  --color: rgb(169, 112, 44);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/377.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="rock"] {
-  background-color: rgb(72, 24, 11);
+[data-type="rock"] {
+  --color: rgb(72, 24, 11);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/377.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="bug"] {
-  background-color: rgb(28, 75, 39);
+[data-type="bug"] {
+  --color: rgb(28, 75, 39);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/10.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="ghost"] {
-  background-color: rgb(144, 103, 144);
+[data-type="ghost"] {
+  --color: rgb(144, 103, 144);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/200.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="steel"] {
-  background-color: rgb(66, 189, 148);
+[data-type="steel"] {
+  --color: rgb(66, 189, 148);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/601.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="water"] {
-  background-color: rgb(134, 168, 252);
+[data-type="water"] {
+  --color: rgb(134, 168, 252);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/131.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="fire"] {
-  background-color: rgb(253, 76, 90);
+[data-type="fire"] {
+  --color: rgb(253, 76, 90);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/5.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="electric"] {
-  background-color: rgb(245, 245, 55);
+[data-type="electric"] {
+  --color: rgb(245, 245, 55);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/145.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="grass"] {
-  background-color: rgb(39, 203, 79);
+[data-type="grass"] {
+  --color: rgb(39, 203, 79);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/2.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="ice"] {
-  background-color: rgb(215, 239, 250);
+[data-type="ice"] {
+  --color: rgb(215, 239, 250);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/471.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="psychic"] {
-  background-color: rgb(242, 103, 151);
+[data-type="psychic"] {
+  --color: rgb(242, 103, 151);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/196.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="dragon"] {
-  background-color: rgb(0, 160, 182);
+[data-type="dragon"] {
+  --color: rgb(0, 160, 182);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/148.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="dark"] {
-  background-color: rgb(90, 89, 121);
+[data-type="dark"] {
+  --color: rgb(90, 89, 121);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/262.svg");
+  background-color: var(--color);
 }
 
-.type[data-type="fairy"] {
-  background-color: rgb(234, 19, 105);
+[data-type="fairy"] {
+  --color: rgb(234, 19, 105);
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/685.png");
+  background-color: var(--color);
 }
