@@ -343,6 +343,83 @@ const pokemonTypeData = {
   fairy: "18",
 };
 
+const attackerTypeChart = {
+  normal: {
+    noEffect: ["ghost"],
+    weak: ["rock"],
+  },
+  fire: {
+    noEffect: [],
+    weak: ["fire", "water", "rock", "dragon"],
+    strong: ["grass", "ice", "bug"],
+  },
+  water: {
+    noEffect: [],
+    weak: ["water", "grass", "dragon"],
+    strong: ["fire", "ground", "rock"],
+  },
+  electric: {
+    noEffect: ["ground"],
+    weak: ["electric", "grass", "dragon"],
+    strong: ["water", "flying"],
+  },
+  grass: {
+    noEffect: ["ground"],
+    weak: ["water", "grass", "poison", "flying", "bug", "dragon"],
+    strong: ["water", "ground", "rock"],
+  },
+  ice: {
+    noEffect: [],
+    weak: ["water", "ice"],
+    strong: ["grass", "ground", "flying", "dragon"],
+  },
+  fighting: {
+    noEffect: ["ghost"],
+    weak: ["poison", "flying", "psychic", "bug"],
+    strong: ["normal", "ice", "rock"],
+  },
+  poison: {
+    noEffect: ["ghost"],
+    weak: ["poison", "ground", "rock", "ghost"],
+    strong: ["grass", "bug"],
+  },
+  ground: {
+    noEffect: ["flying"],
+    weak: ["grass", "bug"],
+    strong: ["fire", "electric", "poison", "rock"],
+  },
+  flying: {
+    noEffect: [],
+    weak: ["rock", "electric"],
+    strong: ["grass", "fighting", "bug"],
+  },
+  psychic: {
+    noEffect: [],
+    weak: ["psychic"],
+    strong: ["poison", "fighting"],
+  },
+  bug: {
+    noEffect: [],
+    weak: ["fire", "fighting", "flying"],
+    strong: ["poison", "bug", "grass"],
+  },
+  rock: {
+    noEffect: [],
+    weak: ["ground", "fighting"],
+    strong: ["fire", "ice", "flying", "bug"],
+  },
+  ghost: {
+    noEffect: ["normal", "psychic"],
+    weak: [],
+    strong: ["ghost"],
+  },
+  dragon: {
+    noEffect: [],
+    weak: [],
+    strong: ["dragon"],
+  },
+};
+
 onStartup();
 
 pokedexNav.forEach((type) => {
