@@ -346,12 +346,13 @@ const pokemonTypeData = {
 const attackerTypeChart = {
   normal: {
     noEffect: ["ghost"],
-    weak: ["rock"],
+    weak: ["rock", "steel"],
+    strong: [],
   },
   fire: {
     noEffect: [],
     weak: ["fire", "water", "rock", "dragon"],
-    strong: ["grass", "ice", "bug"],
+    strong: ["grass", "ice", "bug", "steel"],
   },
   water: {
     noEffect: [],
@@ -364,59 +365,74 @@ const attackerTypeChart = {
     strong: ["water", "flying"],
   },
   grass: {
-    noEffect: ["ground"],
-    weak: ["water", "grass", "poison", "flying", "bug", "dragon"],
+    noEffect: [],
+    weak: ["fire", "grass", "poison", "flying", "bug", "dragon", "steel"],
     strong: ["water", "ground", "rock"],
   },
   ice: {
     noEffect: [],
-    weak: ["water", "ice"],
+    weak: ["water", "ice", "steel", "fire"],
     strong: ["grass", "ground", "flying", "dragon"],
   },
   fighting: {
     noEffect: ["ghost"],
-    weak: ["poison", "flying", "psychic", "bug"],
-    strong: ["normal", "ice", "rock"],
+    weak: ["poison", "flying", "psychic", "bug", "fairy"],
+    strong: ["normal", "ice", "rock", "dark", "steel"],
   },
   poison: {
-    noEffect: ["ghost"],
+    noEffect: ["steel"],
     weak: ["poison", "ground", "rock", "ghost"],
-    strong: ["grass", "bug"],
+    strong: ["grass", "fairy"],
   },
   ground: {
     noEffect: ["flying"],
     weak: ["grass", "bug"],
-    strong: ["fire", "electric", "poison", "rock"],
+    strong: ["fire", "electric", "poison", "rock", "steel"],
   },
   flying: {
     noEffect: [],
-    weak: ["rock", "electric"],
+    weak: ["rock", "electric", "steel"],
     strong: ["grass", "fighting", "bug"],
   },
   psychic: {
-    noEffect: [],
-    weak: ["psychic"],
+    noEffect: ["dark"],
+    weak: ["psychic", "steel"],
     strong: ["poison", "fighting"],
   },
   bug: {
     noEffect: [],
-    weak: ["fire", "fighting", "flying"],
-    strong: ["poison", "bug", "grass"],
+    weak: ["fire", "fighting", "flying", "poison", "ghost", "steel", "fairy"],
+    strong: ["dark", "psychic", "grass"],
   },
   rock: {
     noEffect: [],
-    weak: ["ground", "fighting"],
+    weak: ["ground", "fighting", "steel"],
     strong: ["fire", "ice", "flying", "bug"],
   },
   ghost: {
-    noEffect: ["normal", "psychic"],
-    weak: [],
-    strong: ["ghost"],
+    noEffect: ["normal"],
+    weak: ["steel", "dark"],
+    strong: ["ghost", "psychic"],
   },
   dragon: {
-    noEffect: [],
-    weak: [],
+    noEffect: ["fairy"],
+    weak: ["steel"],
     strong: ["dragon"],
+  },
+  dark: {
+    noEffect: [],
+    weak: ["fighting", "dark", "steel", "fairy"],
+    strong: ["ghost", "psychic"],
+  },
+  steel: {
+    noEffect: [],
+    weak: ["fire", "water", "steel"],
+    strong: ["rock", "fairy", "ice"],
+  },
+  fairy: {
+    noEffect: [],
+    weak: ["fire", "poison", "steel"],
+    strong: ["fighting", "dragon", "dark"],
   },
 };
 
