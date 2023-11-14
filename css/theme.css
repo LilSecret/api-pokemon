@@ -67,7 +67,7 @@ html[data-theme|="dark"] {
 
 [data-type="ground"] {
   --color: rgb(169, 112, 44);
-  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/377.svg");
+  --img: url("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/51.svg");
   background-color: var(--color);
 }
 

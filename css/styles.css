@@ -520,6 +520,13 @@ input:checked ~ label .fa-sun {
   padding: 30px 10px;
 }
 
+.fav-card-line {
+  background-color: var(--accent-400);
+  width: 80%;
+  height: 3px;
+  margin: 15px auto;
+}
+
 .stat-container {
   position: relative;
 }
@@ -543,15 +550,17 @@ input:checked ~ label .fa-sun {
   font-family: "Electrolize", sans-serif;
 }
 
-.against-table {
-  display: flex;
+.fav-card-against {
+  margin-left: 1rem;
 }
 
-.against-container {
-  margin-right: 1rem;
+.against-table {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-block: 0.5rem;
+}
+
+.against-table .type {
+  margin-right: 1.5rem;
 }
 
 .evolutions-wrapper {
