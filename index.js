@@ -46,22 +46,18 @@ const changeThemedElements = (theme) => {
   waveBgImg.setAttribute("src", `./assets/images/wave-bg-${theme}.svg`);
 };
 
-const setPokemonFavs = () => {
+const setFavsInLS = () => {
+  if (!localStorage.getItem(pokemonFavs)) {
+    localStorage.setItem(pokemonFavs, JSON.stringify([]));
+  }
+};
+
+const removeFaves = () => {
   setTimeout(() => {
     const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
-    if (!localStorage.getItem(pokemonFavs)) {
-      localStorage.setItem(pokemonFavs, JSON.stringify([]));
-    } else {
-      pokemonFavsData.forEach((pokemon) => {
-        const icon = document.querySelector(`[data-pokemon=${pokemon}] i`);
-        if (!icon || icon.classList.contains("fa-solid")) {
-          return;
-        } else {
-          icon.classList.remove("fa-regular");
-          icon.classList.add("fa-solid");
-        }
-      });
-    }
+    pokemonFavsData.forEach((pokemon) => {
+      document.querySelector();
+    });
   }, 100);
 };
 
@@ -213,7 +209,7 @@ const loadMoreAllTypes = async (limit) => {
     console.error(err.message);
     pokedexError("An unexpected error has occurred.");
   } finally {
-    setPokemonFavs();
+    removeFaves();
     offset += limit;
     stopLoadSpinner();
   }
@@ -228,7 +224,7 @@ const loadMoreType = async () => {
     const url = currentData.pokemon[i].pokemon.url;
     await placePokemonCard(url);
   }
-  setPokemonFavs();
+  removeFaves();
   offset = completion;
   stopLoadSpinner();
 };
@@ -243,7 +239,7 @@ const loadSinglePokemon = async (pokemon) => {
   stopLoadSpinner();
   pokedexGrid.setAttribute(pokedexFilter, pokemon);
   navigationSearch.reset();
-  setPokemonFavs();
+  removeFaves();
 };
 
 const disableLoadMore = () => {
@@ -318,6 +314,7 @@ const addGlobalEventListener = (type, selector, callback) => {
 };
 
 const onStartup = () => {
+  setFavsInLS();
   setSiteTheme();
   loadMoreAllTypes(gridLoadLimit);
 };
