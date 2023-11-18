@@ -56,9 +56,14 @@ const removeFaves = () => {
   setTimeout(() => {
     const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
     pokemonFavsData.forEach((pokemon) => {
-      document.querySelector();
+      removePokemonCard(pokemon);
     });
   }, 100);
+};
+
+const removePokemonCard = (name) => {
+  const card = document.querySelector(`[data-pokemon=${name}]`);
+  pokedexGrid.removeChild(card);
 };
 
 const togglePokemonFavorites = (target) => {
