@@ -42,7 +42,7 @@ const toggleSiteTheme = () => {
 
 const changeThemedElements = (theme) => {
   html.setAttribute("data-theme", theme);
-  heroChatBox.setAttribute("src", `./assets/images/chatbox-${theme}.svg`);
+  heroChatBox.setAttribute("src", `./assets/images/hero/chatbox-${theme}.svg`);
   waveBgImg.setAttribute("src", `./assets/images/wave-bg-${theme}.svg`);
 };
 

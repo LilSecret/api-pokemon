@@ -94,8 +94,8 @@ input:checked ~ label .fa-sun {
 }
 
 .parallax {
-  background: url("../assets/images/catch-em-wallpaper.png") no-repeat center /
-    cover;
+  background: url("../assets/images/hero/catch-em-wallpaper.png") no-repeat
+    center / cover;
   background-attachment: fixed;
   height: 97vh;
   overflow: auto;
@@ -159,10 +159,6 @@ input:checked ~ label .fa-sun {
   max-width: 50px;
   filter: invert(77%) sepia(93%) saturate(2978%) hue-rotate(2deg)
     brightness(107%) contrast(97%);
-}
-
-.pokedex-wrapper {
-  margin-block: 100px;
 }
 
 .pokedex-header {
@@ -468,17 +464,18 @@ input:checked ~ label .fa-sun {
 }
 
 /* Favorites Section  */
-.wave-wrapper {
-  position: absolute;
-  top: -10%;
-  width: 100%;
-  height: 20%;
-  z-index: -1;
-}
-
 .favorites {
   background-color: var(--primary-400);
   padding-block: 2rem;
+  position: relative;
+}
+
+.wave-wrapper {
+  position: absolute;
+  background-color: green;
+  top: 0%;
+  width: 100%;
+  z-index: 10;
 }
 
 .favorite-card-wrapper {
@@ -494,7 +491,7 @@ input:checked ~ label .fa-sun {
 }
 
 .fav-card-img-wrapper {
-  background-image: url(../assets/images/favorites-section-img/forest.webp);
+  background-image: url(../assets/images/favorites/forest.webp);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
