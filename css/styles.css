@@ -315,6 +315,7 @@ input:checked ~ label .fa-sun {
 
 .pokedex-grid-item {
   position: relative;
+  transition: 0.4s;
 }
 
 .pokedex-grid-item .pokemon-card {

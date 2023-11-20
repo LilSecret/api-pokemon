@@ -54,17 +54,19 @@ const setFavsInLS = () => {
 };
 
 const removeFaves = () => {
-  setTimeout(() => {
-    const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
-    pokemonFavsData.forEach((pokemon) => {
-      removePokemonCard(pokemon);
-    });
-  }, 100);
+  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
+  pokemonFavsData.forEach((pokemon) => {
+    removePokemonCard(pokemon);
+  });
 };
 
 const removePokemonCard = (name) => {
   const card = document.querySelector(`[data-pokemon=${name}]`);
-  pokedexGrid.removeChild(card);
+  if (!card) return;
+  card.style.transform = "scale(0)";
+  setTimeout(() => {
+    pokedexGrid.removeChild(card);
+  }, 500);
 };
 
 const togglePokemonFavorites = (target) => {
@@ -463,6 +465,7 @@ addGlobalEventListener("click", pokemonCard, (e) => {
   const name = parent.dataset.pokemon;
   bounceAnimation(heartIcon);
   togglePokemonFavorites(heartIcon);
+  removePokemonCard(name);
 });
 
 navigationSearch.addEventListener("click", () => {
