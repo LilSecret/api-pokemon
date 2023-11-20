@@ -336,6 +336,7 @@ input:checked ~ label .fa-sun {
   position: relative;
   user-select: none;
   z-index: 2;
+  margin-top: 10px;
 }
 
 .pokedex-grid-item:hover .pokemon-card {
@@ -347,6 +348,7 @@ input:checked ~ label .fa-sun {
   grid-area: left;
   display: grid;
   align-items: end;
+  pointer-events: none;
 }
 
 .pokemon-img-wrapper {
@@ -383,6 +385,7 @@ input:checked ~ label .fa-sun {
   align-content: space-between;
   align-items: center;
   grid-area: right;
+  pointer-events: none;
   display: grid;
   gap: 5px;
   grid-template-columns: 1fr 1fr;
@@ -403,6 +406,7 @@ input:checked ~ label .fa-sun {
   grid-area: base;
   display: flex;
   margin-top: 15px;
+  pointer-events: none;
 }
 
 .pokemon-card .type {
@@ -419,7 +423,6 @@ input:checked ~ label .fa-sun {
   font-size: 1.6rem;
   aspect-ratio: 1 / 2;
   width: 40px;
-  cursor: pointer;
   padding: 7px 8px 20px;
   transition: 0.3s ease-in;
   z-index: 1;
@@ -433,13 +436,9 @@ input:checked ~ label .fa-sun {
   transition: rotate 400ms;
 }
 
-.pokemon-card-tab:hover .fa-heart {
-  color: var(--primary-200);
-}
-
 .pokedex-grid-item:hover .pokemon-card-tab,
 .pokemon-card-tab:hover {
-  top: -50px;
+  top: -40px;
 }
 
 .btn[data-load="true"] {

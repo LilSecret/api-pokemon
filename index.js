@@ -6,6 +6,7 @@ const themeBtn = document.querySelector("#theme-btn");
 const waveBgImg = document.querySelector(".wave-bg");
 const heroChatBox = document.querySelector(".chat-box-wrapper img");
 
+const pokemonCard = ".pokemon-card";
 const pokemonFavs = "pokemonFavorites";
 const pokedexFilter = "data-filter";
 
@@ -456,9 +457,12 @@ pokedexNav.forEach((type) => {
   });
 });
 
-addGlobalEventListener("click", ".fa-heart", (e) => {
-  bounceAnimation(e.target);
-  togglePokemonFavorites(e.target);
+addGlobalEventListener("click", pokemonCard, (e) => {
+  const parent = e.target.parentElement;
+  const heartIcon = parent.querySelector(".fa-heart");
+  const name = parent.dataset.pokemon;
+  bounceAnimation(heartIcon);
+  togglePokemonFavorites(heartIcon);
 });
 
 navigationSearch.addEventListener("click", () => {
