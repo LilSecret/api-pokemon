@@ -238,16 +238,24 @@ const loadMoreType = async () => {
 };
 
 const loadSinglePokemon = async (pokemon) => {
-  pokemon = pokemon.toLowerCase();
+  const favorites = JSON.parse(localStorage.getItem(pokemonFavs));
   const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
+  pokemon = pokemon.toLowerCase();
   resetPokedex();
   disableLoadMore();
   startLoadSpinner();
   await placePokemonCard(url);
   stopLoadSpinner();
+
+  const heartIcon = document.querySelector(
+    `[data-pokemon=${pokemon}] .fa-heart`
+  );
+  if (favorites.includes(pokemon)) {
+    toggleIcon(heartIcon);
+  }
+
   pokedexGrid.setAttribute(pokedexFilter, pokemon);
   navigationSearch.reset();
-  removeFaves();
 };
 
 const disableLoadMore = () => {
@@ -306,13 +314,6 @@ const validate = (item, action) => {
 
 const titleCase = (string) => {
   return string.charAt(0).toUpperCase() + string.substring(1);
-};
-
-const bounceAnimation = (target) => {
-  target.style.animation = "heartBounce 500ms ease";
-  setTimeout(() => {
-    target.style.removeProperty("animation");
-  }, 550);
 };
 
 const addGlobalEventListener = (type, selector, callback) => {
@@ -463,7 +464,6 @@ addGlobalEventListener("click", pokemonCard, (e) => {
   const parent = e.target.parentElement;
   const heartIcon = parent.querySelector(".fa-heart");
   const name = parent.dataset.pokemon;
-  bounceAnimation(heartIcon);
   togglePokemonFavorites(heartIcon);
   removePokemonCard(name);
 });
