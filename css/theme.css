@@ -25,6 +25,7 @@ html[data-theme|="light"] {
 
   --favorite-card-bg: var(--neutral-100);
   --favorite-img-outline: var(--neutral-900);
+  --shelf-delete: var(--neutral-100);
 }
 
 html[data-theme|="dark"] {
@@ -39,6 +40,7 @@ html[data-theme|="dark"] {
 
   --favorite-card-bg: var(--neutral-900);
   --favorite-img-outline: var(--neutral-100);
+  --shelf-delete: var(--neutral-900);
 }
 
 [data-type="normal"] {
