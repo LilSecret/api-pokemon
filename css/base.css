@@ -41,6 +41,21 @@ a {
   text-decoration: none;
 }
 
+.heading {
+  color: var(--accent-400);
+  background-color: var(--secondary-900);
+  font-family: "Russo One", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+}
+
+.heading-md {
+  font-size: 2rem;
+  padding: 20px 15px;
+  user-select: auto;
+}
+
 .container {
   max-width: 1400px;
   margin-inline: auto;

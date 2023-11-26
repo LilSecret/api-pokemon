@@ -173,13 +173,10 @@ input:checked ~ label .fa-sun {
 .pokedex .heading {
   --font-size: 3rem;
   --border-width: calc(var(--font-size) * 2.22);
-  background-color: var(--secondary-900);
   padding: 29px 30px;
-  color: var(--accent-400);
   font-size: var(--font-size);
   margin-block-start: 100px;
   margin-block-end: 60px;
-  letter-spacing: 0.05em;
   position: relative;
 }
 
@@ -470,24 +467,26 @@ input:checked ~ label .fa-sun {
 /* Favorites Section  */
 .favorites {
   background-color: var(--primary-400);
-  padding-block: 2rem;
+  padding-bottom: 2rem;
   position: relative;
   z-index: -2;
 }
 
 .wave-wrapper {
-  position: absolute;
   top: 0%;
   width: 100%;
   z-index: -1;
-  /* display: none; */
 }
 
-.favorites h2 {
-  color: black;
-  z-index: 10;
+.favorites .heading {
+  z-index: 1;
+  display: inline-block;
   margin-inline: auto;
   font-size: 2rem;
+  text-align: center;
+  position: relative;
+  left: 50%;
+  translate: -50% 0%;
 }
 
 .favorites-collection {
@@ -497,7 +496,6 @@ input:checked ~ label .fa-sun {
   background-repeat: repeat;
   background-size: 70px;
   background-color: white;
-  margin-top: 14%;
   margin-inline: auto;
   display: grid;
   grid-template-columns: repeat(2, min(100px, 1fr));
