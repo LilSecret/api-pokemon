@@ -13,6 +13,7 @@ const pokedexFilter = "data-filter";
 const defaultPokemonImg = "./assets/images/default-pokemon.png";
 const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
 const pokedexGrid = document.querySelector(".pokedex-grid");
+const favoritesGrid = document.querySelector(".favorites-grid");
 const navigationSearch = document.querySelector(".navigation-search-wrapper");
 
 const loadAction = "load-more";
@@ -82,7 +83,7 @@ const togglePokemonFavorites = (target) => {
   localStorage.setItem(pokemonFavs, JSON.stringify(pokemonFavsData));
 };
 
-const placePokemonCard = async (url) => {
+const placePokemonCard = async (url, destination) => {
   try {
     let res = await fetch(url);
     res = await res.json();
@@ -99,7 +100,7 @@ const placePokemonCard = async (url) => {
     let type2 = res.types.length === 2 ? res.types[1].type.name : null;
 
     const gridItem = document.createElement("div");
-    gridItem.classList.add("pokedex-grid-item");
+    gridItem.classList.add("grid-item");
     gridItem.setAttribute("data-pokemon", pokemonName);
 
     const content = `
@@ -141,7 +142,7 @@ const placePokemonCard = async (url) => {
       </div>`;
 
     gridItem.innerHTML = content;
-    pokedexGrid.appendChild(gridItem);
+    destination.appendChild(gridItem);
   } catch (err) {
     const errorMessage =
       "It looks like the Pokemon you have entered does not exist. Please Try again.";
@@ -211,7 +212,7 @@ const loadMoreAllTypes = async (limit) => {
     let response = await fetch(url);
     response = await response.json();
     for (let result of response.results) {
-      await placePokemonCard(result.url);
+      await placePokemonCard(result.url, pokedexGrid);
     }
   } catch (err) {
     console.error(err.message);
@@ -230,32 +231,20 @@ const loadMoreType = async () => {
     const currentPokemon = currentData.pokemon[i];
     if (!validate(currentPokemon, loadAction)) return;
     const url = currentData.pokemon[i].pokemon.url;
-    await placePokemonCard(url);
+    await placePokemonCard(url, pokedexGrid);
   }
   removeFaves();
   offset = completion;
   stopLoadSpinner();
 };
 
-const loadSinglePokemon = async (pokemon) => {
+const fetchSinglePokemon = async (pokemon, destination) => {
   const favorites = JSON.parse(localStorage.getItem(pokemonFavs));
   const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
   pokemon = pokemon.toLowerCase();
-  resetPokedex();
-  disableLoadMore();
   startLoadSpinner();
-  await placePokemonCard(url);
+  await placePokemonCard(url, destination);
   stopLoadSpinner();
-
-  const heartIcon = document.querySelector(
-    `[data-pokemon=${pokemon}] .fa-heart`
-  );
-  if (favorites.includes(pokemon)) {
-    toggleIcon(heartIcon);
-  }
-
-  pokedexGrid.setAttribute(pokedexFilter, pokemon);
-  navigationSearch.reset();
 };
 
 const disableLoadMore = () => {
@@ -474,10 +463,21 @@ navigationSearch.addEventListener("click", () => {
   }
 });
 
-navigationSearch.addEventListener("submit", (event) => {
+navigationSearch.addEventListener("submit", async (event) => {
+  const favorites = JSON.parse(localStorage.getItem(pokemonFavs));
   const pokemon = document.getElementById("pokemon").value;
   event.preventDefault(); // stops auto submit
-  loadSinglePokemon(pokemon);
+  resetPokedex();
+  disableLoadMore();
+  await fetchSinglePokemon(pokemon, pokedexGrid);
+  pokedexGrid.setAttribute(pokedexFilter, pokemon);
+  navigationSearch.reset();
+  const heartIcon = document.querySelector(
+    `[data-pokemon=${pokemon}] .fa-heart`
+  );
+  if (favorites.includes(pokemon)) {
+    toggleIcon(heartIcon);
+  }
 });
 
 themeBtn.addEventListener("click", () => {
