@@ -114,3 +114,113 @@ a {
   color: var(--load-btn-bg);
   box-shadow: 0px 1px 2px var(--hero-chatbox-text);
 }
+
+/* POKEMON CARD STYLES */
+.pokemon-card {
+  box-shadow: 0px 3px 10px transparent;
+  display: grid;
+  cursor: pointer;
+  gap: 10px 65px;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-areas:
+    "left left right"
+    "base base base";
+  border-radius: 15px;
+  background-color: var(--pokemon-card-bg);
+  color: var(--pokemon-card-text);
+  border: solid 3px var(--pokemon-card-outline);
+  text-align: start;
+  width: 265px;
+  padding: 16px 18px;
+  position: relative;
+  user-select: none;
+  z-index: 2;
+  margin-top: 10px;
+}
+
+.pokemon-card .left {
+  grid-area: left;
+  display: grid;
+  align-items: end;
+  pointer-events: none;
+}
+
+.pokemon-img-wrapper {
+  position: absolute;
+  bottom: calc(100% - 5rem);
+  left: 40%;
+  transform: translateX(-50%);
+  isolation: isolate;
+}
+
+.pokemon-img-wrapper img {
+  min-width: 115px;
+  max-width: 140px;
+  max-height: 150px;
+}
+
+.pokemon-card-name {
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 1.55rem;
+  font-weight: 500;
+  letter-spacing: 1.4px;
+  width: 165px;
+}
+
+.pokemon-card .stats-grid {
+  font-family: "Electrolize", sans-serif;
+  align-content: space-between;
+  align-items: center;
+  grid-area: right;
+  pointer-events: none;
+  display: grid;
+  gap: 5px;
+  grid-template-columns: 1fr 1fr;
+  font-size: 1.15rem;
+}
+
+.stats-grid .icon-wrapper {
+  width: 25px;
+  pointer-events: none;
+}
+
+.stats-grid .stat {
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+.pokemon-card .base {
+  grid-area: base;
+  display: flex;
+  margin-top: 15px;
+  pointer-events: none;
+}
+
+.pokemon-card .type {
+  margin-right: 12px;
+}
+
+.pokemon-card-tab {
+  position: absolute;
+  right: 5px;
+  top: 10px;
+  background-color: var(--accent-400);
+  color: var(--primary-400);
+  border-radius: 8px;
+  font-size: 1.6rem;
+  aspect-ratio: 1 / 2;
+  width: 40px;
+  padding: 7px 8px 20px;
+  transition: 0.3s ease-in;
+  z-index: 1;
+}
+
+.pokemon-card-tab .fa-heart {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  translate: -50% -50%;
+}
