@@ -21,12 +21,10 @@ html[data-theme|="light"] {
   --pokemon-card-text: var(--neutral-100);
   --pokemon-card-bg: var(--primary-400);
   --pokedex-card-shadow: var(--secondary-400);
-  --favs-card-shadow: var(--primary-200);
+  --favs-card-shadow: var(--accent-400);
   --pokemon-card-outline: var(--neutral-900);
 
   --favorite-card-bg: var(--neutral-100);
-  --favorite-img-outline: var(--neutral-900);
-  --shelf-delete: var(--neutral-100);
 }
 
 html[data-theme|="dark"] {
@@ -37,11 +35,10 @@ html[data-theme|="dark"] {
   --pokemon-card-bg: var(--primary-200);
   --pokemon-card-text: var(--neutral-900);
   --pokedex-card-shadow: var(--accent-400);
+  --favs-card-shadow: var(--accent-400);
   --pokemon-card-outline: var(--primary-400);
 
   --favorite-card-bg: var(--neutral-900);
-  --favorite-img-outline: var(--neutral-100);
-  --shelf-delete: var(--neutral-900);
 }
 
 [data-type="normal"] {

@@ -16,6 +16,8 @@ const pokedexGrid = document.querySelector(".pokedex-grid");
 const favoritesGrid = document.querySelector(".favorites-grid");
 const navigationSearch = document.querySelector(".navigation-search-wrapper");
 
+const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
+
 const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
 const loaderIcon = document.querySelector(".pokedex-loader-wrapper");
@@ -485,3 +487,7 @@ themeBtn.addEventListener("click", () => {
 });
 
 loadMoreBtn.addEventListener("click", loadMoreHandler);
+
+favoredPokemon.forEach((pokemon) => {
+  fetchSinglePokemon(pokemon, favoritesGrid);
+});

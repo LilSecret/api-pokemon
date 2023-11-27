@@ -116,6 +116,27 @@ a {
 }
 
 /* POKEMON CARD STYLES */
+.deck-grid-wrapper {
+  margin-block: 83px 50px;
+  display: flex;
+  gap: 100px 35px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.grid-item {
+  position: relative;
+  transition: 0.4s;
+}
+
+.grid-item:hover .pokemon-card {
+  top: -10px;
+}
+
+.grid-item:hover .pokemon-card-tab {
+  top: -40px;
+}
+
 .pokemon-card {
   box-shadow: 0px 3px 10px transparent;
   display: grid;
@@ -206,7 +227,7 @@ a {
 .pokemon-card-tab {
   position: absolute;
   right: 5px;
-  top: 10px;
+  top: 12px;
   background-color: var(--accent-400);
   color: var(--primary-400);
   border-radius: 8px;
