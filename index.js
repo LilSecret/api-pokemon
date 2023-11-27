@@ -247,6 +247,12 @@ const fetchSinglePokemon = async (pokemon, destination) => {
   startLoadSpinner();
   await placePokemonCard(url, destination);
   stopLoadSpinner();
+  const heartIcon = document.querySelector(
+    `[data-pokemon=${pokemon}] .fa-heart`
+  );
+  if (favorites.includes(pokemon)) {
+    toggleIcon(heartIcon);
+  }
 };
 
 const disableLoadMore = () => {
@@ -465,21 +471,14 @@ navigationSearch.addEventListener("click", () => {
   }
 });
 
-navigationSearch.addEventListener("submit", async (event) => {
-  const favorites = JSON.parse(localStorage.getItem(pokemonFavs));
+navigationSearch.addEventListener("submit", (event) => {
   const pokemon = document.getElementById("pokemon").value;
   event.preventDefault(); // stops auto submit
   resetPokedex();
   disableLoadMore();
-  await fetchSinglePokemon(pokemon, pokedexGrid);
+  fetchSinglePokemon(pokemon, pokedexGrid);
   pokedexGrid.setAttribute(pokedexFilter, pokemon);
   navigationSearch.reset();
-  const heartIcon = document.querySelector(
-    `[data-pokemon=${pokemon}] .fa-heart`
-  );
-  if (favorites.includes(pokemon)) {
-    toggleIcon(heartIcon);
-  }
 });
 
 themeBtn.addEventListener("click", () => {
