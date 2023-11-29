@@ -6,14 +6,18 @@ const themeBtn = document.querySelector("#theme-btn");
 const waveBgImg = document.querySelector(".wave-bg");
 const heroChatBox = document.querySelector(".chat-box-wrapper img");
 
+const pokemonCard = ".pokemon-card";
 const pokemonFavs = "pokemonFavorites";
 const pokedexFilter = "data-filter";
 
-const pokemonCard = ".pokedex-grid-item";
+const card = ".pokedex-grid-item";
 const defaultPokemonImg = "./assets/images/default-pokemon.png";
 const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
 const pokedexGrid = document.querySelector(".pokedex-grid");
+const favoritesGrid = document.querySelector(".favorites-grid");
 const navigationSearch = document.querySelector(".navigation-search-wrapper");
+
+const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
 
 const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
@@ -47,23 +51,26 @@ const changeThemedElements = (theme) => {
   waveBgImg.setAttribute("src", `./assets/images/wave-bg-${theme}.svg`);
 };
 
-const setPokemonFavs = () => {
+const setFavsInLS = () => {
+  if (!localStorage.getItem(pokemonFavs)) {
+    localStorage.setItem(pokemonFavs, JSON.stringify([]));
+  }
+};
+
+const removeFaves = () => {
+  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
+  pokemonFavsData.forEach((pokemon) => {
+    removePokemonCard(pokemon);
+  });
+};
+
+const removePokemonCard = (name) => {
+  const card = document.querySelector(`[data-pokemon=${name}]`);
+  if (!card) return;
+  card.style.transform = "scale(0)";
   setTimeout(() => {
-    const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
-    if (!localStorage.getItem(pokemonFavs)) {
-      localStorage.setItem(pokemonFavs, JSON.stringify([]));
-    } else {
-      pokemonFavsData.forEach((pokemon) => {
-        const icon = document.querySelector(`[data-pokemon=${pokemon}] i`);
-        if (!icon || icon.classList.contains("fa-solid")) {
-          return;
-        } else {
-          icon.classList.remove("fa-regular");
-          icon.classList.add("fa-solid");
-        }
-      });
-    }
-  }, 100);
+    pokedexGrid.removeChild(card);
+  }, 500);
 };
 
 const togglePokemonFavorites = (target) => {
@@ -79,7 +86,7 @@ const togglePokemonFavorites = (target) => {
   localStorage.setItem(pokemonFavs, JSON.stringify(pokemonFavsData));
 };
 
-const placePokemonCard = async (url) => {
+const placePokemonCard = async (url, destination) => {
   try {
     let res = await fetch(url);
     res = await res.json();
@@ -96,7 +103,7 @@ const placePokemonCard = async (url) => {
     let type2 = res.types.length === 2 ? res.types[1].type.name : null;
 
     const gridItem = document.createElement("div");
-    gridItem.classList.add("pokedex-grid-item");
+    gridItem.classList.add("grid-item");
     gridItem.setAttribute("data-pokemon", pokemonName);
 
     const content = `
@@ -138,7 +145,7 @@ const placePokemonCard = async (url) => {
       </div>`;
 
     gridItem.innerHTML = content;
-    pokedexGrid.appendChild(gridItem);
+    destination.appendChild(gridItem);
   } catch (err) {
     const errorMessage =
       "It looks like the Pokemon you have entered does not exist. Please Try again.";
@@ -208,13 +215,13 @@ const loadMoreAllTypes = async (limit) => {
     let response = await fetch(url);
     response = await response.json();
     for (let result of response.results) {
-      await placePokemonCard(result.url);
+      await placePokemonCard(result.url, pokedexGrid);
     }
   } catch (err) {
     console.error(err.message);
     pokedexError("An unexpected error has occurred.");
   } finally {
-    setPokemonFavs();
+    removeFaves();
     offset += limit;
     stopLoadSpinner();
   }
@@ -227,24 +234,26 @@ const loadMoreType = async () => {
     const currentPokemon = currentData.pokemon[i];
     if (!validate(currentPokemon, loadAction)) return;
     const url = currentData.pokemon[i].pokemon.url;
-    await placePokemonCard(url);
+    await placePokemonCard(url, pokedexGrid);
   }
-  setPokemonFavs();
+  removeFaves();
   offset = completion;
   stopLoadSpinner();
 };
 
-const loadSinglePokemon = async (pokemon) => {
-  pokemon = pokemon.toLowerCase();
+const fetchSinglePokemon = async (pokemon, destination) => {
+  const favorites = JSON.parse(localStorage.getItem(pokemonFavs));
   const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-  resetPokedex();
-  disableLoadMore();
+  pokemon = pokemon.toLowerCase();
   startLoadSpinner();
-  await placePokemonCard(url);
+  await placePokemonCard(url, destination);
   stopLoadSpinner();
-  pokedexGrid.setAttribute(pokedexFilter, pokemon);
-  navigationSearch.reset();
-  setPokemonFavs();
+  const heartIcon = document.querySelector(
+    `[data-pokemon=${pokemon}] .fa-heart`
+  );
+  if (favorites.includes(pokemon)) {
+    toggleIcon(heartIcon);
+  }
 };
 
 const disableLoadMore = () => {
@@ -305,13 +314,6 @@ const titleCase = (string) => {
   return string.charAt(0).toUpperCase() + string.substring(1);
 };
 
-const bounceAnimation = (target) => {
-  target.style.animation = "heartBounce 500ms ease";
-  setTimeout(() => {
-    target.style.removeProperty("animation");
-  }, 550);
-};
-
 const addGlobalEventListener = (type, selector, callback) => {
   document.addEventListener(type, (e) => {
     if (e.target.matches(selector)) callback(e);
@@ -319,6 +321,7 @@ const addGlobalEventListener = (type, selector, callback) => {
 };
 
 const onStartup = () => {
+  setFavsInLS();
   setSiteTheme();
   loadMoreAllTypes(gridLoadLimit);
 };
@@ -470,7 +473,11 @@ navigationSearch.addEventListener("click", () => {
 navigationSearch.addEventListener("submit", (event) => {
   const pokemon = document.getElementById("pokemon").value;
   event.preventDefault(); // stops auto submit
-  loadSinglePokemon(pokemon);
+  resetPokedex();
+  disableLoadMore();
+  fetchSinglePokemon(pokemon, pokedexGrid);
+  pokedexGrid.setAttribute(pokedexFilter, pokemon);
+  navigationSearch.reset();
 });
 
 themeBtn.addEventListener("click", () => {
@@ -478,3 +485,7 @@ themeBtn.addEventListener("click", () => {
 });
 
 loadMoreBtn.addEventListener("click", loadMoreHandler);
+
+favoredPokemon.forEach((pokemon) => {
+  fetchSinglePokemon(pokemon, favoritesGrid);
+});

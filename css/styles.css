@@ -171,13 +171,12 @@ input:checked ~ label .fa-sun {
 }
 
 .pokedex .heading {
-  background-color: var(--secondary-900);
+  --font-size: 3rem;
+  --border-width: calc(var(--font-size) * 2.22);
   padding: 29px 30px;
-  color: var(--accent-400);
-  font-size: 5rem;
+  font-size: var(--font-size);
   margin-block-start: 100px;
   margin-block-end: 60px;
-  letter-spacing: 0.05em;
   position: relative;
 }
 
@@ -186,25 +185,28 @@ input:checked ~ label .fa-sun {
   content: "";
   width: 0;
   height: 0;
-  border-top: var(--pokedex-heading-size) solid var(--secondary-900);
-  border-right: var(--pokedex-heading-size) solid transparent;
-  right: calc(var(--pokedex-heading-size) * -1);
-  top: 0;
   position: absolute;
+  top: 0;
+}
+
+.pokedex .heading::after {
+  border-top: var(--border-width) solid var(--secondary-900);
+  border-right: var(--border-width) solid transparent;
+  right: calc(var(--border-width) * -1);
 }
 
 .pokedex .heading::before {
   border: none;
-  border-bottom: var(--pokedex-heading-size) solid var(--secondary-900);
-  border-left: var(--pokedex-heading-size) solid transparent;
+  border-bottom: var(--border-width) solid var(--secondary-900);
+  border-left: var(--border-width) solid transparent;
   bottom: -100px;
-  left: calc(var(--pokedex-heading-size) * -0.998);
+  left: calc(var(--border-width) * -0.998);
 }
 
 .header-img-wrapper {
   position: absolute;
   width: 200px;
-  right: -20%;
+  right: 0%;
 }
 
 .header-img-wrapper img {
@@ -438,9 +440,8 @@ input:checked ~ label .fa-sun {
   color: var(--primary-200);
 }
 
-.pokedex-grid-item:hover .pokemon-card-tab,
-.pokemon-card-tab:hover {
-  top: -50px;
+.pokedex-grid .grid-item:hover .pokemon-img-wrapper {
+  filter: drop-shadow(0 0 10px var(--pokedex-card-shadow));
 }
 
 .btn[data-load="true"] {
@@ -467,120 +468,25 @@ input:checked ~ label .fa-sun {
 /* Favorites Section  */
 .favorites {
   background-color: var(--primary-400);
-  padding-block: 2rem;
+  padding-bottom: 2rem;
   position: relative;
 }
 
 .wave-wrapper {
-  position: absolute;
-  background-color: green;
-  top: 0%;
   width: 100%;
-  z-index: 10;
 }
 
-.favorite-card-wrapper {
-  background-color: var(--favorite-card-bg);
-  width: min(1080px, 75%);
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-areas:
-    "main-image main-image main-image aside aside"
-    "main-image main-image main-image aside aside"
-    "evolution evolution evolution aside aside";
+.favorites .heading {
+  display: inline-block;
   margin-inline: auto;
-}
-
-.fav-card-img-wrapper {
-  background-image: url(../assets/images/favorites/forest.webp);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  border-right: solid 3px var(--favorite-img-outline);
-  border-bottom: solid 3px var(--favorite-img-outline);
-  border-bottom-right-radius: 8px;
-  grid-area: main-image;
-  display: flex;
-  justify-content: center;
-}
-
-.fav-card-img-wrapper img {
-  width: 250px;
-}
-
-.fav-card-left {
-  grid-area: aside;
-}
-
-.fav-card-graph {
-  display: flex;
-  justify-content: space-around;
-  padding: 30px 10px;
-}
-
-.fav-card-line {
-  background-color: var(--accent-400);
-  width: 80%;
-  height: 3px;
-  margin: 15px auto;
-}
-
-.stat-container {
+  text-align: center;
   position: relative;
-}
-
-.stat-progress-bar {
-  background: linear-gradient(
-    var(--neutral-400) 0% 50%,
-    var(--primary-400) 50% 100%
-  );
-  height: 150px;
-  width: 16px;
-  background-clip: text;
-}
-
-.stat-name {
-  position: absolute;
   left: 50%;
-  translate: -50% 30%;
-  font-size: 14px;
-  text-wrap: nowrap;
-  font-family: "Electrolize", sans-serif;
+  translate: -50% 0%;
 }
 
-.fav-card-against {
-  margin-left: 1rem;
-}
-
-.against-table {
-  display: flex;
-  margin-block: 0.5rem;
-}
-
-.against-table .type {
-  margin-right: 1.5rem;
-}
-
-.evolutions-wrapper {
-  grid-area: evolution;
-  padding: 6px 15px;
-  border-radius: 4px;
-}
-
-.evolution-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.evolution-box {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-}
-
-.evolution-img-wrapper {
-  width: 100px;
+.favorites .grid-item:hover .pokemon-card-tab {
+  top: -40px;
 }
 
 @keyframes gridLoader {
@@ -598,18 +504,5 @@ input:checked ~ label .fa-sun {
   }
   to {
     top: 82%;
-  }
-}
-
-@keyframes heartBounce {
-  30% {
-    top: 10%;
-    rotate: y 0.5turn;
-  }
-  60% {
-    top: 25%;
-  }
-  90% {
-    top: 10%;
   }
 }
