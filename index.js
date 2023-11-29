@@ -9,6 +9,8 @@ const heroChatBox = document.querySelector(".chat-box-wrapper img");
 const pokemonCard = ".pokemon-card";
 const pokemonFavs = "pokemonFavorites";
 const pokedexFilter = "data-filter";
+const pokedex = ".pokedex-grid";
+const favorite = ".favorites";
 
 const defaultPokemonImg = "./assets/images/default-pokemon.png";
 const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
@@ -59,17 +61,21 @@ const setFavsInLS = () => {
 const removeFaves = () => {
   const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
   pokemonFavsData.forEach((pokemon) => {
-    removePokemonCard(pokemon);
+    removeCard(pokemon, pokedex);
   });
 };
 
-const removePokemonCard = (name) => {
-  const card = document.querySelector(`[data-pokemon=${name}]`);
-  if (!card) return;
+const removeCard = (name, grid) => {
+  const card = document.querySelector(`${grid} [data-pokemon=${name}]`);
+  if (!card) return; // wasn't fetched in pokedex
   card.style.transform = "scale(0)";
   setTimeout(() => {
-    pokedexGrid.removeChild(card);
+    document.querySelector(grid).removeChild(card);
   }, 500);
+};
+
+const toggleCard = (card) => {
+  console.log(card);
 };
 
 const togglePokemonFavorites = (target) => {
@@ -458,11 +464,7 @@ pokedexNav.forEach((type) => {
 });
 
 addGlobalEventListener("click", pokemonCard, (e) => {
-  const parent = e.target.parentElement;
-  const heartIcon = parent.querySelector(".fa-heart");
-  const name = parent.dataset.pokemon;
-  togglePokemonFavorites(heartIcon);
-  removePokemonCard(name);
+  toggleCard(e.target);
 });
 
 navigationSearch.addEventListener("click", () => {
