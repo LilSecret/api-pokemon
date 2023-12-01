@@ -75,7 +75,14 @@ const removeCard = (name, grid) => {
 };
 
 const toggleCard = (card) => {
+  const parent = card.parentElement.parentElement;
+  const container = card.parentElement;
+  const deployGrid = parent.classList.contains("pokedex-grid")
+    ? favoritesGrid
+    : pokedexGrid;
   console.log(card);
+  removeChild();
+  deployGrid.appendChild(container);
 };
 
 const togglePokemonFavorites = (target) => {
@@ -107,12 +114,12 @@ const placePokemonCard = async (url, destination) => {
     let type1 = res.types[0].type.name;
     let type2 = res.types.length === 2 ? res.types[1].type.name : null;
 
-    const gridItem = document.createElement("div");
-    gridItem.classList.add("grid-item");
-    gridItem.setAttribute("data-pokemon", pokemonName);
+    const pokemonCard = document.createElement("div");
+    pokemonCard.classList.add("pokemon-card");
+    pokemonCard.setAttribute("data-pokemon", pokemonName);
 
     const content = `
-      <div class="pokemon-card">
+      <div class="card-body">
         <div class="left">
           <div class="pokemon-img-wrapper">
             <img
@@ -145,12 +152,12 @@ const placePokemonCard = async (url, destination) => {
           }
         </div>
       </div>
-      <div class="pokemon-card-tab">
+      <div class="card-tab">
         <i class="fa-regular fa-heart"></i>
       </div>`;
 
-    gridItem.innerHTML = content;
-    destination.appendChild(gridItem);
+    pokemonCard.innerHTML = content;
+    destination.appendChild(pokemonCard);
   } catch (err) {
     const errorMessage =
       "It looks like the Pokemon you have entered does not exist. Please Try again.";

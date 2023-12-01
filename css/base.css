@@ -124,20 +124,20 @@ a {
   justify-content: center;
 }
 
-.grid-item {
+.pokemon-card {
   position: relative;
   transition: 0.4s;
 }
 
-.grid-item:hover .pokemon-card {
+.pokemon-card:hover .card-body {
   top: -10px;
 }
 
-.grid-item:hover .pokemon-card-tab {
+.pokemon-card:hover .card-tab {
   top: -40px;
 }
 
-.pokemon-card {
+.card-body {
   box-shadow: 0px 3px 10px transparent;
   display: grid;
   cursor: pointer;
@@ -159,7 +159,7 @@ a {
   margin-top: 10px;
 }
 
-.pokemon-card .left {
+.card-body .left {
   grid-area: left;
   display: grid;
   align-items: end;
@@ -191,7 +191,7 @@ a {
   width: 165px;
 }
 
-.pokemon-card .stats-grid {
+.card-body .stats-grid {
   font-family: "Electrolize", sans-serif;
   align-content: space-between;
   align-items: center;
@@ -213,18 +213,18 @@ a {
   font-weight: 600;
 }
 
-.pokemon-card .base {
+.card-body .base {
   grid-area: base;
   display: flex;
   margin-top: 15px;
   pointer-events: none;
 }
 
-.pokemon-card .type {
+.card-body .type {
   margin-right: 12px;
 }
 
-.pokemon-card-tab {
+.card-tab {
   position: absolute;
   right: 5px;
   top: 12px;
@@ -239,7 +239,7 @@ a {
   z-index: 1;
 }
 
-.pokemon-card-tab .fa-heart {
+.card-tab .fa-heart {
   position: absolute;
   top: 30%;
   left: 50%;

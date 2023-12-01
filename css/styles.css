@@ -307,11 +307,11 @@ input:checked ~ label .fa-sun {
   display: block;
 }
 
-.pokedex-grid .grid-item:hover .pokemon-card {
+.pokedex-grid .pokemon-card:hover .pokemon-card {
   box-shadow: 0px 3px 10px var(--pokedex-card-shadow);
 }
 
-.pokedex-grid .grid-item:hover .pokemon-img-wrapper {
+.pokedex-grid .pokemon-card:hover .pokemon-img-wrapper {
   filter: drop-shadow(0 0 10px var(--pokedex-card-shadow));
 }
 
@@ -356,7 +356,7 @@ input:checked ~ label .fa-sun {
   translate: -50% 0%;
 }
 
-.favorites .grid-item:hover .pokemon-card-tab {
+.favorites .pokemon-card:hover .card-tab {
   top: -40px;
 }
 
