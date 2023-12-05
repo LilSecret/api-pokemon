@@ -61,28 +61,28 @@ const setFavsInLS = () => {
 const removeFaves = () => {
   const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
   pokemonFavsData.forEach((pokemon) => {
-    removeCard(pokemon, pokedex);
+    removeCard(pokemon, pokedexGrid);
   });
 };
 
 const removeCard = (name, grid) => {
-  const card = document.querySelector(`${grid} [data-pokemon=${name}]`);
+  const card = grid.querySelector(`[data-pokemon=${name}]`);
   if (!card) return; // wasn't fetched in pokedex
   card.style.transform = "scale(0)";
   setTimeout(() => {
-    document.querySelector(grid).removeChild(card);
+    grid.removeChild(card);
   }, 500);
 };
 
-const toggleCard = (card) => {
-  const parent = card.parentElement.parentElement;
-  const container = card.parentElement;
-  const deployGrid = parent.classList.contains("pokedex-grid")
-    ? favoritesGrid
-    : pokedexGrid;
-  console.log(card);
-  removeChild();
-  deployGrid.appendChild(container);
+const clickedCardHandler = (card) => {
+  const parent = card.parentElement;
+  const name = card.dataset.pokemon;
+  removeCard(name, parent);
+  // console.log(parent.id === "");
+  // if (parent.parentElement.id === "pokedex") {
+  //   favoritesGrid.appendChild(card);
+  //   card.style.transform = "scale(1)";
+  // }
 };
 
 const togglePokemonFavorites = (target) => {
@@ -471,7 +471,7 @@ pokedexNav.forEach((type) => {
 });
 
 addGlobalEventListener("click", pokemonCard, (e) => {
-  toggleCard(e.target);
+  clickedCardHandler(e.target);
 });
 
 navigationSearch.addEventListener("click", () => {

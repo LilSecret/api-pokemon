@@ -154,6 +154,7 @@ a {
   width: 265px;
   padding: 16px 18px;
   position: relative;
+  pointer-events: none;
   user-select: none;
   z-index: 2;
   margin-top: 10px;
@@ -234,6 +235,7 @@ a {
   font-size: 1.6rem;
   aspect-ratio: 1 / 2;
   width: 40px;
+  pointer-events: none;
   padding: 7px 8px 20px;
   transition: 0.3s ease-in;
   z-index: 1;
