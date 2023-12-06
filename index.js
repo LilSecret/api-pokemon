@@ -78,11 +78,15 @@ const clickedCardHandler = (card) => {
   const parent = card.parentElement;
   const name = card.dataset.pokemon;
   removeCard(name, parent);
-  // console.log(parent.id === "");
-  // if (parent.parentElement.id === "pokedex") {
-  //   favoritesGrid.appendChild(card);
-  //   card.style.transform = "scale(1)";
-  // }
+  // For Smooth Animation
+  setTimeout(() => {
+    if (parent.id === "pokedex-grid") {
+      favoritesGrid.appendChild(card);
+      setTimeout(() => {
+        card.style.transform = "scale(1)";
+      }, 100);
+    }
+  }, 500);
 };
 
 const togglePokemonFavorites = (target) => {
