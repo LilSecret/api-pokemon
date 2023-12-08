@@ -81,25 +81,24 @@ const clickedCardHandler = (card) => {
   // For Smooth Animation
   setTimeout(() => {
     if (parent.id === "pokedex-grid") {
-      favoritesGrid.appendChild(card);
-      setTimeout(() => {
-        card.style.transform = "scale(1)";
-      }, 100);
+      deployInFavorites(card);
     }
   }, 500);
 };
 
-const togglePokemonFavorites = (target) => {
-  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
-  const status = toggleIcon(target);
-  const pokemonName = target.parentElement.parentElement.dataset.pokemon;
+const deployInFavorites = (card) => {
+  favoritesGrid.appendChild(card);
+  toggleCardHeart(card);
+  // toggleInStorage(card);
+  setTimeout(() => {
+    card.style.transform = "scale(1)";
+  }, 100);
+};
 
-  if (status === "favored") {
-    pokemonFavsData.push(pokemonName);
-  } else {
-    pokemonFavsData.splice(pokemonFavsData.indexOf(pokemonName), 1);
-  }
-  localStorage.setItem(pokemonFavs, JSON.stringify(pokemonFavsData));
+const toggleInStorage = (card) => {
+  const favorites = JSON.parse(localStorage.getItem(pokemonFavs));
+  favorites.push(card.dataset.pokemon);
+  localStorage.setItem(pokemonFavs, favorites);
 };
 
 const placePokemonCard = async (url, destination) => {
@@ -165,7 +164,7 @@ const placePokemonCard = async (url, destination) => {
   } catch (err) {
     const errorMessage =
       "It looks like the Pokemon you have entered does not exist. Please Try again.";
-    pokedexError(errorMessage);
+    gridError(errorMessage, pokedexGrid);
     disableLoadMore();
     console.error(err.message);
   }
@@ -177,11 +176,11 @@ const resetPokedex = () => {
   loadMoreBtn.setAttribute("data-load", true);
 };
 
-const pokedexError = (message) => {
-  pokedexGrid.innerHTML = "";
-  const pokedexError = document.createElement("div");
-  pokedexError.classList.add("pokedex-error-wrapper");
-  pokedexError.innerHTML = `
+const gridError = (message, grid) => {
+  grid.innerHTML = "";
+  const errorWrapper = document.createElement("div");
+  errorWrapper.classList.add("error-wrapper");
+  errorWrapper.innerHTML = `
   <div class="error-img-wrapper">
     <img src="./assets/images/error-img.svg" alt="error img" />
   </div>
@@ -189,7 +188,7 @@ const pokedexError = (message) => {
   <p>
     ${message}
   </p>`;
-  pokedexGrid.appendChild(pokedexError);
+  grid.appendChild(errorWrapper);
 };
 
 const pokedexToType = async (type) => {
@@ -210,7 +209,7 @@ const pokedexToType = async (type) => {
     await loadMoreType();
   } catch (err) {
     console.error(err.message);
-    pokedexError("The Pokemon Type was unable to load.");
+    gridError("The Pokemon Type was unable to load.", pokedexGrid);
     stopLoadSpinner();
   }
 };
@@ -235,7 +234,7 @@ const loadMoreAllTypes = async (limit) => {
     }
   } catch (err) {
     console.error(err.message);
-    pokedexError("An unexpected error has occurred.");
+    gridError("An unexpected error has occurred.", pokedexGrid);
   } finally {
     removeFaves();
     offset += limit;
@@ -264,11 +263,9 @@ const fetchSinglePokemon = async (pokemon, destination) => {
   startLoadSpinner();
   await placePokemonCard(url, destination);
   stopLoadSpinner();
-  const heartIcon = document.querySelector(
-    `[data-pokemon=${pokemon}] .fa-heart`
-  );
+  const card = document.querySelector(`[data-pokemon=${pokemon}]`);
   if (favorites.includes(pokemon)) {
-    toggleIcon(heartIcon);
+    toggleCardHeart(card);
   }
 };
 
@@ -286,14 +283,13 @@ const stopLoadSpinner = () => {
   siteLoading = false;
 };
 
-const toggleIcon = (icon) => {
-  const regular = icon.classList.contains("fa-regular");
-  icon.classList.remove(`${regular === true ? "fa-regular" : "fa-solid"}`);
-  icon.classList.add(`${regular === true ? "fa-solid" : "fa-regular"}`);
+const toggleCardHeart = (card) => {
+  const icon = card.querySelector(".fa-heart");
+  const regularIcon = icon.classList.contains("fa-regular");
+  icon.classList.remove(`${regularIcon === true ? "fa-regular" : "fa-solid"}`);
+  icon.classList.add(`${regularIcon === true ? "fa-solid" : "fa-regular"}`);
 
-  if (icon.classList.contains("fa-heart")) {
-    return `${regular === true ? "favored" : "unfavored"}`;
-  }
+  return `${regularIcon === true ? "favored" : "unfavored"}`;
 };
 
 const toggleSearchNavigation = () => {
@@ -500,6 +496,14 @@ themeBtn.addEventListener("click", () => {
 
 loadMoreBtn.addEventListener("click", loadMoreHandler);
 
-favoredPokemon.forEach((pokemon) => {
-  fetchSinglePokemon(pokemon, favoritesGrid);
-});
+if (favoredPokemon.length === 0) {
+  gridError(
+    "You have not set any Favorite Pokemon. Go to the Pokedex and Click you favorite Pokemon.",
+    favoritesGrid
+  );
+  console.error("There was no pokemon favorites found");
+} else {
+  favoredPokemon.forEach((pokemon) => {
+    fetchSinglePokemon(pokemon, favoritesGrid);
+  });
+}

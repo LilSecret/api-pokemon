@@ -325,17 +325,6 @@ input:checked ~ label .fa-sun {
   opacity: 0.4;
 }
 
-.pokedex-error-wrapper {
-  max-width: 350px;
-  margin-inline: auto;
-  color: var(--hero-chatbox-text);
-}
-
-.pokedex-error-wrapper h2 {
-  padding-block: 14px;
-  font-size: 1.8rem;
-}
-
 /* Favorites Section  */
 .favorites {
   background-color: var(--primary-400);
