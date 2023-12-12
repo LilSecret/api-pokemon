@@ -81,6 +81,7 @@ const clickedCardHandler = (card) => {
   // For Smooth Animation
   setTimeout(() => {
     if (parent.id === "pokedex-grid") {
+      handleFavsError();
       deployInFavorites(card);
     }
   }, 500);
@@ -189,6 +190,15 @@ const gridError = (message, grid) => {
     ${message}
   </p>`;
   grid.appendChild(errorWrapper);
+};
+
+const handleFavsError = () => {
+  if (favoritesGrid.dataset.error === "true") {
+    favoritesGrid.innerHTML = "";
+    favoritesGrid.dataset.error = "false";
+  } else {
+    return;
+  }
 };
 
 const pokedexToType = async (type) => {
@@ -332,10 +342,26 @@ const addGlobalEventListener = (type, selector, callback) => {
   });
 };
 
+const favoritesStartup = () => {
+  if (favoredPokemon.length === 0) {
+    favoritesGrid.dataset.error = "true";
+    gridError(
+      "You have not set any Favorite Pokemon. Go to the Pokedex and Click you favorite Pokemon.",
+      favoritesGrid
+    );
+    console.error("There was no pokemon favorites found");
+  } else {
+    favoredPokemon.forEach((pokemon) => {
+      fetchSinglePokemon(pokemon, favoritesGrid);
+    });
+  }
+};
+
 const onStartup = () => {
   setFavsInLS();
   setSiteTheme();
   loadMoreAllTypes(gridLoadLimit);
+  favoritesStartup();
 };
 
 const pokemonTypeData = {
@@ -495,15 +521,3 @@ themeBtn.addEventListener("click", () => {
 });
 
 loadMoreBtn.addEventListener("click", loadMoreHandler);
-
-if (favoredPokemon.length === 0) {
-  gridError(
-    "You have not set any Favorite Pokemon. Go to the Pokedex and Click you favorite Pokemon.",
-    favoritesGrid
-  );
-  console.error("There was no pokemon favorites found");
-} else {
-  favoredPokemon.forEach((pokemon) => {
-    fetchSinglePokemon(pokemon, favoritesGrid);
-  });
-}
