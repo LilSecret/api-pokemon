@@ -354,7 +354,7 @@ const favoritesStartup = () => {
   if (favoredPokemon.length === 0) {
     favoritesGrid.dataset.error = "true";
     gridError(
-      "You have not set any Favorite Pokemon. Go to the Pokedex and Click you favorite Pokemon.",
+      "You haven't favored any pokémon. Scroll up to the pokedex and select your favorite pokémon.",
       favoritesGrid
     );
     console.error("There was no pokemon favorites found");
