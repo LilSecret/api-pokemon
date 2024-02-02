@@ -78,6 +78,7 @@ const clickedCardHandler = (card) => {
   const parent = card.parentElement;
   const name = card.dataset.pokemon;
   removeCard(name, parent);
+  toggleInStorage(card, parent);
   // For Smooth Animation
   setTimeout(() => {
     if (parent.id === "pokedex-grid") {
@@ -90,16 +91,23 @@ const clickedCardHandler = (card) => {
 const deployInFavorites = (card) => {
   favoritesGrid.appendChild(card);
   toggleCardHeart(card);
-  // toggleInStorage(card);
   setTimeout(() => {
     card.style.transform = "scale(1)";
   }, 100);
 };
 
-const toggleInStorage = (card) => {
+const toggleInStorage = (card, parent) => {
+  const name = card.dataset.pokemon;
   const favorites = JSON.parse(localStorage.getItem(pokemonFavs));
-  favorites.push(card.dataset.pokemon);
-  localStorage.setItem(pokemonFavs, favorites);
+  if (parent.id === "pokedex-grid") {
+    favorites.push(name);
+    console.log(favorites);
+  } else {
+    const index = favorites.indexOf(name);
+    console.log(favorites);
+    // favorites.splice(0,)
+  }
+  // localStorage.setItem(pokemonFavs, favorites);
 };
 
 const placePokemonCard = async (url, destination) => {
@@ -357,8 +365,8 @@ const favoritesStartup = () => {
   }
 };
 
-const onStartup = () => {
-  setFavsInLS();
+const onStartup = async () => {
+  await setFavsInLS();
   setSiteTheme();
   loadMoreAllTypes(gridLoadLimit);
   favoritesStartup();
