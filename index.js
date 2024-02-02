@@ -18,8 +18,6 @@ const pokedexGrid = document.querySelector(".pokedex-grid");
 const favoritesGrid = document.querySelector(".favorites-grid");
 const navigationSearch = document.querySelector(".navigation-search-wrapper");
 
-const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
-
 const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
 const loaderIcon = document.querySelector(".pokedex-loader-wrapper");
@@ -59,8 +57,8 @@ const setFavsInLS = () => {
 };
 
 const removeFaves = () => {
-  const pokemonFavsData = JSON.parse(localStorage.getItem(pokemonFavs));
-  pokemonFavsData.forEach((pokemon) => {
+  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
+  favoredPokemon.forEach((pokemon) => {
     removeCard(pokemon, pokedexGrid);
   });
 };
@@ -98,16 +96,15 @@ const deployInFavorites = (card) => {
 
 const toggleInStorage = (card, parent) => {
   const name = card.dataset.pokemon;
-  const favorites = JSON.parse(localStorage.getItem(pokemonFavs));
+  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
   if (parent.id === "pokedex-grid") {
-    favorites.push(name);
-    console.log(favorites);
+    favoredPokemon.push(name);
+    console.log(favoredPokemon);
   } else {
-    const index = favorites.indexOf(name);
-    console.log(favorites);
-    // favorites.splice(0,)
+    const index = favoredPokemon.indexOf(name);
+    console.log(favoredPokemon);
   }
-  // localStorage.setItem(pokemonFavs, favorites);
+  localStorage.setItem(pokemonFavs, favoredPokemon);
 };
 
 const placePokemonCard = async (url, destination) => {
@@ -275,14 +272,14 @@ const loadMoreType = async () => {
 };
 
 const fetchSinglePokemon = async (pokemon, destination) => {
-  const favorites = JSON.parse(localStorage.getItem(pokemonFavs));
+  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
   const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
   pokemon = pokemon.toLowerCase();
   startLoadSpinner();
   await placePokemonCard(url, destination);
   stopLoadSpinner();
   const card = document.querySelector(`[data-pokemon=${pokemon}]`);
-  if (favorites.includes(pokemon)) {
+  if (favoredPokemon.includes(pokemon)) {
     toggleCardHeart(card);
   }
 };
@@ -351,6 +348,7 @@ const addGlobalEventListener = (type, selector, callback) => {
 };
 
 const favoritesStartup = () => {
+  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
   if (favoredPokemon.length === 0) {
     favoritesGrid.dataset.error = "true";
     gridError(
