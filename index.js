@@ -99,12 +99,10 @@ const toggleInStorage = (card, parent) => {
   const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
   if (parent.id === "pokedex-grid") {
     favoredPokemon.push(name);
-    console.log(favoredPokemon);
   } else {
-    const index = favoredPokemon.indexOf(name);
-    console.log(favoredPokemon);
+    favoredPokemon.splice(favoredPokemon.indexOf(name), 1);
   }
-  localStorage.setItem(pokemonFavs, favoredPokemon);
+  localStorage.setItem(pokemonFavs, JSON.stringify(favoredPokemon));
 };
 
 const placePokemonCard = async (url, destination) => {
