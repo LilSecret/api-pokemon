@@ -3,7 +3,7 @@
   background-color: var(--primary-400);
   justify-content: space-between;
   align-items: center;
-  padding-inline: 250px;
+  padding-inline: 10%;
   height: 70px;
   position: fixed;
   width: 100%;
@@ -36,7 +36,6 @@
 
 .theme-toggle {
   transition: 200ms ease;
-  margin-left: 110px;
 }
 
 .theme-toggle:hover {

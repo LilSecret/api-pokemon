@@ -1,3 +1,9 @@
+@media (max-width: 768px) {
+  .navbar {
+    padding-inline: 35px;
+  }
+}
+
 @media (max-width: 500px) {
   .pokedex .heading {
     --font-size: 2rem;
