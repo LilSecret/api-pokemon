@@ -1,0 +1,9 @@
+@media (max-width: 500px) {
+  .pokedex .heading {
+    --font-size: 2rem;
+  }
+
+  .navigation-types {
+    gap: 3px;
+  }
+}
