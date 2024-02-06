@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding-inline: 250px;
-  height: 7vh;
+  height: 70px;
   position: fixed;
   width: 100%;
   border-bottom-left-radius: 8px;
@@ -24,7 +24,7 @@
 
 .navbar .nav-item {
   color: var(--pokemon-card-text);
-  font-size: 16px;
+  font-size: 1.2rem;
   font-weight: 100;
   margin-inline: 15px;
   font-family: "Russo One", sans-serif;
@@ -51,14 +51,14 @@
 .theme-toggle .theme-btn {
   background-color: var(--body-bg-color);
   position: relative;
-  border: 3px solid var(--secondary-400);
   border-radius: 50%;
   cursor: pointer;
   width: 36px;
   height: 36px;
   padding: 5px 8px;
   display: flex;
-  place-content: center;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
 }
 
@@ -172,35 +172,13 @@ input:checked ~ label .fa-sun {
 
 .pokedex .heading {
   --font-size: 3rem;
-  --border-width: calc(var(--font-size) * 2.22);
   padding: 29px 30px;
+  width: 100%;
+  clip-path: polygon(25% 0%, 100% 0, 75% 100%, 0% 100%);
   font-size: var(--font-size);
   margin-block-start: 100px;
   margin-block-end: 60px;
   position: relative;
-}
-
-.pokedex .heading::after,
-.pokedex .heading::before {
-  content: "";
-  width: 0;
-  height: 0;
-  position: absolute;
-  top: 0;
-}
-
-.pokedex .heading::after {
-  border-top: var(--border-width) solid var(--secondary-900);
-  border-right: var(--border-width) solid transparent;
-  right: calc(var(--border-width) * -1);
-}
-
-.pokedex .heading::before {
-  border: none;
-  border-bottom: var(--border-width) solid var(--secondary-900);
-  border-left: var(--border-width) solid transparent;
-  bottom: -100px;
-  left: calc(var(--border-width) * -0.998);
 }
 
 .header-img-wrapper {
