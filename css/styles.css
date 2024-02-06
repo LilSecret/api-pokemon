@@ -171,12 +171,11 @@ input:checked ~ label .fa-sun {
 
 .pokedex .heading {
   --font-size: 3rem;
-  padding: 29px 30px;
+  padding: calc(var(--font-size) - 1.1rem);
   width: 100%;
   clip-path: polygon(25% 0%, 100% 0, 75% 100%, 0% 100%);
   font-size: var(--font-size);
-  margin-block-start: 100px;
-  margin-block-end: 60px;
+  margin-block: 100px 60px;
   position: relative;
 }
 
