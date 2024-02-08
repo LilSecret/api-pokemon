@@ -47,6 +47,8 @@ a {
   --hamburger-gap: 5px;
   --hamburger-hover: var(--accent-400);
   --foreground: var(--pokemon-card-text);
+  --animation-timing: 200ms ease-in-out;
+  --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
 }
 
 .heading {

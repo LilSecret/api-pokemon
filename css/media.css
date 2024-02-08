@@ -2,6 +2,15 @@
   .navbar {
     padding-inline: 35px;
   }
+
+  .hamburger-menu {
+    height: auto;
+  }
+
+  .navbar .nav-links {
+    top: var(--navbar-height);
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 500px) {

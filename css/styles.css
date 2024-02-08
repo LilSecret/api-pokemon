@@ -1,10 +1,11 @@
 .navbar {
+  --navbar-height: 70px;
   display: flex;
   background-color: var(--primary-400);
   justify-content: space-between;
   align-items: center;
   padding-inline: 10%;
-  height: 70px;
+  height: var(--navbar-height);
   position: fixed;
   width: 100%;
   border-bottom-left-radius: 8px;
@@ -26,10 +27,13 @@
 }
 
 .hamburger-menu {
+  --x-width: calc(var(--hamburger-height) * 1.41421356237);
+  height: 0;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   gap: var(--hamburger-gap);
-  cursor: pointer;
+  width: max-content;
 }
 
 .hamburger-menu:hover::before,
@@ -46,13 +50,32 @@
   width: var(--bar-width);
   background-color: var(--foreground);
   border-radius: 1rem;
-  transition: 0.2s ease;
+  transition: var(--animation-timing);
+  transform-origin: left center;
 }
 
-.nav-links-wrapper input {
+.hamburger-menu input {
   appearance: none;
   margin: 0;
+  outline: none;
   padding: 0;
+  pointer-events: none;
+}
+
+.hamburger-menu:has(input:checked):before {
+  width: var(--x-width);
+  transform: rotate(45deg);
+  translate: 0 calc(var(--bar-height) / -2);
+}
+.hamburger-menu:has(input:checked):after {
+  width: var(--x-width);
+  transform: rotate(-45deg);
+  translate: 0 calc(var(--bar-height) / 2);
+}
+
+.hamburger-menu input:checked {
+  opacity: 0;
+  width: 0;
 }
 
 .navbar .nav-links {
