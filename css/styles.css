@@ -22,8 +22,12 @@
 .hamburger-menu {
   position: absolute;
   top: 50%;
-  left: 51%;
+  left: 50%;
   translate: -50% -50%;
+}
+
+.hamburger-menu {
+  left: 50.5%;
 }
 
 .hamburger-menu {
@@ -81,6 +85,7 @@
 .navbar .nav-links {
   display: flex;
   align-items: center;
+  transition: left var(--animation-timing);
 }
 
 .navbar .nav-item {

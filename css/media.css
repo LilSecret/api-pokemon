@@ -7,9 +7,25 @@
     height: auto;
   }
 
+  .navbar .nav-links-wrapper {
+    width: 100%;
+  }
+
   .navbar .nav-links {
-    top: var(--navbar-height);
+    background-color: var(--primary-400);
+    gap: 5px;
+    position: relative;
+    top: calc(var(--navbar-height) - 7px);
     flex-direction: column;
+    padding-bottom: 5px;
+  }
+
+  .navbar .nav-links {
+    left: -100%;
+  }
+
+  .hamburger-menu:has(input:checked) + .nav-links {
+    left: 0%;
   }
 }
 
