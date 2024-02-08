@@ -1,4 +1,3 @@
-// Change the Theme for Site
 const siteTheme = "pokeTheme";
 
 const html = document.querySelector("html");
@@ -32,6 +31,9 @@ const setSiteTheme = () => {
   if (!theme) {
     localStorage.setItem(siteTheme, "light");
   } else {
+    if (theme === "dark") {
+      themeBtn.checked = true;
+    }
     changeThemedElements(theme);
   }
 };
@@ -362,7 +364,7 @@ const favoritesStartup = () => {
 };
 
 const onStartup = async () => {
-  await setFavsInLS();
+  setFavsInLS();
   setSiteTheme();
   loadMoreAllTypes(gridLoadLimit);
   favoritesStartup();
