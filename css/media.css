@@ -5,6 +5,14 @@
 }
 
 @media (max-width: 500px) {
+  .nav-links-wrapper input {
+    display: block;
+  }
+
+  .navbar .nav-links {
+    display: none;
+  }
+
   .pokedex .heading {
     --font-size: 2rem;
     width: 90%;

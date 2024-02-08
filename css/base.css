@@ -41,6 +41,14 @@ a {
   text-decoration: none;
 }
 
+:root {
+  --bar-width: 40px;
+  --bar-height: 6px;
+  --hamburger-gap: 5px;
+  --hamburger-hover: var(--accent-400);
+  --foreground: var(--pokemon-card-text);
+}
+
 .heading {
   color: var(--accent-400);
   background-color: var(--secondary-900);
