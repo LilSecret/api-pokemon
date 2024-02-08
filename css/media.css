@@ -34,8 +34,9 @@
     display: block;
   }
 
-  .navbar .nav-links {
-    display: none;
+  .hamburger-menu {
+    right: 65px;
+    left: auto;
   }
 
   .pokedex .heading {
