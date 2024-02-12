@@ -89,7 +89,7 @@
 }
 
 .navbar .nav-item {
-  color: var(--pokemon-card-text);
+  color: var(--navigation-link-clr);
   font-size: 1.2rem;
   font-weight: 100;
   margin-inline: 15px;

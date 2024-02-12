@@ -1,6 +1,8 @@
 :root {
   --neutral-100: #fffaeb;
+  --neutral-200: #dbdbdb;
   --neutral-400: #7d7c7c;
+  --neutral-800: #2e2e2e;
   --neutral-900: #161615;
   --primary-400: #ba4a4a;
   --primary-200: #ff7575;
@@ -18,6 +20,7 @@ html[data-theme|="light"] {
   --load-btn-bg: var(--accent-400);
   --load-btn-clr: var(--neutral-900);
   --body-bg-color: var(--neutral-100);
+  --navigation-link-clr: var(--neutral-100);
   --pokemon-card-text: var(--neutral-100);
   --pokemon-card-bg: var(--primary-400);
   --pokedex-card-shadow: var(--secondary-400);
@@ -33,6 +36,7 @@ html[data-theme|="dark"] {
   --load-btn-clr: var(--neutral-100);
   --body-bg-color: var(--neutral-900);
   --pokemon-card-bg: var(--primary-200);
+  --navigation-link-clr: var(--neutral-900);
   --pokemon-card-text: var(--neutral-900);
   --pokedex-card-shadow: var(--accent-400);
   --favs-card-shadow: var(--accent-400);
