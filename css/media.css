@@ -12,16 +12,16 @@
   }
 
   .navbar .nav-links {
-    background-color: var(--primary-400);
-    gap: 5px;
+    background-color: var(--primary-200);
     position: relative;
     top: calc(var(--navbar-height) - 7px);
     flex-direction: column;
     padding-bottom: 5px;
+    left: -100%;
   }
 
-  .navbar .nav-links {
-    left: -100%;
+  .navbar .nav-links li {
+    padding-block: 5px;
   }
 
   .hamburger-menu:has(input:checked) + .nav-links {
