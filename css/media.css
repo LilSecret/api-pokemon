@@ -14,7 +14,7 @@
   .navbar .nav-links {
     background-color: var(--primary-200);
     position: relative;
-    top: calc(var(--navbar-height) - 7px);
+    top: calc(var(--navbar-height) + 6px);
     flex-direction: column;
     padding-bottom: 5px;
     left: -100%;
