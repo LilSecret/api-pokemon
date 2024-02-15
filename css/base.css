@@ -270,3 +270,5 @@ a {
   padding-block: 14px;
   font-size: 1.8rem;
 }
+
+[data-modal="open"]
