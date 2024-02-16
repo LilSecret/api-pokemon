@@ -318,7 +318,7 @@ a {
 .modal-backdrop {
   background-color: rgba(0, 0, 0, 0);
   content: "";
-  display: block;
+  display: none;
   position: fixed;
   top: 0;
   bottom: 0;
@@ -329,5 +329,6 @@ a {
 }
 
 .modal-backdrop.active {
+  display: block;
   background-color: rgba(0, 0, 0, 0.8);
 }
