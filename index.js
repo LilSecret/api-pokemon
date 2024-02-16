@@ -373,17 +373,21 @@ const onStartup = async () => {
 };
 
 const closeModal = (modal) => {
-  // close animation
-  modal.style.opacity = "0";
-  modal.style.top = "30%";
-  setTimeout(() => {
-    modal.setAttribute("data-modal-state", "close");
-  }, 300);
+  modal.classList.remove("active");
   modalBackdrop.classList.remove("active");
   // if modal id is inside navigation
   if (modal.classList.contains("nav-modal")) {
     const activeLink = document.querySelector(".nav-item.active");
     activeLink.classList.remove("active");
+  }
+};
+
+const openModal = (modalBtn) => {
+  let modal = modalBtn.getAttribute("data-modal");
+  modal = document.querySelector(`#${modal}`);
+
+  if (modalBtn.classList.contains("nav-item")) {
+    modalBtn.classList.add("active");
   }
 };
 
@@ -546,6 +550,10 @@ themeBtn.addEventListener("click", () => {
 loadMoreBtn.addEventListener("click", loadMoreHandler);
 
 addGlobalEventListener("click", "[data-exit]", (e) => {
-  const openedModal = document.querySelector("[data-modal-state='open']");
+  const openedModal = document.querySelector(".modal.active");
   closeModal(openedModal);
+});
+
+addGlobalEventListener("click", "[data-modal]", (e) => {
+  openModal(e.target);
 });

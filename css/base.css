@@ -276,25 +276,24 @@ a {
   border: solid 2px var(--primary-400);
   background-color: var(--modal-bg);
   color: var(--modal-text);
+  top: 30%;
+  opacity: 0;
+  left: 50%;
   flex-direction: column;
   gap: 7px;
   max-width: 500px;
-  translate: -50% -50%;
+  transform: translate(-50%, -50%);
   text-align: center;
-  transition: 200ms ease-in-out;
+  transition: 300ms ease-in-out;
   padding: 20px 25px;
   position: fixed;
   z-index: 10;
 }
 
-[data-modal-state="close"] {
-  display: none;
-}
-
-[data-modal-state="open"] {
+.modal.active {
   display: flex;
   top: 50%;
-  left: 50%;
+  opacity: 1;
 }
 
 .modal .close-btn {
