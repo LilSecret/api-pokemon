@@ -26,7 +26,9 @@
         <ul class="nav-links">
           <li><a href="#pokedex" class="nav-item">Pokémon</a></li>
           <li><a href="#favorites" class="nav-item">Favorites</a></li>
-          <li><a href="#" class="nav-item" data-modal="active">About</a></li>
+          <li>
+            <a href="#" class="nav-item" data-modal="active">About</a>
+          </li>
         </ul>
       </div>
       <div id="theme-toggle" class="theme-toggle">
@@ -144,10 +146,10 @@
     </main>
 
     <!-- Modals  -->
-    <div class="modal-backdrop"></div>
-    <div id="about" class="modal" data-modal="open">
+    <div class="modal-backdrop active"></div>
+    <div id="about" class="modal nav-modal" data-modal="open">
       <h3 class="header-lg">About</h3>
-      <span class="close-btn">&times;</span>
+      <span class="close-btn" data-exit="about">&times;</span>
       <span>Hello there👋</span>
       <p>
         Welcome to my Pokemon Favorites website. Here you are able to save your

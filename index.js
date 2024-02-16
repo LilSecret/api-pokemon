@@ -26,6 +26,8 @@ let siteLoading = false;
 let offset = 0;
 let currentData;
 
+const modalBackdrop = document.querySelector(".modal-backdrop");
+
 const setSiteTheme = () => {
   const theme = localStorage.getItem("pokeTheme");
   if (!theme) {
@@ -370,6 +372,21 @@ const onStartup = async () => {
   favoritesStartup();
 };
 
+const closeModal = (modal) => {
+  // close animation
+  modal.style.opacity = "0";
+  modal.style.top = "30%";
+  setTimeout(() => {
+    modal.setAttribute("data-modal", "close");
+  }, 300);
+  modalBackdrop.classList.remove("active");
+  // if modal id is inside navigation
+  if (modal.classList.contains("nav-modal")) {
+    const activeLink = document.querySelector("[data-modal=active]");
+    activeLink.setAttribute("data-modal", "inactive");
+  }
+};
+
 const pokemonTypeData = {
   normal: "1",
   fighting: "2",
@@ -527,3 +544,8 @@ themeBtn.addEventListener("click", () => {
 });
 
 loadMoreBtn.addEventListener("click", loadMoreHandler);
+
+addGlobalEventListener("click", "[data-exit]", (e) => {
+  const openedModal = document.querySelector("[data-modal='open']");
+  closeModal(openedModal);
+});

@@ -281,6 +281,7 @@ a {
   max-width: 500px;
   translate: -50% -50%;
   text-align: center;
+  transition: 200ms ease-in-out;
   padding: 20px 25px;
   position: fixed;
   z-index: 10;
@@ -288,8 +289,6 @@ a {
 
 [data-modal="close"] {
   display: none;
-  top: 60%;
-  left: 50%;
 }
 
 [data-modal="open"] {
@@ -317,6 +316,7 @@ a {
 }
 
 .modal-backdrop {
+  background-color: rgba(0, 0, 0, 0);
   content: "";
   display: block;
   position: fixed;
@@ -324,6 +324,10 @@ a {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.8);
+  transition: 200ms ease-in-out;
   z-index: 9;
+}
+
+.modal-backdrop.active {
+  background-color: rgba(0, 0, 0, 0.8);
 }
