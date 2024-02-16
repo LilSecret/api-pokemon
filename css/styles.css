@@ -99,6 +99,10 @@
   color: var(--accent-400);
 }
 
+.nav-item[data-modal="active"] {
+  color: var(--accent-400) !important;
+}
+
 .theme-toggle {
   transition: 200ms ease;
 }
