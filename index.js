@@ -377,7 +377,7 @@ const closeModal = (modal) => {
   modal.style.opacity = "0";
   modal.style.top = "30%";
   setTimeout(() => {
-    modal.setAttribute("data-modal", "close");
+    modal.setAttribute("data-modal-state", "close");
   }, 300);
   modalBackdrop.classList.remove("active");
   // if modal id is inside navigation
@@ -546,6 +546,6 @@ themeBtn.addEventListener("click", () => {
 loadMoreBtn.addEventListener("click", loadMoreHandler);
 
 addGlobalEventListener("click", "[data-exit]", (e) => {
-  const openedModal = document.querySelector("[data-modal='open']");
+  const openedModal = document.querySelector("[data-modal-state='open']");
   closeModal(openedModal);
 });
