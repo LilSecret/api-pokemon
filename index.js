@@ -386,6 +386,9 @@ const openModal = (modalBtn) => {
   let modal = modalBtn.getAttribute("data-modal");
   modal = document.querySelector(`#${modal}`);
 
+  modal.classList.add("active");
+  modalBackdrop.classList.add("active");
+
   if (modalBtn.classList.contains("nav-item")) {
     modalBtn.classList.add("active");
   }
