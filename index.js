@@ -382,8 +382,8 @@ const closeModal = (modal) => {
   modalBackdrop.classList.remove("active");
   // if modal id is inside navigation
   if (modal.classList.contains("nav-modal")) {
-    const activeLink = document.querySelector("[data-modal=active]");
-    activeLink.setAttribute("data-modal", "inactive");
+    const activeLink = document.querySelector(".nav-item.active");
+    activeLink.classList.remove("active");
   }
 };
 

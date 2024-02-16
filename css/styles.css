@@ -93,13 +93,14 @@
   font-weight: 100;
   margin-inline: 15px;
   font-family: "Russo One", sans-serif;
+  transition: 200ms ease-in-out;
 }
 
 .navbar .nav-item:hover {
   color: var(--accent-400);
 }
 
-.nav-item[data-modal="active"] {
+.nav-item.active {
   color: var(--accent-400) !important;
 }
 
