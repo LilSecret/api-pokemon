@@ -286,12 +286,14 @@ a {
   text-align: center;
   transition: 300ms ease-in-out;
   padding: 20px 25px;
+  pointer-events: none;
   position: fixed;
   z-index: 10;
 }
 
 .modal.active {
   display: flex;
+  pointer-events: all;
   top: 50%;
   opacity: 1;
 }
