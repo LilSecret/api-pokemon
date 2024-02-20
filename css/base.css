@@ -68,12 +68,12 @@ a {
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1300px;
   margin-inline: auto;
 }
 
 .container-md {
-  max-width: 1200px;
+  max-width: 1250px;
   margin-inline: auto;
 }
 
@@ -257,6 +257,31 @@ a {
   top: 30%;
   left: 50%;
   translate: -50% -50%;
+}
+
+.grid-base {
+  font-family: "Russo One", sans-serif;
+  color: var(--hero-chatbox-text);
+  display: flex;
+  justify-content: space-between;
+}
+
+.grid-data,
+.data-stat {
+  gap: 5px;
+  opacity: 0.8;
+  display: flex;
+}
+
+.sort-btn {
+  cursor: pointer;
+  padding: 7px;
+  border: solid 2px var(--neutral-900);
+  border-radius: 4px;
+}
+
+.sort-btn:hover {
+  background-color: var(--accent-400);
 }
 
 .error-wrapper {
