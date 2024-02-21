@@ -21,6 +21,8 @@ const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
 const loaderIcon = document.querySelector(".pokedex-loader-wrapper");
 
+const sortButtons = document.querySelectorAll(".sort-btn");
+
 const gridLoadLimit = 30;
 let siteLoading = false;
 let offset = 0;
@@ -394,6 +396,16 @@ const openModal = (modalBtn) => {
   }
 };
 
+const sortCards = (deck) => {
+  const deckArray = Array.from(deck.children);
+  const newArr = deckArray.sort((a, b) =>
+    a.dataset.pokemon.localeCompare(b.dataset.pokemon)
+  );
+
+  deck.innerHTML = "";
+  newArr.forEach((card) => deck.appendChild(card));
+};
+
 const pokemonTypeData = {
   normal: "1",
   fighting: "2",
@@ -548,6 +560,14 @@ navigationSearch.addEventListener("submit", (event) => {
 
 themeBtn.addEventListener("click", () => {
   toggleSiteTheme();
+});
+
+sortButtons.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    const buttonGrid = `.${e.target.parentElement.parentElement.id}-grid`;
+    const gridToSort = document.querySelector(buttonGrid);
+    sortCards(gridToSort);
+  });
 });
 
 loadMoreBtn.addEventListener("click", loadMoreHandler);
