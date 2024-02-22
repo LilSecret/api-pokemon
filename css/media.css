@@ -30,6 +30,18 @@
 }
 
 @media (max-width: 500px) {
+  .header-lg {
+    font-size: 2rem;
+  }
+
+  .modal {
+    width: 65%;
+  }
+
+  .modal .close-btn {
+    right: 15px;
+  }
+
   .nav-links-wrapper input {
     display: block;
   }
