@@ -263,6 +263,7 @@ a {
   font-family: "Russo One", sans-serif;
   color: var(--hero-chatbox-text);
   display: flex;
+  padding-inline: 50px;
   align-items: center;
   justify-content: space-between;
 }

@@ -34,6 +34,19 @@
     font-size: 2rem;
   }
 
+  .grid-base {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .sort-btn {
+    order: 2;
+  }
+
+  .grid-data {
+    order: 1;
+  }
+
   .modal {
     width: 65%;
   }
