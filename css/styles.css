@@ -363,14 +363,14 @@ input:checked ~ label .fa-sun {
 }
 
 .pokemon-card.legendary:hover .card-body {
-  --clr-one: var(--primary-200);
+  --clr-one: var(--pokemon-card-bg);
   --clr-two: var(--accent-400);
   animation: 1.5s infinite special;
 }
 
 .pokemon-card.mythical:hover .card-body {
   --clr-one: var(--secondary-400);
-  --clr-two: var(--accent-400);
+  --clr-two: #9d7cb1;
   animation: 1.5s infinite special;
 }
 
