@@ -115,6 +115,8 @@ const placePokemonCard = async (url, destination) => {
   try {
     let res = await fetch(url);
     res = await res.json();
+    let species = await fetch(res.species.url);
+    species = await species.json();
 
     const pokemonImg = getPokemonImg(
       res.sprites.other.dream_world.front_default,
@@ -129,6 +131,7 @@ const placePokemonCard = async (url, destination) => {
 
     const pokemonCard = document.createElement("div");
     pokemonCard.classList.add("pokemon-card");
+    if (getBreed(species)) pokemonCard.classList.add(getBreed(species));
     pokemonCard.setAttribute("data-pokemon", pokemonName);
 
     const content = `
@@ -178,6 +181,13 @@ const placePokemonCard = async (url, destination) => {
     disableLoadMore();
     console.error(err.message);
   }
+};
+
+const getBreed = (data) => {
+  if (data.is_legendary) return "legendary";
+  if (data.is_baby) return "baby";
+  if (data.is_mythical) return "mythical";
+  return null;
 };
 
 const resetPokedex = () => {
