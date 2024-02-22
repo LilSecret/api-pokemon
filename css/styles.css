@@ -358,8 +358,20 @@ input:checked ~ label .fa-sun {
   box-shadow: 0px 3px 10px var(--pokedex-card-shadow);
 }
 
-.pokedex-grid .pokemon-card:hover .pokemon-img-wrapper {
-  filter: drop-shadow(0 0 10px var(--pokedex-card-shadow));
+.pokemon-card.baby:hover .card-body {
+  background-color: var(--secondary-400);
+}
+
+.pokemon-card.legendary:hover .card-body {
+  --clr-one: var(--primary-200);
+  --clr-two: var(--accent-400);
+  animation: 1.5s infinite special;
+}
+
+.pokemon-card.mythical:hover .card-body {
+  --clr-one: var(--secondary-400);
+  --clr-two: var(--accent-400);
+  animation: 1.5s infinite special;
 }
 
 .btn[data-load="true"] {
@@ -394,6 +406,42 @@ input:checked ~ label .fa-sun {
 
 .favorites .pokemon-card:hover .card-tab {
   top: -40px;
+}
+
+@keyframes special {
+  0% {
+    background: linear-gradient(0deg, var(--clr-one), var(--clr-two));
+  }
+  10% {
+    background: linear-gradient(36deg, var(--clr-one), var(--clr-two));
+  }
+  20% {
+    background: linear-gradient(72deg, var(--clr-one), var(--clr-two));
+  }
+  30% {
+    background: linear-gradient(108deg, var(--clr-one), var(--clr-two));
+  }
+  40% {
+    background: linear-gradient(144deg, var(--clr-one), var(--clr-two));
+  }
+  50% {
+    background: linear-gradient(180deg, var(--clr-one), var(--clr-two));
+  }
+  60% {
+    background: linear-gradient(216deg, var(--clr-one), var(--clr-two));
+  }
+  70% {
+    background: linear-gradient(252deg, var(--clr-one), var(--clr-two));
+  }
+  80% {
+    background: linear-gradient(288deg, var(--clr-one), var(--clr-two));
+  }
+  90% {
+    background: linear-gradient(324deg, var(--clr-one), var(--clr-two));
+  }
+  100% {
+    background: linear-gradient(360deg, var(--clr-one), var(--clr-two));
+  }
 }
 
 @keyframes gridLoader {
