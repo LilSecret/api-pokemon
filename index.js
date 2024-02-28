@@ -17,7 +17,7 @@ const pokedexGrid = document.querySelector(".pokedex-grid");
 const favoritesGrid = document.querySelector(".favorites-grid");
 const navigationSearch = document.querySelector(".navigation-search-wrapper");
 
-const specialsCards = ["baby", "legendary", "mythical"];
+const specialCards = ["baby", "legendary", "mythical"];
 
 const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
@@ -195,9 +195,9 @@ const placePokemonCard = async (url, destination) => {
 
 const logSpecial = (data, grid) => {
   let special = false;
-  if (data.is_baby) special = specialsCards[0];
-  if (data.is_legendary) special = specialsCards[1];
-  if (data.is_mythical) special = specialsCards[2];
+  if (data.is_baby) special = specialCards[0];
+  if (data.is_legendary) special = specialCards[1];
+  if (data.is_mythical) special = specialCards[2];
   if (special) {
     changeGridStats(true, special, grid);
   }
@@ -428,6 +428,14 @@ const sortCards = (deck) => {
 
   deck.innerHTML = "";
   newArr.forEach((card) => deck.appendChild(card));
+};
+
+const resetGridStats = (grid) => {
+  const parent = grid.parentElement;
+  specialCards.forEach((special) => {
+    const stat = parent.querySelector(`[data-type="${special}"]`);
+    stat.innerHTML = 0;
+  });
 };
 
 const changeGridStats = (add, special, grid) => {
