@@ -482,6 +482,7 @@ pokedexNav.forEach((type) => {
     if (navigationSearch.getAttribute("data-expanded") === "true") {
       toggleSearchNavigation();
     }
+    resetGridStats(pokedexGrid);
   });
 });
 
