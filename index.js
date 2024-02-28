@@ -304,6 +304,7 @@ const fetchSinglePokemon = async (pokemon, destination) => {
   const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
   pokemon = pokemon.toLowerCase();
   startLoadSpinner();
+  resetGridStats(pokedexGrid);
   await placePokemonCard(url, destination);
   stopLoadSpinner();
   const card = document.querySelector(`[data-pokemon=${pokemon}]`);
