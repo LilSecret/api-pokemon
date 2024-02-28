@@ -76,7 +76,6 @@ const removeCard = (name, grid) => {
   if (!card) return; // wasn't fetched in pokedex
   // card is special
   if (card.classList[1]) {
-    console.log("triggered");
     changeGridStats(false, card.classList[1], grid);
   }
   card.style.transform = "scale(0)";
@@ -90,6 +89,10 @@ const clickedCardHandler = (card) => {
   const name = card.dataset.pokemon;
   removeCard(name, parent);
   toggleInStorage(card, parent);
+  // change base stats for special cards
+  if (card.classList[1] && parent.id === "pokedex-grid") {
+    changeGridStats(true, card.classList[1], favoritesGrid);
+  }
   // For Smooth Animation
   setTimeout(() => {
     if (parent.id === "pokedex-grid") {
@@ -430,7 +433,9 @@ const sortCards = (deck) => {
 const changeGridStats = (add, special, grid) => {
   const base = grid.parentElement.querySelector(".grid-data");
   const specialAmount = base.querySelector(`[data-type="${special}"]`);
-  add ? specialAmount.innerHTML++ : specialAmount.innerHTML--;
+  add
+    ? (specialAmount.innerHTML = +specialAmount.innerHTML + 1)
+    : (specialAmount.innerHTML = +specialAmount.innerHTML - 1);
 };
 
 const pokemonTypeData = {
