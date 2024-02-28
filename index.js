@@ -416,6 +416,12 @@ const sortCards = (deck) => {
   newArr.forEach((card) => deck.appendChild(card));
 };
 
+const changeGridStats = (add, special, grid) => {
+  const base = grid.parentElement.querySelector(".grid-data");
+  const specialAmount = base.querySelector(`[data-type="${special}"]`);
+  add ? specialAmount.innerHTML++ : specialAmount.innerHTML--;
+};
+
 const pokemonTypeData = {
   normal: "1",
   fighting: "2",
