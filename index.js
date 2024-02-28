@@ -17,6 +17,8 @@ const pokedexGrid = document.querySelector(".pokedex-grid");
 const favoritesGrid = document.querySelector(".favorites-grid");
 const navigationSearch = document.querySelector(".navigation-search-wrapper");
 
+const specialsCards = ["baby", "legendary", "mythical"];
+
 const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
 const loaderIcon = document.querySelector(".pokedex-loader-wrapper");
@@ -117,7 +119,7 @@ const placePokemonCard = async (url, destination) => {
     res = await res.json();
     let species = await fetch(res.species.url);
     species = await species.json();
-
+    const special = logSpecial(species, destination);
     const pokemonImg = getPokemonImg(
       res.sprites.other.dream_world.front_default,
       res.sprites.other["official-artwork"].front_default
@@ -131,7 +133,7 @@ const placePokemonCard = async (url, destination) => {
 
     const pokemonCard = document.createElement("div");
     pokemonCard.classList.add("pokemon-card");
-    if (getBreed(species)) pokemonCard.classList.add(getBreed(species));
+    if (special) pokemonCard.classList.add(special);
     pokemonCard.setAttribute("data-pokemon", pokemonName);
 
     const content = `
@@ -183,11 +185,15 @@ const placePokemonCard = async (url, destination) => {
   }
 };
 
-const getBreed = (data) => {
-  if (data.is_legendary) return "legendary";
-  if (data.is_baby) return "baby";
-  if (data.is_mythical) return "mythical";
-  return null;
+const logSpecial = (data, grid) => {
+  let special = false;
+  if (data.is_baby) special = specialsCards[0];
+  if (data.is_legendary) special = specialsCards[1];
+  if (data.is_mythical) special = specialsCards[2];
+  if (special) {
+    changeGridStats(true, special, grid);
+  }
+  return special;
 };
 
 const resetPokedex = () => {
