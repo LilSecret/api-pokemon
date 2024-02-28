@@ -74,6 +74,11 @@ const removeFaves = () => {
 const removeCard = (name, grid) => {
   const card = grid.querySelector(`[data-pokemon=${name}]`);
   if (!card) return; // wasn't fetched in pokedex
+  // card is special
+  if (card.classList[1]) {
+    console.log("triggered");
+    changeGridStats(false, card.classList[1], grid);
+  }
   card.style.transform = "scale(0)";
   setTimeout(() => {
     grid.removeChild(card);
