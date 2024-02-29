@@ -27,6 +27,10 @@
   .hamburger-menu:has(input:checked) + .nav-links {
     left: 0%;
   }
+
+  .error-wrapper {
+    max-width: 300px;
+  }
 }
 
 @media (max-width: 500px) {
@@ -72,5 +76,9 @@
 
   .navigation-types {
     gap: 3px;
+  }
+
+  .error-wrapper {
+    max-width: 250px;
   }
 }
