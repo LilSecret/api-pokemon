@@ -28,6 +28,11 @@
     left: 0%;
   }
 
+  .parallax {
+    background-size: 1400px 100%;
+    background-position-x: 48%;
+  }
+
   .error-wrapper {
     max-width: 300px;
   }
@@ -36,6 +41,10 @@
 @media (max-width: 500px) {
   .header-lg {
     font-size: 2rem;
+  }
+
+  .parallax {
+    background-size: 900px 100%;
   }
 
   .grid-base {
