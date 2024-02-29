@@ -278,7 +278,7 @@ a {
 .sort-btn {
   cursor: pointer;
   padding: 7px;
-  border: solid 2px var(--neutral-900);
+  border: solid 2px var(--sort-btn-border);
   border-radius: 4px;
 }
 

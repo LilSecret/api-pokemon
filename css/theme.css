@@ -26,8 +26,9 @@ html[data-theme|="light"] {
   --pokedex-card-shadow: var(--secondary-400);
   --favs-card-shadow: var(--accent-400);
   --pokemon-card-outline: var(--neutral-900);
-
   --favorite-card-bg: var(--neutral-100);
+
+  --sort-btn-border: var(--neutral-400);
 
   --modal-bg: var(--neutral-100);
   --modal-text: var(--neutral-900);
@@ -44,8 +45,8 @@ html[data-theme|="dark"] {
   --pokedex-card-shadow: var(--accent-400);
   --favs-card-shadow: var(--accent-400);
   --pokemon-card-outline: var(--primary-400);
-
   --favorite-card-bg: var(--neutral-900);
+  --sort-btn-border: var(--neutral-400);
 
   --modal-bg: var(--neutral-900);
   --modal-text: var(--neutral-100);
