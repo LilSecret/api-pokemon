@@ -41,6 +41,17 @@ a {
   text-decoration: none;
 }
 
+:root {
+  --bar-width: 40px;
+  --bar-height: 6px;
+  --hamburger-gap: 5px;
+  --hamburger-hover: var(--accent-400);
+  --foreground: var(--pokemon-card-text);
+  --animation-timing: 200ms ease-in-out;
+  --hamburger-height: calc(var(--bar-height) * 3 + var(--hamburger-gap) * 2);
+  --navbar-height: 70px;
+}
+
 .heading {
   color: var(--accent-400);
   background-color: var(--secondary-900);
@@ -57,12 +68,12 @@ a {
 }
 
 .container {
-  max-width: 1400px;
+  max-width: 1300px;
   margin-inline: auto;
 }
 
 .container-md {
-  max-width: 1200px;
+  max-width: 1250px;
   margin-inline: auto;
 }
 
@@ -88,6 +99,7 @@ a {
 
 .type-tag {
   border-radius: 8px;
+  background: var(--color);
   color: var(--neutral-100);
   text-shadow: 0px 0px 5px var(--neutral-900);
   font-family: "Concert One", sans-serif;
@@ -95,17 +107,6 @@ a {
   font-size: 16px;
   text-transform: uppercase;
   padding: 8px 15px;
-}
-
-.type-img {
-  --img-type-size: 75px;
-  background-image: var(--img);
-  background-position: center;
-  background-size: calc(var(--img-type-size) - 15%);
-  background-repeat: no-repeat;
-  border-radius: 16px;
-  width: var(--img-type-size);
-  height: var(--img-type-size);
 }
 
 .btn:hover,
@@ -124,20 +125,21 @@ a {
   justify-content: center;
 }
 
-.grid-item {
+.pokemon-card {
+  cursor: pointer;
   position: relative;
   transition: 0.4s;
 }
 
-.grid-item:hover .pokemon-card {
+.pokemon-card:hover .card-body {
   top: -10px;
 }
 
-.grid-item:hover .pokemon-card-tab {
+.pokemon-card:hover .card-tab {
   top: -40px;
 }
 
-.pokemon-card {
+.card-body {
   box-shadow: 0px 3px 10px transparent;
   display: grid;
   cursor: pointer;
@@ -154,12 +156,13 @@ a {
   width: 265px;
   padding: 16px 18px;
   position: relative;
+  pointer-events: none;
   user-select: none;
   z-index: 2;
   margin-top: 10px;
 }
 
-.pokemon-card .left {
+.card-body .left {
   grid-area: left;
   display: grid;
   align-items: end;
@@ -191,7 +194,7 @@ a {
   width: 165px;
 }
 
-.pokemon-card .stats-grid {
+.card-body .stats-grid {
   font-family: "Electrolize", sans-serif;
   align-content: space-between;
   align-items: center;
@@ -213,18 +216,18 @@ a {
   font-weight: 600;
 }
 
-.pokemon-card .base {
+.card-body .base {
   grid-area: base;
   display: flex;
   margin-top: 15px;
   pointer-events: none;
 }
 
-.pokemon-card .type {
+.card-body .type {
   margin-right: 12px;
 }
 
-.pokemon-card-tab {
+.card-tab {
   position: absolute;
   right: 5px;
   top: 12px;
@@ -234,14 +237,116 @@ a {
   font-size: 1.6rem;
   aspect-ratio: 1 / 2;
   width: 40px;
+  pointer-events: none;
   padding: 7px 8px 20px;
   transition: 0.3s ease-in;
   z-index: 1;
 }
 
-.pokemon-card-tab .fa-heart {
+.card-tab .fa-heart {
   position: absolute;
   top: 30%;
   left: 50%;
   translate: -50% -50%;
+}
+
+.grid-base {
+  font-family: "Russo One", sans-serif;
+  color: var(--sort-btn-border);
+  display: flex;
+  padding-inline: 50px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.grid-data,
+.data-stat {
+  gap: 5px;
+  display: flex;
+}
+
+.sort-btn {
+  cursor: pointer;
+  padding: 7px;
+  border: solid 2px var(--sort-btn-border);
+  border-radius: 4px;
+}
+
+.sort-btn:hover {
+  background-color: var(--accent-400);
+}
+
+.error-wrapper {
+  max-width: 350px;
+  margin-inline: auto;
+  color: var(--hero-chatbox-text);
+  text-align: center;
+}
+
+.error-wrapper h2 {
+  padding-block: 14px;
+  font-size: 1.8rem;
+}
+
+.modal {
+  border-radius: 1rem;
+  border: solid 2px var(--primary-400);
+  background-color: var(--modal-bg);
+  color: var(--modal-text);
+  top: 30%;
+  opacity: 0;
+  left: 50%;
+  flex-direction: column;
+  gap: 7px;
+  max-width: 500px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  transition: 300ms ease-in-out;
+  padding: 20px 25px;
+  pointer-events: none;
+  position: fixed;
+  z-index: 10;
+}
+
+.modal.active {
+  display: flex;
+  pointer-events: all;
+  top: 50%;
+  opacity: 1;
+}
+
+.modal .close-btn {
+  cursor: pointer;
+  right: 25px;
+  top: 10px;
+  position: absolute;
+  width: max-content;
+  display: inline-block;
+  font-size: 2rem;
+}
+
+.modal .close-btn:hover {
+  color: var(--accent-400);
+}
+
+.modal p {
+  font-size: 1.2rem;
+}
+
+.modal-backdrop {
+  background-color: rgba(0, 0, 0, 0);
+  content: "";
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  transition: 200ms ease-in-out;
+  z-index: 9;
+}
+
+.modal-backdrop.active {
+  display: block;
+  background-color: rgba(0, 0, 0, 0.8);
 }

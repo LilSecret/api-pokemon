@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Pokémon</title>
-    <meta name="description" content="" />
+    <title>Pokémon Favorites</title>
+    <meta name="description" content="Save your favorite Pokemon" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- Stylesheets -->
     <link rel="stylesheet" href="./css/main.css" />
@@ -19,11 +19,18 @@
       <a href="#" class="logo-wrapper">
         <img src="/assets/images/pokemon-logo.png" alt="pokemon-logo" />
       </a>
-      <ul class="nav-links">
-        <li><a href="#pokedex" class="nav-item">Pokémon</a></li>
-        <li><a href="#favorites" class="nav-item">Favorites</a></li>
-        <li><a href="#" class="nav-item">About</a></li>
-      </ul>
+      <div class="nav-links-wrapper">
+        <label class="hamburger-menu">
+          <input type="checkbox" />
+        </label>
+        <ul class="nav-links">
+          <li><a href="#pokedex" class="nav-item">Pokémon</a></li>
+          <li><a href="#favorites" class="nav-item">Favorites</a></li>
+          <li>
+            <a href="#" class="nav-item" data-modal="about-modal">About</a>
+          </li>
+        </ul>
+      </div>
       <div id="theme-toggle" class="theme-toggle">
         <div class="theme-toggle-content">
           <input type="checkbox" id="theme-btn" name="theme-btn" />
@@ -67,7 +74,7 @@
         <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
       </div>
 
-      <section id="pokedex" class="pokedex pokedex-wrapper">
+      <section id="pokedex" class="pokedex pokedex-wrapper container">
         <div class="pokedex-header">
           <h1 class="heading heading-lg">Pokédex</h1>
           <div class="header-img-wrapper">
@@ -109,9 +116,28 @@
 
         <!-- Pokemon Grid  -->
         <div
-          class="pokedex-grid deck-grid-wrapper container"
+          id="pokedex-grid"
+          class="pokedex-grid deck-grid-wrapper"
           data-filter="all"
+          data-error="false"
         ></div>
+        <div class="grid-base">
+          <div class="sort-btn">A-Z</div>
+          <div class="grid-data">
+            <div class="data-stat">
+              <div class="amount" data-type="baby">0</div>
+              <div class="type">Baby</div>
+            </div>
+            <div class="data-stat">
+              <div class="amount" data-type="legendary">0</div>
+              <div class="type">Legendary</div>
+            </div>
+            <div class="data-stat">
+              <div class="amount" data-type="mythical">0</div>
+              <div class="type">Mythical</div>
+            </div>
+          </div>
+        </div>
         <div class="btn btn-primary" data-load="true">Load More</div>
         <!-- Loader  -->
         <div class="pokedex-loader-wrapper" data-visible="false">
@@ -119,19 +145,58 @@
         </div>
       </section>
 
+      <div class="wave-wrapper">
+        <img
+          src="./assets/images/wave-light-sm.svg"
+          srcset="
+            ./assets/images/wave-light-sm.svg  630w,
+            ./assets/images/wave-light-md.svg 1260w,
+            ./assets/images/wave-light-lg.svg 1890w
+          "
+          alt="waves"
+          class="wave-bg"
+        />
+      </div>
+
       <section id="favorites" class="favorites">
-        <div class="wave-wrapper">
-          <img
-            src="./assets/images/wave-bg-light.svg"
-            alt="waves"
-            class="wave-bg"
-          />
-        </div>
         <h2 class="heading heading-md">Favorites</h2>
-        <div class="favorites-grid deck-grid-wrapper"></div>
+        <div
+          id="favorites-grid"
+          class="favorites-grid deck-grid-wrapper container"
+          data-error="false"
+        ></div>
+        <div class="grid-base container">
+          <div class="sort-btn">A-Z</div>
+          <div class="grid-data">
+            <div class="data-stat">
+              <div class="amount" data-type="baby">0</div>
+              <div class="type">Baby</div>
+            </div>
+            <div class="data-stat">
+              <div class="amount" data-type="legendary">0</div>
+              <div class="type">Legendary</div>
+            </div>
+            <div class="data-stat">
+              <div class="amount" data-type="mythical">0</div>
+              <div class="type">Mythical</div>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
 
+    <!-- Modals  -->
+    <div class="modal-backdrop" data-exit="modal"></div>
+    <div id="about-modal" class="modal nav-modal">
+      <h3 class="header-lg">About</h3>
+      <span class="close-btn" data-exit="modal">&times;</span>
+      <span>Hello there👋</span>
+      <p>
+        Welcome to my Pokemon Favorites website. Here you are able to save your
+        favorite pokemon. This was built using this
+        <a href="https://pokeapi.co/">Poke Api</a>.
+      </p>
+    </div>
     <script src="index.js" async defer></script>
   </body>
 </html>
