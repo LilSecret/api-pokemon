@@ -99,6 +99,7 @@ a {
 
 .type-tag {
   border-radius: 8px;
+  background: var(--color);
   color: var(--neutral-100);
   text-shadow: 0px 0px 5px var(--neutral-900);
   font-family: "Concert One", sans-serif;
@@ -106,17 +107,6 @@ a {
   font-size: 16px;
   text-transform: uppercase;
   padding: 8px 15px;
-}
-
-.type-img {
-  --img-type-size: 75px;
-  background-image: var(--img);
-  background-position: center;
-  background-size: calc(var(--img-type-size) - 15%);
-  background-repeat: no-repeat;
-  border-radius: 16px;
-  width: var(--img-type-size);
-  height: var(--img-type-size);
 }
 
 .btn:hover,
@@ -136,6 +126,7 @@ a {
 }
 
 .pokemon-card {
+  cursor: pointer;
   position: relative;
   transition: 0.4s;
 }
