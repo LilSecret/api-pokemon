@@ -55,7 +55,13 @@ const toggleSiteTheme = () => {
 const changeThemedElements = (theme) => {
   html.setAttribute("data-theme", theme);
   heroChatBox.setAttribute("src", `./assets/images/hero/chatbox-${theme}.svg`);
-  waveBgImg.setAttribute("src", `./assets/images/wave-bg-${theme}.svg`);
+  waveBgImg.setAttribute("src", `./assets/images/wave-${theme}-sm.svg`);
+  waveBgImg.setAttribute(
+    "srcset",
+    `./assets/images/wave-${theme}-sm.svg  630w,
+    ./assets/images/wave-${theme}-md.svg 1260w,
+    ./assets/images/wave-${theme}-lg.svg 1890w`
+  );
 };
 
 const setFavsInLS = () => {
