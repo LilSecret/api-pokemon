@@ -386,6 +386,7 @@ input:checked ~ label .fa-sun {
 
 /* Favorites Section  */
 .favorites {
+  top: -1px;
   background-color: var(--primary-400);
   padding-bottom: 2rem;
   position: relative;
@@ -393,6 +394,10 @@ input:checked ~ label .fa-sun {
 
 .wave-wrapper {
   width: 100%;
+}
+
+.wave-wrapper img {
+  vertical-align: bottom;
 }
 
 .favorites .heading {
