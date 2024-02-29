@@ -252,7 +252,7 @@ a {
 
 .grid-base {
   font-family: "Russo One", sans-serif;
-  color: var(--hero-chatbox-text);
+  color: var(--sort-btn-border);
   display: flex;
   padding-inline: 50px;
   align-items: center;
@@ -262,7 +262,6 @@ a {
 .grid-data,
 .data-stat {
   gap: 5px;
-  opacity: 0.8;
   display: flex;
 }
 
