@@ -33,6 +33,11 @@
     left: 0%;
   }
 
+  .grid-base {
+    flex-direction: column;
+    gap: 10px;
+  }
+
   .parallax {
     background-size: 1400px 100%;
     background-position-x: 48%;
@@ -62,6 +67,8 @@
   }
 
   .grid-data {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     order: 1;
   }
 
