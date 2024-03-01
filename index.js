@@ -65,9 +65,19 @@ const changeThemedElements = (theme) => {
   );
 };
 
-const setFavsInLS = () => {
-  if (!localStorage.getItem(pokemonFavs)) {
+const favoritesStartup = () => {
+  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
+
+  if (!favoredPokemon || favoredPokemon.length === 0) {
     localStorage.setItem(pokemonFavs, JSON.stringify([]));
+    gridError(
+      "You haven't favored any pokémon. Scroll up to the pokedex and select your favorite pokémon.",
+      favoritesGrid
+    );
+  } else {
+    favoredPokemon.forEach((pokemon) => {
+      fetchSinglePokemon(pokemon, favoritesGrid);
+    });
   }
 };
 
@@ -76,6 +86,31 @@ const removeFaves = () => {
   favoredPokemon.forEach((pokemon) => {
     removeCard(pokemon, pokedexGrid);
   });
+};
+
+const handleFavsError = () => {
+  const faves = JSON.parse(localStorage.getItem(pokemonFavs));
+  // throw error
+  if (faves.length === 0) {
+    gridError(
+      "You have removed all your favorites. Why are you so mean. Go back and love those pokemon or I'll have to call the cops on you.",
+      favoritesGrid
+    );
+  } else if (favoritesGrid.dataset.error === "true") {
+    favoritesGrid.innerHTML = "";
+    favoritesGrid.dataset.error = "false";
+  }
+};
+
+const toggleInStorage = (card, parent) => {
+  const name = card.dataset.pokemon;
+  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
+  if (parent.id === "pokedex-grid") {
+    favoredPokemon.push(name);
+  } else {
+    favoredPokemon.splice(favoredPokemon.indexOf(name), 1);
+  }
+  localStorage.setItem(pokemonFavs, JSON.stringify(favoredPokemon));
 };
 
 const removeCard = (name, grid) => {
@@ -105,22 +140,13 @@ const clickedCardHandler = (card) => {
 const deployInGrid = (card, grid) => {
   grid.appendChild(card);
   toggleCardHeart(card);
-  if (card.classList[1]) changeGridStats(true, card.classList[1], newParent);
+  if (card.classList[1]) {
+    changeGridStats(true, card.classList[1], grid);
+  }
   //smooth animation
   setTimeout(() => {
     card.style.transform = "scale(1)";
-  }, 500);
-};
-
-const toggleInStorage = (card, parent) => {
-  const name = card.dataset.pokemon;
-  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
-  if (parent.id === "pokedex-grid") {
-    favoredPokemon.push(name);
-  } else {
-    favoredPokemon.splice(favoredPokemon.indexOf(name), 1);
-  }
-  localStorage.setItem(pokemonFavs, JSON.stringify(favoredPokemon));
+  }, 100);
 };
 
 const placePokemonCard = async (url, destination) => {
@@ -228,21 +254,6 @@ const gridError = (message, grid) => {
   grid.appendChild(errorWrapper);
 };
 
-const handleFavsError = () => {
-  const faves = JSON.parse(localStorage.getItem(pokemonFavs));
-  // throw error
-  if (faves.length === 0) {
-    console.log("error");
-    gridError(
-      "You have removed all your favorites. Why are you so mean. Go back and love those pokemon or I'll have to call the cops on you.",
-      favoritesGrid
-    );
-  } else if (favoritesGrid.dataset.error === "true") {
-    favoritesGrid.innerHTML = "";
-    favoritesGrid.dataset.error = "false";
-  }
-};
-
 const pokedexToType = async (type) => {
   const typeNum = pokemonTypeData[type];
   if (siteLoading || pokedexGrid.getAttribute(pokedexFilter) === type) {
@@ -308,20 +319,6 @@ const loadMoreType = async () => {
   stopLoadSpinner();
 };
 
-const fetchSinglePokemon = async (pokemon, destination) => {
-  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
-  const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-  pokemon = pokemon.toLowerCase();
-  startLoadSpinner();
-  resetGridStats(pokedexGrid);
-  await placePokemonCard(url, destination);
-  stopLoadSpinner();
-  const card = document.querySelector(`[data-pokemon=${pokemon}]`);
-  if (favoredPokemon.includes(pokemon)) {
-    toggleCardHeart(card);
-  }
-};
-
 const disableLoadMore = () => {
   loadMoreBtn.setAttribute("data-load", false);
 };
@@ -334,6 +331,20 @@ const startLoadSpinner = () => {
 const stopLoadSpinner = () => {
   loaderIcon.setAttribute("data-visible", false);
   siteLoading = false;
+};
+
+const fetchSinglePokemon = async (pokemon, destination) => {
+  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
+  const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
+  pokemon = pokemon.toLowerCase();
+  startLoadSpinner();
+  resetGridStats(pokedexGrid);
+  await placePokemonCard(url, destination);
+  stopLoadSpinner();
+  const card = document.querySelector(`[data-pokemon=${pokemon}]`);
+  if (favoredPokemon.includes(pokemon)) {
+    toggleCardHeart(card);
+  }
 };
 
 const toggleCardHeart = (card) => {
@@ -385,23 +396,7 @@ const addGlobalEventListener = (type, selector, callback) => {
   });
 };
 
-const favoritesStartup = () => {
-  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
-  if (favoredPokemon.length === 0) {
-    gridError(
-      "You haven't favored any pokémon. Scroll up to the pokedex and select your favorite pokémon.",
-      favoritesGrid
-    );
-    console.error("There was no pokemon favorites found");
-  } else {
-    favoredPokemon.forEach((pokemon) => {
-      fetchSinglePokemon(pokemon, favoritesGrid);
-    });
-  }
-};
-
 const onStartup = async () => {
-  setFavsInLS();
   setSiteTheme();
   loadMoreAllTypes(gridLoadLimit);
   favoritesStartup();
