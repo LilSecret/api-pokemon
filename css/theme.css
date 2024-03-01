@@ -16,6 +16,7 @@
 }
 
 html[data-theme|="light"] {
+  --navbar-clr: var(--primary-400);
   --navigation-link-clr: var(--neutral-100);
   --hero-chatbox-text: var(--neutral-900);
   --body-bg-color: var(--neutral-100);
@@ -37,6 +38,7 @@ html[data-theme|="light"] {
 }
 
 html[data-theme|="dark"] {
+  --navbar-clr: var(--primary-200);
   --navigation-link-clr: var(--neutral-900);
   --hero-chatbox-text: var(--neutral-100);
   --body-bg-color: var(--neutral-900);

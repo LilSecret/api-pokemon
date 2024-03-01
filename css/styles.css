@@ -1,6 +1,6 @@
 .navbar {
   display: flex;
-  background-color: var(--primary-400);
+  background-color: var(--navbar-clr);
   justify-content: space-between;
   align-items: center;
   padding-inline: 10%;
@@ -216,7 +216,7 @@ input:checked ~ label .fa-sun {
 }
 
 .separator {
-  background-color: var(--primary-400);
+  background-color: var(--navbar-clr);
   color: var(--accent-400);
   display: flex;
   justify-content: space-around;
