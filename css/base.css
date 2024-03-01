@@ -302,6 +302,7 @@ a {
   transform: translate(-50%, -50%);
   text-align: center;
   transition: 300ms ease-in-out;
+  font-size: 18px;
   padding: 20px 25px;
   pointer-events: none;
   position: fixed;
@@ -327,6 +328,10 @@ a {
 
 .modal .close-btn:hover {
   color: var(--accent-400);
+}
+
+.modal-link {
+  color: var(--primary-400);
 }
 
 .modal p {
