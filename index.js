@@ -424,14 +424,21 @@ const openModal = (modalBtn) => {
   }
 };
 
-const sortCards = (deck) => {
+const toggleSortCards = (button, deck) => {
   const deckArray = Array.from(deck.children);
-  const newArr = deckArray.sort((a, b) =>
-    a.dataset.pokemon.localeCompare(b.dataset.pokemon)
-  );
+  const newHTML = button.innerHTML === "A-Z" ? "Z-A" : "A-Z";
+  const newArray =
+    button.innerHTML === "A-Z"
+      ? deckArray.sort((a, b) =>
+          a.dataset.pokemon.localeCompare(b.dataset.pokemon)
+        )
+      : deckArray.sort((a, b) =>
+          b.dataset.pokemon.localeCompare(a.dataset.pokemon)
+        );
 
   deck.innerHTML = "";
-  newArr.forEach((card) => deck.appendChild(card));
+  button.innerHTML = newHTML;
+  newArray.forEach((card) => deck.appendChild(card));
 };
 
 const resetGridStats = (grid) => {
@@ -516,9 +523,10 @@ themeBtn.addEventListener("click", () => {
 
 sortButtons.forEach((button) => {
   button.addEventListener("click", (e) => {
-    const buttonGrid = `.${e.target.parentElement.parentElement.id}-grid`;
-    const gridToSort = document.querySelector(buttonGrid);
-    sortCards(gridToSort);
+    const button = e.target;
+    const buttonsGrid = `.${button.parentElement.parentElement.id}-grid`;
+    const gridToSort = document.querySelector(buttonsGrid);
+    toggleSortCards(button, gridToSort);
   });
 });
 
