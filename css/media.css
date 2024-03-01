@@ -14,10 +14,15 @@
   .navbar .nav-links {
     background-color: var(--primary-200);
     position: relative;
-    top: calc(var(--navbar-height) + 6px);
-    flex-direction: column;
+    top: calc(var(--navbar-height) - 1.5rem);
+    flex-direction: row;
+    justify-content: center;
     padding-bottom: 5px;
     left: -100%;
+  }
+
+  .nav-links > *:not(:last-child) {
+    border-right: solid 2px var(--neutral-900);
   }
 
   .navbar .nav-links li {
@@ -70,6 +75,16 @@
 
   .nav-links-wrapper input {
     display: block;
+  }
+
+  .navbar .nav-links {
+    flex-direction: column;
+    top: calc(var(--navbar-height) + 2px);
+  }
+
+  .nav-links > *:not(:last-child) {
+    border-right: none;
+    border-bottom: solid 2px var(--neutral-900);
   }
 
   .hamburger-menu {
