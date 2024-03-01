@@ -81,25 +81,25 @@ const favoritesStartup = () => {
   }
 };
 
-const removeFaves = () => {
-  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
-  favoredPokemon.forEach((pokemon) => {
-    removeCard(pokemon, pokedexGrid);
-  });
-};
-
 const handleFavsError = () => {
   const faves = JSON.parse(localStorage.getItem(pokemonFavs));
   // throw error
   if (faves.length === 0) {
     gridError(
-      "You have removed all your favorites. Why are you so mean. Go back and love those pokemon or I'll have to call the cops on you.",
+      "Why don't you love Pokemon. Go love those Pokemon...",
       favoritesGrid
     );
   } else if (favoritesGrid.dataset.error === "true") {
     favoritesGrid.innerHTML = "";
     favoritesGrid.dataset.error = "false";
   }
+};
+
+const removeFaves = () => {
+  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
+  favoredPokemon.forEach((pokemon) => {
+    removeCard(pokemon, pokedexGrid);
+  });
 };
 
 const toggleInStorage = (card, parent) => {
@@ -113,17 +113,6 @@ const toggleInStorage = (card, parent) => {
   localStorage.setItem(pokemonFavs, JSON.stringify(favoredPokemon));
 };
 
-const removeCard = (name, grid) => {
-  const card = grid.querySelector(`[data-pokemon=${name}]`);
-  if (!card) return; // wasn't fetched in pokedex
-  if (card.classList[1]) changeGridStats(false, card.classList[1], grid);
-  card.style.transform = "scale(0)";
-  //smooth animation
-  setTimeout(() => {
-    grid.removeChild(card);
-  }, 200);
-};
-
 const clickedCardHandler = (card) => {
   const parent = card.parentElement;
   const name = card.dataset.pokemon;
@@ -135,6 +124,17 @@ const clickedCardHandler = (card) => {
     handleFavsError();
     deployInGrid(card, newParent);
   }, 500);
+};
+
+const removeCard = (name, grid) => {
+  const card = grid.querySelector(`[data-pokemon=${name}]`);
+  if (!card) return; // wasn't fetched in pokedex
+  if (card.classList[1]) changeGridStats(false, card.classList[1], grid);
+  card.style.transform = "scale(0)";
+  //smooth animation
+  setTimeout(() => {
+    grid.removeChild(card);
+  }, 200);
 };
 
 const deployInGrid = (card, grid) => {
@@ -310,7 +310,7 @@ const loadMoreType = async () => {
   if (!siteLoading) startLoadSpinner();
   for (let i = offset; i < completion; i++) {
     const currentPokemon = currentData.pokemon[i];
-    if (!validate(currentPokemon, loadAction)) return;
+    if (!validateMorePokemon(currentPokemon, loadAction)) return;
     const url = currentData.pokemon[i].pokemon.url;
     await placePokemonCard(url, pokedexGrid);
   }
@@ -374,11 +374,11 @@ const getPokemonImg = (attempt1, attempt2) => {
   return defaultPokemonImg;
 };
 
-const validate = (item, action) => {
+const validateMorePokemon = (item, action) => {
   if (!item) {
     if (action === loadAction) {
       disableLoadMore();
-      console.log("You have reached max load");
+      alert("You have loaded the rest of the Pokemon");
     }
     return false;
   } else {
