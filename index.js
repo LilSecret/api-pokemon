@@ -81,40 +81,35 @@ const removeFaves = () => {
 const removeCard = (name, grid) => {
   const card = grid.querySelector(`[data-pokemon=${name}]`);
   if (!card) return; // wasn't fetched in pokedex
-  // card is special
-  if (card.classList[1]) {
-    changeGridStats(false, card.classList[1], grid);
-  }
+  if (card.classList[1]) changeGridStats(false, card.classList[1], grid);
   card.style.transform = "scale(0)";
+  //smooth animation
   setTimeout(() => {
     grid.removeChild(card);
-  }, 500);
+  }, 200);
 };
 
 const clickedCardHandler = (card) => {
   const parent = card.parentElement;
   const name = card.dataset.pokemon;
+  const newParent = parent.id === "pokedex-grid" ? favoritesGrid : pokedexGrid;
   removeCard(name, parent);
   toggleInStorage(card, parent);
-  // change base stats for special cards
-  if (card.classList[1] && parent.id === "pokedex-grid") {
-    changeGridStats(true, card.classList[1], favoritesGrid);
-  }
-  // For Smooth Animation
+  //smooth animation
   setTimeout(() => {
-    if (parent.id === "pokedex-grid") {
-      handleFavsError();
-      deployInFavorites(card);
-    }
+    handleFavsError();
+    deployInGrid(card, newParent);
   }, 500);
 };
 
-const deployInFavorites = (card) => {
-  favoritesGrid.appendChild(card);
+const deployInGrid = (card, grid) => {
+  grid.appendChild(card);
   toggleCardHeart(card);
+  if (card.classList[1]) changeGridStats(true, card.classList[1], newParent);
+  //smooth animation
   setTimeout(() => {
     card.style.transform = "scale(1)";
-  }, 100);
+  }, 500);
 };
 
 const toggleInStorage = (card, parent) => {
@@ -219,6 +214,7 @@ const resetPokedex = () => {
 
 const gridError = (message, grid) => {
   grid.innerHTML = "";
+  grid.setAttribute("data-error", "true");
   const errorWrapper = document.createElement("div");
   errorWrapper.classList.add("error-wrapper");
   errorWrapper.innerHTML = `
@@ -233,11 +229,17 @@ const gridError = (message, grid) => {
 };
 
 const handleFavsError = () => {
-  if (favoritesGrid.dataset.error === "true") {
+  const faves = JSON.parse(localStorage.getItem(pokemonFavs));
+  // throw error
+  if (faves.length === 0) {
+    console.log("error");
+    gridError(
+      "You have removed all your favorites. Why are you so mean. Go back and love those pokemon or I'll have to call the cops on you.",
+      favoritesGrid
+    );
+  } else if (favoritesGrid.dataset.error === "true") {
     favoritesGrid.innerHTML = "";
     favoritesGrid.dataset.error = "false";
-  } else {
-    return;
   }
 };
 
@@ -386,7 +388,6 @@ const addGlobalEventListener = (type, selector, callback) => {
 const favoritesStartup = () => {
   const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
   if (favoredPokemon.length === 0) {
-    favoritesGrid.dataset.error = "true";
     gridError(
       "You haven't favored any pokémon. Scroll up to the pokedex and select your favorite pokémon.",
       favoritesGrid
