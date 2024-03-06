@@ -13,16 +13,16 @@ const favorite = ".favorites";
 
 const card = ".pokedex-grid-item";
 const defaultPokemonImg = "./assets/images/default-pokemon.png";
-const pokedexNav = document.querySelectorAll(".pokedex-navigation .type");
+const pokedexNav = document.querySelectorAll(".pokedex-tag-list .type-tag");
 const pokedexGrid = document.querySelector(".pokedex-grid");
 const favoritesGrid = document.querySelector(".favorites-grid");
-const navigationSearch = document.querySelector(".navigation-search-wrapper");
+const pokedexSearchBtn = document.querySelector(".pokedex-search-button");
 
 const specialCards = ["baby", "legendary", "mythical", "common"];
 
 const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
-const loaderIcon = document.querySelector(".pokedex-loader-wrapper");
+const loaderIcon = document.querySelector(".pokedex-spinner");
 
 const sortButtons = document.querySelectorAll(".sort-btn");
 
@@ -198,10 +198,10 @@ const placePokemonCard = async (url, destination) => {
           <div class="stat">${baseDef}</div>
         </div>
         <div class="base">
-          <div class="type type-tag" data-type="${type1}">${type1}</div>
+          <div class="type-tag" data-type="${type1}">${type1}</div>
           ${
             type2 !== null
-              ? `<div class="type type-tag" data-type="${type2}">${type2}</div>`
+              ? `<div class="type-tag" data-type="${type2}">${type2}</div>`
               : ""
           }
         </div>
@@ -355,8 +355,8 @@ const toggleCardHeart = (card) => {
 };
 
 const toggleSearchNavigation = () => {
-  const value = navigationSearch.getAttribute("data-expanded");
-  navigationSearch.setAttribute(
+  const value = pokedexSearchBtn.getAttribute("data-expanded");
+  pokedexSearchBtn.setAttribute(
     "data-expanded",
     value == "true" ? "false" : "true"
   );
@@ -488,7 +488,7 @@ pokedexNav.forEach((type) => {
     } else {
       pokedexToType(type);
     }
-    if (navigationSearch.getAttribute("data-expanded") === "true") {
+    if (pokedexSearchBtn.getAttribute("data-expanded") === "true") {
       toggleSearchNavigation();
     }
     resetGridStats(pokedexGrid);
@@ -499,20 +499,20 @@ addGlobalEventListener("click", pokemonCard, (e) => {
   clickedCardHandler(e.target);
 });
 
-navigationSearch.addEventListener("click", () => {
-  if (navigationSearch.getAttribute("data-expanded") === "false") {
+pokedexSearchBtn.addEventListener("click", () => {
+  if (pokedexSearchBtn.getAttribute("data-expanded") === "false") {
     toggleSearchNavigation();
   }
 });
 
-navigationSearch.addEventListener("submit", (event) => {
+pokedexSearchBtn.addEventListener("submit", (event) => {
   const pokemon = document.getElementById("pokemon").value;
   event.preventDefault(); // stops auto submit
   resetPokedex();
   disableLoadMore();
   fetchSinglePokemon(pokemon, pokedexGrid);
   pokedexGrid.setAttribute(pokedexFilter, pokemon);
-  navigationSearch.reset();
+  pokedexSearchBtn.reset();
 });
 
 themeBtn.addEventListener("click", () => {

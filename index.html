@@ -33,7 +33,12 @@
       </div>
       <div id="theme-toggle" class="theme-toggle">
         <div class="theme-toggle-content">
-          <input type="checkbox" id="theme-btn" name="theme-btn" />
+          <input
+            class="checkbox"
+            type="checkbox"
+            id="theme-btn"
+            name="theme-btn"
+          />
           <label class="theme-btn" for="theme-btn">
             <i class="fa-solid fa-sun icon"></i>
             <i class="fa-solid fa-moon icon"></i>
@@ -43,7 +48,7 @@
     </header>
 
     <main>
-      <section id="parallax" class="parallax">
+      <section id="landing-view" class="landing-view">
         <div class="chat-box-wrapper">
           <img src="./assets/images/hero/chatbox-light.svg" alt="chat box" />
           <span class="chat-box-text">Pick your favorite Pokemon</span>
@@ -74,6 +79,7 @@
         <img src="./assets/images/stat-icons/pokeball.svg" alt="pokeball" />
       </div>
 
+      <!-- Pokedex  -->
       <section
         id="pokedex"
         class="pokedex pokedex-wrapper container | text-center"
@@ -89,35 +95,39 @@
           </div>
         </div>
 
-        <div class="pokedex-navigation container-md">
-          <div class="navigation-types">
-            <div class="type type-tag" data-type="all">all</div>
-            <div class="type type-tag" data-type="fire">fire</div>
-            <div class="type type-tag" data-type="water">water</div>
-            <div class="type type-tag" data-type="grass">grass</div>
-            <div class="type type-tag" data-type="electric">electric</div>
-            <div class="type type-tag" data-type="ice">ice</div>
-            <div class="type type-tag" data-type="psychic">psychic</div>
-            <div class="type type-tag" data-type="dragon">dragon</div>
-            <div class="type type-tag" data-type="dark">dark</div>
-            <div class="type type-tag" data-type="fairy">fairy</div>
-            <div class="type type-tag" data-type="steel">steel</div>
-            <div class="type type-tag" data-type="ghost">ghost</div>
-            <div class="type type-tag" data-type="bug">bug</div>
-            <div class="type type-tag" data-type="rock">rock</div>
-            <div class="type type-tag" data-type="ground">ground</div>
-            <div class="type type-tag" data-type="poison">poison</div>
-            <div class="type type-tag" data-type="flying">flying</div>
-            <div class="type type-tag" data-type="fighting">fighting</div>
-            <div class="type type-tag" data-type="normal">normal</div>
-            <form class="navigation-search-wrapper" data-expanded="false">
-              <input type="text" id="pokemon" placeholder="Enter Pokemon" />
+        <ul class="pokedex-tag-list container-md">
+          <li class="type-tag" data-type="all">all</li>
+          <li class="type-tag" data-type="fire">fire</li>
+          <li class="type-tag" data-type="water">water</li>
+          <li class="type-tag" data-type="grass">grass</li>
+          <li class="type-tag" data-type="electric">electric</li>
+          <li class="type-tag" data-type="ice">ice</li>
+          <li class="type-tag" data-type="psychic">psychic</li>
+          <li class="type-tag" data-type="dragon">dragon</li>
+          <li class="type-tag" data-type="dark">dark</li>
+          <li class="type-tag" data-type="fairy">fairy</li>
+          <li class="type-tag" data-type="steel">steel</li>
+          <li class="type-tag" data-type="ghost">ghost</li>
+          <li class="type-tag" data-type="bug">bug</li>
+          <li class="type-tag" data-type="rock">rock</li>
+          <li class="type-tag" data-type="ground">ground</li>
+          <li class="type-tag" data-type="poison">poison</li>
+          <li class="type-tag" data-type="flying">flying</li>
+          <li class="type-tag" data-type="fighting">fighting</li>
+          <li class="type-tag" data-type="normal">normal</li>
+          <li>
+            <form class="pokedex-search-button" data-expanded="false">
+              <input
+                type="text"
+                id="pokemon"
+                class="text-box"
+                placeholder="Enter Pokemon"
+              />
               <i class="fa-solid fa-magnifying-glass"></i>
             </form>
-          </div>
-        </div>
+          </li>
+        </ul>
 
-        <!-- Pokemon Grid  -->
         <div
           id="pokedex-grid"
           class="pokedex-grid deck-grid-wrapper"
@@ -145,9 +155,9 @@
             </div>
           </div>
         </div>
-        <div class="btn btn-primary" data-load="true">Load More</div>
+        <div class="button load-more-btn" data-load="true">Load More</div>
         <!-- Loader  -->
-        <div class="pokedex-loader-wrapper" data-visible="false">
+        <div class="pokedex-spinner" data-visible="false">
           <img src="./assets/images/pokeball.png" alt="pokeball" />
         </div>
       </section>
@@ -165,6 +175,7 @@
         />
       </div>
 
+      <!-- Favorites  -->
       <section id="favorites" class="favorites">
         <h2 class="heading | text-center">Favorites</h2>
         <div
