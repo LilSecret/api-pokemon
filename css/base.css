@@ -78,12 +78,6 @@ a {
   margin-inline: auto;
 }
 
-.header-lg {
-  font-family: "Russo One", sans-serif;
-  font-size: 3.875rem;
-  font-weight: 900;
-}
-
 .btn {
   color: var(--load-btn-clr);
   border-radius: 30px;

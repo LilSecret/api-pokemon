@@ -101,7 +101,7 @@
 }
 
 .nav-item.active {
-  color: var(--accent-400) !important;
+  color: var(--accent-400);
 }
 
 .theme-toggle {
@@ -231,21 +231,10 @@ input:checked ~ label .fa-sun {
 }
 
 .pokedex-header {
-  user-select: none;
   max-width: 600px;
   margin-inline: auto;
   display: flex;
   place-content: center;
-  position: relative;
-}
-
-.pokedex .heading {
-  --font-size: 3rem;
-  padding: calc(var(--font-size) - 1.1rem);
-  width: 100%;
-  clip-path: polygon(25% 0%, 100% 0, 75% 100%, 0% 100%);
-  font-size: var(--font-size);
-  margin-block: 100px 60px;
   position: relative;
 }
 
@@ -257,11 +246,6 @@ input:checked ~ label .fa-sun {
 
 .header-img-wrapper img {
   width: 100%;
-}
-
-.pokedex {
-  text-align: center;
-  z-index: -2;
 }
 
 .pokedex-navigation {
@@ -384,14 +368,6 @@ input:checked ~ label .fa-sun {
   opacity: 0.4;
 }
 
-/* Favorites Section  */
-.favorites {
-  top: -1px;
-  background-color: var(--primary-400);
-  padding-bottom: 2rem;
-  position: relative;
-}
-
 .wave-wrapper {
   width: 100%;
 }
@@ -400,17 +376,15 @@ input:checked ~ label .fa-sun {
   vertical-align: bottom;
 }
 
-.favorites .heading {
-  display: inline-block;
-  margin-inline: auto;
-  text-align: center;
+.favorites {
+  top: -1px;
+  background-color: var(--primary-400);
+  padding-bottom: 2rem;
   position: relative;
-  left: 50%;
-  translate: -50% 0%;
 }
 
-.favorites .pokemon-card:hover .card-tab {
-  top: -40px;
+.favorites .heading {
+  margin-top: 0;
 }
 
 @keyframes special {
