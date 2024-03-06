@@ -1,18 +1,11 @@
 :root {
   --neutral-100: #fffaeb;
-  --neutral-200: #dbdbdb;
-  --neutral-400: #7d7c7c;
-  --neutral-800: #2e2e2e;
   --neutral-900: #161615;
   --primary-400: #ba4a4a;
   --primary-200: #ff7575;
   --accent-400: #fbce04;
   --secondary-400: #00beff;
   --secondary-900: #1d5e75;
-
-  --pokedex-heading-size: 8.656rem;
-
-  --large-container: 1080px;
 }
 
 html[data-theme|="light"] {

@@ -96,10 +96,7 @@
   transition: 200ms ease-in-out;
 }
 
-.navbar .nav-item:hover {
-  color: var(--accent-400);
-}
-
+.navbar .nav-item:hover,
 .nav-item.active {
   color: var(--accent-400);
 }
@@ -305,26 +302,6 @@
 
 .pokedex-spinner[data-visible="true"] {
   display: block;
-}
-
-.pokedex-grid .pokemon-card:hover .card-body {
-  box-shadow: 0px 3px 10px var(--pokedex-card-shadow);
-}
-
-.pokemon-card.baby:hover .card-body {
-  background-color: var(--secondary-400);
-}
-
-.pokemon-card.legendary:hover .card-body {
-  --clr-one: var(--pokemon-card-bg);
-  --clr-two: var(--accent-400);
-  animation: 1.5s infinite special;
-}
-
-.pokemon-card.mythical:hover .card-body {
-  --clr-one: var(--secondary-400);
-  --clr-two: #9d7cb1;
-  animation: 1.5s infinite special;
 }
 
 .load-more-btn {

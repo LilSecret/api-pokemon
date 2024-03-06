@@ -55,10 +55,6 @@
 }
 
 @media (max-width: 500px) {
-  .header-lg {
-    font-size: 2rem;
-  }
-
   .parallax {
     background-size: 900px 100%;
   }
