@@ -233,7 +233,6 @@
 .pokedex-tag-list {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 100px;
   gap: 10px;
 }
 
