@@ -74,6 +74,7 @@ a {
 
 .content-max-width {
   max-width: 1200px;
+  padding-inline: 3rem;
   margin-inline: auto;
 }
 

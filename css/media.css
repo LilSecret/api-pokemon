@@ -1,3 +1,9 @@
+@media (max-width: 1440px) {
+  .content-max-width {
+    max-width: 1000px;
+  }
+}
+
 @media (max-width: 768px) {
   .navbar {
     padding-inline: 35px;
@@ -99,9 +105,10 @@
     left: auto;
   }
 
-  .pokedex .heading {
+  .heading {
     --font-size: 2rem;
     width: 90%;
+    padding: 1rem 0.5rem;
     margin-block: 100px 30px;
   }
 
