@@ -273,7 +273,7 @@ a {
 
 .grid-base {
   font-family: "Russo One", sans-serif;
-  color: var(--sort-btn-border);
+  color: var(--grid-base-clr);
   display: flex;
   padding-inline: 50px;
   align-items: center;
@@ -289,12 +289,13 @@ a {
 .sort-btn {
   cursor: pointer;
   padding: 7px;
-  border: solid 2px var(--sort-btn-border);
+  border: solid 2px var(--grid-base-clr);
   border-radius: 4px;
+  transition: transform 200ms ease;
 }
 
 .sort-btn:hover {
-  background-color: var(--accent-400);
+  transform: scale(1.15);
 }
 
 .error-wrapper {
