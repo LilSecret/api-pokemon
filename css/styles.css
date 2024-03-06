@@ -329,6 +329,8 @@
 }
 
 .load-more-btn {
+  --color: var(--load-btn-clr);
+  --background: var(--load-btn-bg);
   margin-top: 55px;
 }
 
