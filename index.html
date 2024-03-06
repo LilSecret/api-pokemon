@@ -80,20 +80,8 @@
       </div>
 
       <!-- Pokedex  -->
-      <section
-        id="pokedex"
-        class="pokedex pokedex-wrapper container | text-center"
-      >
-        <div class="pokedex-header">
-          <h1 class="heading heading-lg">Pokédex</h1>
-          <div class="header-img-wrapper">
-            <img
-              class="pokemon-img"
-              src="./assets/images/pickachu.svg"
-              alt="pokemon"
-            />
-          </div>
-        </div>
+      <section id="pokedex" class="pokedex container">
+        <h2 class="heading | text-center">Pokédex</h2>
 
         <ul class="pokedex-tag-list container-md">
           <li class="type-tag" data-type="all">all</li>
@@ -177,7 +165,16 @@
 
       <!-- Favorites  -->
       <section id="favorites" class="favorites">
-        <h2 class="heading | text-center">Favorites</h2>
+        <div class="grid-header">
+          <h2 class="heading | text-center">Favorites</h2>
+          <div class="header-img-wrapper">
+            <img
+              class="pokemon-img"
+              src="./assets/images/pickachu.svg"
+              alt="pokemon"
+            />
+          </div>
+        </div>
         <div
           id="favorites-grid"
           class="favorites-grid deck-grid-wrapper container"
