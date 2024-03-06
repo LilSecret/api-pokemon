@@ -119,6 +119,19 @@ a {
   justify-content: center;
 }
 
+.grid-header {
+  max-width: 600px;
+  margin-inline: auto;
+  position: relative;
+}
+
+.header-img-wrapper {
+  position: absolute;
+  width: 200px;
+  top: -90%;
+  right: 0%;
+}
+
 .pokemon-card {
   cursor: pointer;
   position: relative;
