@@ -80,10 +80,10 @@
       </div>
 
       <!-- Pokedex  -->
-      <section id="pokedex" class="pokedex container">
+      <section id="pokedex" class="pokedex | content-center">
         <h2 class="heading | text-center">Pokédex</h2>
 
-        <ul class="pokedex-tag-list container-md">
+        <ul class="pokedex-tag-list | content-max-width">
           <li class="type-tag" data-type="all">all</li>
           <li class="type-tag" data-type="fire">fire</li>
           <li class="type-tag" data-type="water">water</li>
@@ -118,11 +118,11 @@
 
         <div
           id="pokedex-grid"
-          class="pokedex-grid deck-grid-wrapper"
+          class="pokedex-grid deck-grid-wrapper | content-max-width"
           data-filter="all"
           data-error="false"
         ></div>
-        <div class="grid-base">
+        <div class="grid-base | content-max-width">
           <div class="sort-btn">A-Z</div>
           <div class="grid-data">
             <div class="data-stat">
@@ -166,7 +166,7 @@
       <!-- Favorites  -->
       <section id="favorites" class="favorites">
         <div class="grid-header">
-          <h2 class="heading | text-center">Favorites</h2>
+          <h2 class="heading | content-max-width text-center">Favorites</h2>
           <div class="header-img-wrapper">
             <img
               class="pokemon-img"
@@ -177,10 +177,10 @@
         </div>
         <div
           id="favorites-grid"
-          class="favorites-grid deck-grid-wrapper container"
+          class="favorites-grid deck-grid-wrapper | content-max-width"
           data-error="false"
         ></div>
-        <div class="grid-base container">
+        <div class="grid-base | content-max-width">
           <div class="sort-btn">A-Z</div>
           <div class="grid-data">
             <div class="data-stat">
@@ -202,20 +202,20 @@
           </div>
         </div>
       </section>
-    </main>
 
-    <!-- Modals  -->
-    <div class="modal-backdrop" data-exit="modal"></div>
-    <div id="about-modal" class="modal nav-modal">
-      <h3 class="header-lg">About</h3>
-      <span class="close-btn" data-exit="modal">&times;</span>
-      <span>Hello there👋</span>
-      <p>
-        Welcome to my Pokemon Favorites website. Here you are able to save your
-        favorite pokemon. This was built using this
-        <a class="modal-link" href="https://pokeapi.co/">Poke Api</a>.
-      </p>
-    </div>
+      <!-- Modals  -->
+      <div class="modal-backdrop" data-exit="modal"></div>
+      <div id="about-modal" class="modal nav-modal">
+        <h3 class="modal-heading">About</h3>
+        <span class="close-btn" data-exit="modal">&times;</span>
+        <span>Hello there👋</span>
+        <p>
+          Welcome to my Pokemon Favorites website. Here you are able to save
+          your favorite pokemon. This was built using this
+          <a class="modal-link" href="https://pokeapi.co/">Poke Api</a>.
+        </p>
+      </div>
+    </main>
     <script src="index.js" async defer></script>
   </body>
 </html>

@@ -68,14 +68,19 @@ a {
   clip-path: polygon(25% 0%, 100% 0, 75% 100%, 0% 100%);
 }
 
-.container {
-  max-width: 1300px;
+.modal-heading {
+  font-size: 2.5rem;
+}
+
+.content-max-width {
+  max-width: 1200px;
   margin-inline: auto;
 }
 
-.container-md {
-  max-width: 1250px;
-  margin-inline: auto;
+.content-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .button {
@@ -275,7 +280,7 @@ a {
   font-family: "Russo One", sans-serif;
   color: var(--grid-base-clr);
   display: flex;
-  padding-inline: 50px;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
 }
