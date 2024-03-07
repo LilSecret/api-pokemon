@@ -8,10 +8,7 @@ const heroChatBox = document.querySelector(".chat-box-wrapper img");
 const pokemonCard = ".pokemon-card";
 const pokemonFavs = "pokemonFavorites";
 const pokedexFilter = "data-filter";
-const pokedex = ".pokedex-grid";
-const favorite = ".favorites";
 
-const card = ".pokedex-grid-item";
 const defaultPokemonImg = "./assets/images/default-pokemon.png";
 const pokedexNav = document.querySelectorAll(".pokedex-tag-list .type-tag");
 const pokedexGrid = document.querySelector(".pokedex-grid");

@@ -102,7 +102,6 @@ a {
 .button:focus {
   background-color: var(--load-btn-clr);
   color: var(--load-btn-bg);
-  box-shadow: 0px 1px 2px var(--hero-chatbox-text);
 }
 
 .type-tag {
@@ -117,7 +116,7 @@ a {
   padding: 8px 15px;
 }
 
-.deck-grid-wrapper {
+.deck-grid {
   margin-block: 83px 50px;
   display: flex;
   gap: 100px 35px;
