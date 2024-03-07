@@ -55,8 +55,13 @@
 }
 
 @media (max-width: 500px) {
-  .parallax {
+  .landing-view {
     background-size: 900px 100%;
+  }
+
+  .header-img-wrapper {
+    top: -79%;
+    width: 100px;
   }
 
   .grid-base {
