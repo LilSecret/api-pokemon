@@ -289,18 +289,45 @@
   display: none;
 }
 
-.pokedex-spinner {
-  display: none;
+.pokedex-loader {
+  --loader-width: 15rem;
+  --loader-height: 0.5rem;
+  display: block;
   position: fixed;
-  width: 50px;
-  left: 50%;
-  translate: -50% -50%;
-  bottom: 0px;
+  bottom: 10vh;
   z-index: 10;
-  animation: gridLoader 500ms infinite;
 }
 
-.pokedex-spinner[data-visible="true"] {
+.custom-range {
+  display: none;
+  /* display: block; */
+  height: var(--loader-height);
+  width: var(--loader-width);
+  border-radius: 1rem;
+  background-color: var(--pokedex-progress-bg);
+}
+
+.custom-range-progress {
+  display: none;
+  border-radius: 1rem;
+  height: var(--loader-height);
+  width: 0%;
+  background-color: var(--accent-400);
+}
+
+.spinner-wrapper {
+  display: none;
+  position: absolute;
+  width: 30px;
+  top: 50%;
+  left: 0%;
+  transform: translate(-50%, -50%);
+  animation: spinner 800ms infinite;
+}
+
+[data-visible="true"] .custom-range,
+[data-visible="true"] .custom-range-progress,
+[data-visible="true"] .spinner-wrapper {
   display: block;
 }
 
@@ -371,12 +398,12 @@
   }
 }
 
-@keyframes gridLoader {
+@keyframes spinner {
   from {
-    transform: rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
 

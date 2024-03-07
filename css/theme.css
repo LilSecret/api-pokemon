@@ -19,6 +19,7 @@ html[data-theme|="light"] {
   --pokemon-card-outline: var(--neutral-900);
 
   --pokedex-card-shadow: var(--primary-200);
+  --pokedex-progress-bg: var(--primary-400);
   --favs-card-shadow: var(--accent-400);
   --favorite-card-bg: var(--neutral-100);
 
@@ -40,6 +41,7 @@ html[data-theme|="dark"] {
   --pokemon-card-text: var(--neutral-900);
   --pokemon-card-outline: var(--primary-400);
 
+  --pokedex-progress-bg: var(--primary-200);
   --pokedex-card-shadow: var(--accent-400);
   --favs-card-shadow: var(--accent-400);
   --favorite-card-bg: var(--neutral-900);
