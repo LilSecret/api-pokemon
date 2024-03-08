@@ -15,15 +15,16 @@ const pokedexGrid = document.querySelector(".pokedex-grid");
 const favoritesGrid = document.querySelector(".favorites-grid");
 const pokedexSearchBtn = document.querySelector(".pokedex-search-button");
 
-const specialCards = ["baby", "legendary", "mythical", "common"];
+const rarityTypes = ["common", "baby", "legendary", "mythical"];
 
 const loadAction = "load-more";
 const loadMoreBtn = document.querySelector("[data-load]");
-const loaderIcon = document.querySelector(".pokedex-spinner");
+const loaderIcon = document.querySelector(".pokedex-loader");
 
 const sortButtons = document.querySelectorAll(".sort-btn");
 
 const gridLoadLimit = 30;
+let cardsLoaded = [];
 let siteLoading = false;
 let offset = 0;
 let currentData;
@@ -146,85 +147,73 @@ const deployInGrid = (card, grid) => {
   }, 100);
 };
 
-const placePokemonCard = async (url, destination) => {
-  try {
-    let res = await fetch(url);
-    res = await res.json();
-    let species = await fetch(res.species.url);
-    species = await species.json();
-    const special = logSpecial(species, destination);
-    const pokemonImg = getPokemonImg(
-      res.sprites.other.dream_world.front_default,
-      res.sprites.other["official-artwork"].front_default
-    );
-    const pokemonName = res.name;
-    const baseHp = res.stats[0].base_stat;
-    const baseAtt = res.stats[1].base_stat;
-    const baseDef = res.stats[2].base_stat;
-    let type1 = res.types[0].type.name;
-    let type2 = res.types.length === 2 ? res.types[1].type.name : null;
-
-    const pokemonCard = document.createElement("div");
-    pokemonCard.classList.add("pokemon-card");
-    pokemonCard.classList.add(special);
-    pokemonCard.setAttribute("data-pokemon", pokemonName);
-
-    const content = `
-      <div class="card-body">
-        <div class="left">
-          <div class="pokemon-img-wrapper">
-            <img
-              src="${pokemonImg}"
-              alt="pokemon"
-            />
-          </div>
-          <h3 class="pokemon-card-name">${titleCase(pokemonName)}</h3>
-        </div>
-        <div class="right stats-grid">
-          <div class="icon-wrapper">
-            <img src="./assets/images/stat-icons/heart.png" alt="heart" />
-          </div>
-          <div class="stat">${baseHp}</div>
-          <div class="icon-wrapper">
-            <img src="/assets/images/stat-icons/sword.png" alt="sword" />
-          </div>
-          <div class="stat">${baseAtt}</div>
-          <div class="icon-wrapper">
-            <img src="./assets/images/stat-icons/shield.png" alt="shield" />
-          </div>
-          <div class="stat">${baseDef}</div>
-        </div>
-        <div class="base">
-          <div class="type-tag" data-type="${type1}">${type1}</div>
-          ${
-            type2 !== null
-              ? `<div class="type-tag" data-type="${type2}">${type2}</div>`
-              : ""
-          }
-        </div>
-      </div>
-      <div class="card-tab">
-        <i class="fa-regular fa-heart"></i>
-      </div>`;
-
-    pokemonCard.innerHTML = content;
-    destination.appendChild(pokemonCard);
-  } catch (err) {
-    const errorMessage =
-      "It looks like the Pokemon you have entered does not exist. Please Try again.";
-    gridError(errorMessage, pokedexGrid);
-    disableLoadMore();
-    console.error(err.message);
-  }
+const getData = (url) => {
+  return fetch(url)
+    .then((res) => res.json())
+    .catch((err) => console.error(err.message));
 };
 
-const logSpecial = (data, grid) => {
-  let special = specialCards[3];
-  if (data.is_baby) special = specialCards[0];
-  if (data.is_legendary) special = specialCards[1];
-  if (data.is_mythical) special = specialCards[2];
-  changeGridStats(true, special, grid);
-  return special;
+const buildPokemonCard = async (url) => {
+  const pokemon = await getData(url);
+  const species = await getData(pokemon.species.url);
+  const rarity = getRarity(species);
+  const pokemonImg = getPokemonImg(pokemon);
+  const pokemonName = pokemon.name;
+  const baseHp = pokemon.stats[0].base_stat;
+  const baseAtt = pokemon.stats[1].base_stat;
+  const baseDef = pokemon.stats[2].base_stat;
+  const pokemonCard = document.createElement("div");
+
+  pokemonCard.classList.add("pokemon-card");
+  pokemonCard.classList.add(rarity);
+  pokemonCard.setAttribute("data-pokemon", pokemonName);
+
+  const content = `
+    <div class="card-body">
+      <div class="left">
+        <div class="pokemon-img-wrapper">
+          <img
+            src="${pokemonImg}"
+            alt="pokemon"
+          />
+        </div>
+        <h3 class="pokemon-card-name">${titleCase(pokemonName)}</h3>
+      </div>
+      <div class="right stats-grid">
+        <div class="icon-wrapper">
+          <img src="./assets/images/stat-icons/heart.png" alt="heart" />
+        </div>
+        <div class="stat">${baseHp}</div>
+        <div class="icon-wrapper">
+          <img src="/assets/images/stat-icons/sword.png" alt="sword" />
+        </div>
+        <div class="stat">${baseAtt}</div>
+        <div class="icon-wrapper">
+          <img src="./assets/images/stat-icons/shield.png" alt="shield" />
+        </div>
+        <div class="stat">${baseDef}</div>
+      </div>
+      <div class="base"></div>
+    </div>
+    <div class="card-tab">
+      <i class="fa-regular fa-heart"></i>
+    </div>`;
+
+  pokemonCard.innerHTML = content;
+  pokemon.types.forEach((type) => {
+    const name = type.type.name;
+    const cardBase = pokemonCard.querySelector(".base");
+    const typeDiv = `<div class="type-tag" data-type="${name}">${name}</div>`;
+    cardBase.innerHTML += typeDiv;
+  });
+  return pokemonCard;
+};
+
+const getRarity = (data) => {
+  if (data.is_baby) return rarityTypes[1];
+  if (data.is_legendary) return rarityTypes[2];
+  if (data.is_mythical) return rarityTypes[3];
+  return rarityTypes[0];
 };
 
 const resetPokedex = () => {
@@ -285,15 +274,17 @@ const loadMoreAllTypes = async (limit) => {
   startLoadSpinner();
   try {
     const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
-    let response = await fetch(url);
-    response = await response.json();
+    let response = getData(url);
     for (let result of response.results) {
-      await placePokemonCard(result.url, pokedexGrid);
+      const card = await buildPokemonCard(result.url);
+      cardsLoaded.push(card);
     }
   } catch (err) {
     console.error(err.message);
     gridError("An unexpected error has occurred.", pokedexGrid);
   } finally {
+    // push all cards to grid
+    // empty loadedCards
     removeFaves();
     offset += limit;
     stopLoadSpinner();
@@ -307,9 +298,12 @@ const loadMoreType = async () => {
     const currentPokemon = currentData.pokemon[i];
     if (!validateMorePokemon(currentPokemon, loadAction)) return;
     const url = currentData.pokemon[i].pokemon.url;
-    await placePokemonCard(url, pokedexGrid);
+    const card = await buildPokemonCard(url);
+    cardsLoaded.push(card);
   }
   removeFaves();
+  // add loaded cards
+  // empty loaded cards array
   offset = completion;
   stopLoadSpinner();
 };
@@ -334,12 +328,12 @@ const fetchSinglePokemon = async (pokemon, destination) => {
   pokemon = pokemon.toLowerCase();
   startLoadSpinner();
   resetGridStats(pokedexGrid);
-  await placePokemonCard(url, destination);
+  const card = await buildPokemonCard(url);
+  cardsLoaded.push(card);
   stopLoadSpinner();
-  const card = document.querySelector(`[data-pokemon=${pokemon}]`);
-  if (favoredPokemon.includes(pokemon)) {
-    toggleCardHeart(card);
-  }
+  if (favoredPokemon.includes(pokemon)) toggleCardHeart(card);
+  // add loaded cards
+  // empty load cards array
 };
 
 const toggleCardHeart = (card) => {
@@ -359,14 +353,11 @@ const toggleSearchNavigation = () => {
   );
 };
 
-const getPokemonImg = (attempt1, attempt2) => {
-  if (attempt1) {
-    return attempt1;
-  }
-  if (attempt2) {
-    return attempt2;
-  }
-  return defaultPokemonImg;
+const getPokemonImg = (data) => {
+  const img =
+    data.sprites.other.dream_world.front_default ||
+    data.sprites.other["official-artwork"].front_default;
+  return img ? img : defaultPokemonImg;
 };
 
 const validateMorePokemon = (item, action) => {
@@ -392,9 +383,12 @@ const addGlobalEventListener = (type, selector, callback) => {
 };
 
 const onStartup = async () => {
-  setSiteTheme();
-  loadMoreAllTypes(gridLoadLimit);
-  favoritesStartup();
+  const url = `https://pokeapi.co/api/v2/pokemon/bulbasaur`;
+  const card = await buildPokemonCard(url);
+  pokedexGrid.appendChild(card);
+  // setSiteTheme();
+  // loadMoreAllTypes(gridLoadLimit);
+  // favoritesStartup();
 };
 
 const closeModal = (modal) => {
