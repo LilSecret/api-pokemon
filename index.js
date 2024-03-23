@@ -283,8 +283,8 @@ const loadMoreAllTypes = async (limit) => {
     console.error(err.message);
     gridError("An unexpected error has occurred.", pokedexGrid);
   } finally {
-    // push all cards to grid
-    // empty loadedCards
+    // TODO: pull all cards to grid
+    // TODO: empty loadedCards
     removeFaves();
     offset += limit;
     stopLoadSpinner();
@@ -302,8 +302,8 @@ const loadMoreType = async () => {
     cardsLoaded.push(card);
   }
   removeFaves();
-  // add loaded cards
-  // empty loaded cards array
+  // TODO: add loaded cards
+  // TODO: empty loaded cards array
   offset = completion;
   stopLoadSpinner();
 };
@@ -332,8 +332,8 @@ const fetchSinglePokemon = async (pokemon, destination) => {
   cardsLoaded.push(card);
   stopLoadSpinner();
   if (favoredPokemon.includes(pokemon)) toggleCardHeart(card);
-  // add loaded cards
-  // empty load cards array
+  // TODO: add loaded cards
+  // TODO: empty load cards array
 };
 
 const toggleCardHeart = (card) => {
@@ -386,9 +386,9 @@ const onStartup = async () => {
   const url = `https://pokeapi.co/api/v2/pokemon/bulbasaur`;
   const card = await buildPokemonCard(url);
   pokedexGrid.appendChild(card);
-  // setSiteTheme();
-  // loadMoreAllTypes(gridLoadLimit);
-  // favoritesStartup();
+  // FIXME: setSiteTheme();
+  // FIXME: loadMoreAllTypes(gridLoadLimit);
+  // FIXME: favoritesStartup();
 };
 
 const closeModal = (modal) => {
@@ -498,7 +498,7 @@ pokedexSearchBtn.addEventListener("click", () => {
 
 pokedexSearchBtn.addEventListener("submit", (event) => {
   const pokemon = document.getElementById("pokemon").value;
-  event.preventDefault(); // stops auto submit
+  event.preventDefault();
   resetPokedex();
   disableLoadMore();
   fetchSinglePokemon(pokemon, pokedexGrid);
