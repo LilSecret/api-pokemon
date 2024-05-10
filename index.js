@@ -1,3 +1,5 @@
+const BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
+
 const siteTheme = "pokeTheme";
 
 const html = document.querySelector("html");
