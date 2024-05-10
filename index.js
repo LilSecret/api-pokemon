@@ -498,13 +498,21 @@ pokedexSearchBtn.addEventListener("click", () => {
 });
 
 pokedexSearchBtn.addEventListener("submit", (event) => {
-  const pokemon = document.getElementById("pokemon").value;
   event.preventDefault();
-  resetPokedex();
-  disableLoadMore();
-  fetchSinglePokemon(pokemon, pokedexGrid);
-  pokedexGrid.setAttribute(pokedexFilter, pokemon);
-  pokedexSearchBtn.reset();
+  const inputValue = document.getElementById("pokemon").value;
+  if (inputValue.length > 3) {
+    const pokemonNames = validatePokemonName(inputValue);
+    if (pokemonNames) {
+      resetPokedex();
+      disableLoadMore();
+      pokedexGrid.setAttribute(pokedexFilter, "custom");
+      pokemonNames.forEach(async (name) => {
+        const card = await buildPokemonCard(name);
+        pokedexGrid.appendChild(card);
+      });
+      pokedexSearchBtn.reset();
+    }
+  }
 });
 
 themeBtn.addEventListener("click", () => {
