@@ -150,20 +150,19 @@ const deployInGrid = (card, grid) => {
 };
 
 const getData = (url) => {
-  return fetch(url)
-    .then((res) => res.json())
-    .catch((err) => console.error(err.message));
+  return fetch(url).then((res) => res.json());
 };
 
-const buildPokemonCard = async (url) => {
-  const pokemon = await getData(url);
-  const species = await getData(pokemon.species.url);
+const buildPokemonCard = async (pokemon) => {
+  const url = BASE_URL + pokemon;
+  const data = await getData(url);
+  const species = await getData(data.species.url);
   const rarity = getRarity(species);
-  const pokemonImg = getPokemonImg(pokemon);
-  const pokemonName = pokemon.name;
-  const baseHp = pokemon.stats[0].base_stat;
-  const baseAtt = pokemon.stats[1].base_stat;
-  const baseDef = pokemon.stats[2].base_stat;
+  const pokemonImg = getPokemonImg(data);
+  const pokemonName = data.name;
+  const baseHp = data.stats[0].base_stat;
+  const baseAtt = data.stats[1].base_stat;
+  const baseDef = data.stats[2].base_stat;
   const pokemonCard = document.createElement("div");
 
   pokemonCard.classList.add("pokemon-card");
@@ -202,7 +201,7 @@ const buildPokemonCard = async (url) => {
     </div>`;
 
   pokemonCard.innerHTML = content;
-  pokemon.types.forEach((type) => {
+  data.types.forEach((type) => {
     const name = type.type.name;
     const cardBase = pokemonCard.querySelector(".base");
     const typeDiv = `<div class="type-tag" data-type="${name}">${name}</div>`;
