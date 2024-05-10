@@ -346,7 +346,7 @@ const toggleCardHeart = (card) => {
   return `${regularIcon === true ? "favored" : "unfavored"}`;
 };
 
-const toggleSearchNavigation = () => {
+const toggleExpandNavSearch = () => {
   const value = pokedexSearchBtn.getAttribute("data-expanded");
   pokedexSearchBtn.setAttribute(
     "data-expanded",
@@ -481,7 +481,7 @@ pokedexNav.forEach((type) => {
       pokedexToType(type);
     }
     if (pokedexSearchBtn.getAttribute("data-expanded") === "true") {
-      toggleSearchNavigation();
+      toggleExpandNavSearch();
     }
     resetGridStats(pokedexGrid);
   });
@@ -493,7 +493,7 @@ addGlobalEventListener("click", pokemonCard, (e) => {
 
 pokedexSearchBtn.addEventListener("click", () => {
   if (pokedexSearchBtn.getAttribute("data-expanded") === "false") {
-    toggleSearchNavigation();
+    toggleExpandNavSearch();
   }
 });
 
