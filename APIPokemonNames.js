@@ -1,4 +1,4 @@
-export const APIPokemonNames = [
+const APIPokemonNames = [
   "bulbasaur",
   "ivysaur",
   "venusaur",
