@@ -26,7 +26,6 @@ const loaderIcon = document.querySelector(".pokedex-loader");
 const sortButtons = document.querySelectorAll(".sort-btn");
 
 const gridLoadLimit = 30;
-let cardsLoaded = [];
 let siteLoading = false;
 let offset = 0;
 let currentData;
@@ -247,7 +246,7 @@ const pokedexToType = async (type) => {
     );
     return;
   }
-  startLoadSpinner();
+  toggleLoadingSpinner(true);
   try {
     const response = await fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
     const data = await response.json();
@@ -258,7 +257,7 @@ const pokedexToType = async (type) => {
   } catch (err) {
     console.error(err.message);
     gridError("The Pokemon Type was unable to load.", pokedexGrid);
-    stopLoadSpinner();
+    toggleLoadingSpinner(false);
   }
 };
 
@@ -272,69 +271,58 @@ const loadMoreHandler = () => {
 
 const loadMoreAllTypes = async (limit) => {
   if (siteLoading) return;
-  startLoadSpinner();
+  toggleLoadingSpinner(true);
   try {
     const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
-    let response = getData(url);
-    for (let result of response.results) {
-      const card = await buildPokemonCard(result.url);
-      cardsLoaded.push(card);
-    }
+    let response = await getData(url);
+    response.results.forEach(async (pokemon) => {
+      const card = await buildPokemonCard(pokemon.name);
+      deployInGrid(card, pokedexGrid);
+    });
   } catch (err) {
     console.error(err.message);
     gridError("An unexpected error has occurred.", pokedexGrid);
   } finally {
-    // TODO: pull all cards to grid
-    // TODO: empty loadedCards
     removeFaves();
     offset += limit;
-    stopLoadSpinner();
+    toggleLoadingSpinner(false);
   }
 };
 
 const loadMoreType = async () => {
   const completion = offset + gridLoadLimit;
-  if (!siteLoading) startLoadSpinner();
+  if (!siteLoading) toggleLoadingSpinner(true);
   for (let i = offset; i < completion; i++) {
-    const currentPokemon = currentData.pokemon[i];
-    if (!validateMorePokemon(currentPokemon, loadAction)) return;
-    const url = currentData.pokemon[i].pokemon.url;
-    const card = await buildPokemonCard(url);
-    cardsLoaded.push(card);
+    console.log(currentData);
+    // const currentPokemon = currentData.pokemon[i];
+    // if (!validateMorePokemon(currentPokemon, loadAction)) return;
+    // const url = currentData.pokemon[i].pokemon.url;
+    // const card = await buildPokemonCard(url);
+    // deployInGrid(card, pokedexGrid);
   }
   removeFaves();
-  // TODO: add loaded cards
-  // TODO: empty loaded cards array
   offset = completion;
-  stopLoadSpinner();
+  toggleLoadingSpinner(false);
 };
 
 const disableLoadMore = () => {
   loadMoreBtn.setAttribute("data-load", false);
 };
 
-const startLoadSpinner = () => {
-  loaderIcon.setAttribute("data-visible", true);
-  siteLoading = true;
-};
-
-const stopLoadSpinner = () => {
-  loaderIcon.setAttribute("data-visible", false);
-  siteLoading = false;
+const toggleLoadingSpinner = (boolean) => {
+  loaderIcon.setAttribute("data-visible", boolean);
+  siteLoading = boolean;
 };
 
 const fetchSinglePokemon = async (pokemon, destination) => {
   const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
-  const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
   pokemon = pokemon.toLowerCase();
-  startLoadSpinner();
+  toggleLoadingSpinner(true);
   resetGridStats(pokedexGrid);
-  const card = await buildPokemonCard(url);
-  cardsLoaded.push(card);
-  stopLoadSpinner();
+  const card = await buildPokemonCard(pokemon);
+  deployInGrid(card, pokedexGrid);
+  toggleLoadingSpinner(false);
   if (favoredPokemon.includes(pokemon)) toggleCardHeart(card);
-  // TODO: add loaded cards
-  // TODO: empty load cards array
 };
 
 const toggleCardHeart = (card) => {
@@ -384,12 +372,9 @@ const addGlobalEventListener = (type, selector, callback) => {
 };
 
 const onStartup = async () => {
-  const url = `https://pokeapi.co/api/v2/pokemon/bulbasaur`;
-  const card = await buildPokemonCard(url);
-  pokedexGrid.appendChild(card);
-  // FIXME: setSiteTheme();
-  // FIXME: loadMoreAllTypes(gridLoadLimit);
-  // FIXME: favoritesStartup();
+  setSiteTheme();
+  loadMoreAllTypes(gridLoadLimit);
+  favoritesStartup();
 };
 
 const closeModal = (modal) => {
@@ -433,7 +418,7 @@ const toggleSortCards = (button, deck) => {
 
 const resetGridStats = (grid) => {
   const parent = grid.parentElement;
-  specialCards.forEach((special) => {
+  rarityTypes.forEach((special) => {
     const stat = parent.querySelector(`[data-type="${special}"]`);
     stat.innerHTML = 0;
   });
@@ -508,7 +493,7 @@ pokedexSearchBtn.addEventListener("submit", (event) => {
       pokedexGrid.setAttribute(pokedexFilter, "custom");
       pokemonNames.forEach(async (name) => {
         const card = await buildPokemonCard(name);
-        pokedexGrid.appendChild(card);
+        deployInGrid(card, pokedexGrid);
       });
       pokedexSearchBtn.reset();
     }
