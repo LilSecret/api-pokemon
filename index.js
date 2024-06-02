@@ -271,21 +271,27 @@ const loadMoreHandler = () => {
 const loadMoreAllTypes = async (limit) => {
   if (siteLoading) return;
   toggleLoadingSpinner(true);
-  try {
-    const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
-    let response = await getData(url);
-    response.results.forEach(async (pokemon) => {
-      const card = await buildPokemonCard(pokemon.name);
-      deployInGrid(card, pokedexGrid);
+  const url = `${BASE_URL}?limit=${limit}&offset=${offset}`;
+
+  getData(url)
+    .then((response) => {
+      response.results.forEach((pokemon) => {
+        buildPokemonCard(pokemon.name).then((card) => {
+          deployInGrid(card, pokedexGrid);
+        });
+      });
+    })
+    .then(() => {
+      // removeFaves();
+      offset += limit;
+    })
+    .catch((err) => {
+      console.error(err.message);
+      gridError(err.message, pokedexGrid);
+    })
+    .finally(() => {
+      toggleLoadingSpinner(false);
     });
-  } catch (err) {
-    console.error(err.message);
-    gridError("An unexpected error has occurred.", pokedexGrid);
-  } finally {
-    removeFaves();
-    offset += limit;
-    toggleLoadingSpinner(false);
-  }
 };
 
 const loadMoreType = async () => {
