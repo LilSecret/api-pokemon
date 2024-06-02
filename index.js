@@ -74,8 +74,10 @@ const favoritesStartup = () => {
       favoritesGrid
     );
   } else {
-    favoredPokemon.forEach((pokemon) => {
-      fetchSinglePokemon(pokemon, favoritesGrid);
+    favoredPokemon.forEach(async (pokemon) => {
+      const card = await buildPokemonCard(pokemon);
+      toggleCardHeart(card, "favorite");
+      deployInGrid(card, favoritesGrid);
     });
   }
 };
@@ -325,13 +327,16 @@ const fetchSinglePokemon = async (pokemon, destination) => {
   if (favoredPokemon.includes(pokemon)) toggleCardHeart(card);
 };
 
-const toggleCardHeart = (card) => {
+const toggleCardHeart = (card, favored) => {
   const icon = card.querySelector(".fa-heart");
-  const regularIcon = icon.classList.contains("fa-regular");
-  icon.classList.remove(`${regularIcon === true ? "fa-regular" : "fa-solid"}`);
-  icon.classList.add(`${regularIcon === true ? "fa-solid" : "fa-regular"}`);
+  icon.classList.remove(
+    `${favored === "favorite" ? "fa-regular" : "fa-solid"}`
+  );
+  icon.classList.add(`${favored === "favorite" ? "fa-solid" : "fa-regular"}`);
 
-  return `${regularIcon === true ? "favored" : "unfavored"}`;
+  console.log(card);
+
+  return card;
 };
 
 const toggleExpandNavSearch = () => {
@@ -373,8 +378,10 @@ const addGlobalEventListener = (type, selector, callback) => {
 
 const onStartup = async () => {
   setSiteTheme();
-  loadMoreAllTypes(gridLoadLimit);
+  await loadMoreAllTypes(gridLoadLimit);
   favoritesStartup();
+  // setTimeout(() => {
+  // }, 1000);
 };
 
 const closeModal = (modal) => {
