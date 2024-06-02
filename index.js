@@ -315,8 +315,8 @@ const disableLoadMore = () => {
 };
 
 const toggleLoadingSpinner = (boolean) => {
-  loaderIcon.setAttribute("data-visible", boolean);
   siteLoading = boolean;
+  loaderIcon.setAttribute("data-visible", boolean);
 };
 
 const fetchSinglePokemon = async (pokemon, destination) => {
