@@ -127,23 +127,20 @@ const clickedCardHandler = (card) => {
   }, 500);
 };
 
-const removeCard = (name, grid) => {
+const removeCardFromGrid = (name, grid) => {
   const card = grid.querySelector(`[data-pokemon=${name}]`);
-  if (!card) return; // wasn't fetched in pokedex
-  if (card.classList[1]) changeGridStats(false, card.classList[1], grid);
+  updateGridStats("subtract", card.classList[1], grid);
   card.style.transform = "scale(0)";
   //smooth animation
   setTimeout(() => {
     grid.removeChild(card);
   }, 200);
+  return card;
 };
 
 const deployInGrid = (card, grid) => {
   grid.appendChild(card);
-  toggleCardHeart(card);
-  if (card.classList[1]) {
-    changeGridStats(true, card.classList[1], grid);
-  }
+  updateGridStats("add", card.classList[1], grid);
   //smooth animation
   setTimeout(() => {
     card.style.transform = "scale(1)";
@@ -425,18 +422,21 @@ const toggleSortCards = (button, deck) => {
 
 const resetGridStats = (grid) => {
   const parent = grid.parentElement;
-  rarityTypes.forEach((special) => {
-    const stat = parent.querySelector(`[data-type="${special}"]`);
+  rarityTypes.forEach((rarity) => {
+    const stat = parent.querySelector(`[data-type="${rarity}"]`);
     stat.innerHTML = 0;
   });
 };
 
-const changeGridStats = (add, special, grid) => {
-  const base = grid.parentElement.querySelector(".grid-data");
-  const specialAmount = base.querySelector(`[data-type="${special}"]`);
-  add
-    ? (specialAmount.innerHTML = +specialAmount.innerHTML + 1)
-    : (specialAmount.innerHTML = +specialAmount.innerHTML - 1);
+const updateGridStats = (add, rarityType, grid) => {
+  const gridBase = grid.parentElement.querySelector(".grid-data");
+  const rarityAmount = gridBase.querySelector(`[data-type="${rarityType}"]`);
+
+  if (add === "add") {
+    rarityAmount.innerHTML = +rarityAmount.innerHTML + 1;
+  } else {
+    rarityAmount.innerHTML = +rarityAmount.innerHTML - 1;
+  }
 };
 
 const pokemonTypeData = {
