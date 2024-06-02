@@ -99,7 +99,7 @@ const handleFavsError = () => {
 const removeFaves = () => {
   const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
   favoredPokemon.forEach((pokemon) => {
-    removeCard(pokemon, pokedexGrid);
+    removeCardFromGrid(pokemon, pokedexGrid);
   });
 };
 
@@ -118,7 +118,7 @@ const clickedCardHandler = (card) => {
   const parent = card.parentElement;
   const name = card.dataset.pokemon;
   const newParent = parent.id === "pokedex-grid" ? favoritesGrid : pokedexGrid;
-  removeCard(name, parent);
+  removeCardFromGrid(name, parent);
   toggleInStorage(card, parent);
   //smooth animation
   setTimeout(() => {
@@ -330,8 +330,6 @@ const toggleCardHeart = (card, favored) => {
     `${favored === "favorite" ? "fa-regular" : "fa-solid"}`
   );
   icon.classList.add(`${favored === "favorite" ? "fa-solid" : "fa-regular"}`);
-
-  console.log(card);
 
   return card;
 };
