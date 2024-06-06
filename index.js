@@ -1,4 +1,4 @@
-const BASE_URL = "https://pokeapi.co/api/v2/pokemon/";
+const BASE_URL = "https://pokeapi.co/api/v2/";
 
 const siteTheme = "pokeTheme";
 
@@ -152,7 +152,7 @@ const getData = (url) => {
 };
 
 const buildPokemonCard = async (pokemon) => {
-  const url = BASE_URL + pokemon;
+  const url = BASE_URL + "pokemon/" + pokemon;
   const data = await getData(url);
   const species = await getData(data.species.url);
   const rarity = getRarity(species);
@@ -271,7 +271,7 @@ const loadMoreHandler = () => {
 const loadMoreAllTypes = async (limit) => {
   if (siteLoading) return;
   toggleLoadingSpinner(true);
-  const url = `${BASE_URL}?limit=${limit}&offset=${offset}`;
+  const url = `${BASE_URL}pokemon/?limit=${limit}&offset=${offset}`;
 
   getData(url)
     .then((response) => {
@@ -381,8 +381,6 @@ const onStartup = async () => {
   setSiteTheme();
   await loadMoreAllTypes(gridLoadLimit);
   favoritesStartup();
-  // setTimeout(() => {
-  // }, 1000);
 };
 
 const closeModal = (modal) => {
@@ -443,7 +441,7 @@ const updateGridStats = (add, rarityType, grid) => {
   }
 };
 
-const pokemonTypeData = {
+const pokemonTypeID = {
   normal: "1",
   fighting: "2",
   flying: "3",
