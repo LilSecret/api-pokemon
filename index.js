@@ -238,26 +238,32 @@ const gridError = (message, grid) => {
 };
 
 const pokedexToType = async (type) => {
-  const typeNum = pokemonTypeData[type];
+  const typeId = pokemonTypeID[type];
+  const url = BASE_URL + "type/" + typeId;
   if (siteLoading || pokedexGrid.getAttribute(pokedexFilter) === type) {
     console.error(
       "Something is Loading or You Clicked the Same Type of Pokemon"
     );
     return;
   }
+
   toggleLoadingSpinner(true);
-  try {
-    const response = await fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
-    const data = await response.json();
-    currentData = data;
-    resetPokedex();
-    pokedexGrid.setAttribute(pokedexFilter, type);
-    await loadMoreType();
-  } catch (err) {
-    console.error(err.message);
-    gridError("The Pokemon Type was unable to load.", pokedexGrid);
-    toggleLoadingSpinner(false);
-  }
+  getData(url)
+    .then((response) => {
+      currentData = response;
+      resetPokedex();
+      pokedexGrid.setAttribute(pokedexFilter, type);
+    })
+    .then(() => {
+      loadMoreType();
+    })
+    .catch((err) => {
+      console.error(err.message);
+      gridError(err.message, pokedexGrid);
+    })
+    .finally(() => {
+      toggleLoadingSpinner(false);
+    });
 };
 
 const loadMoreHandler = () => {
