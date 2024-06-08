@@ -124,7 +124,7 @@ const clickedCardHandler = async (card) => {
   newParent === favoritesGrid
     ? toggleCardHeart(card, "favorite")
     : toggleCardHeart(card);
-  validateGridError(parent);
+  validateGrid(parent);
   deployInGrid(card, newParent);
   handleGridError(newParent);
 };
@@ -238,6 +238,38 @@ const gridError = (message, grid) => {
     ${message}
   </p>`;
   grid.appendChild(errorWrapper);
+};
+
+const validateGrid = (grid) => {
+  if (grid.children.length === 0) {
+    switch (grid) {
+      case pokedexGrid:
+        gridError(
+          "Click the all tag in the navigation for more pokemon",
+          pokedexGrid
+        );
+        break;
+      case favoritesGrid:
+        gridError(
+          "Why don't you love Pokemon. Go love those Pokemon...",
+          favoritesGrid
+        );
+        break;
+
+      default:
+        throw new Error(`Your ${grid} does not exist`);
+    }
+  }
+};
+
+const handleGridError = (grid) => {
+  if (
+    grid.getAttribute("data-error") === "true" &&
+    grid.children.length === 2
+  ) {
+    grid.removeChild(grid.firstChild);
+    grid.setAttribute("data-error", false);
+  }
 };
 
 const pokedexToType = async (type) => {
