@@ -118,7 +118,8 @@ const clickedCardHandler = async (card) => {
   const parent = card.parentElement;
   const name = card.dataset.pokemon;
   const newParent = parent.id === "pokedex-grid" ? favoritesGrid : pokedexGrid;
-  removeCardFromGrid(name, parent);
+
+  await removeCardFromGrid(name, parent);
   toggleInStorage(card, parent);
   newParent === favoritesGrid
     ? toggleCardHeart(card, "favorite")
@@ -131,12 +132,13 @@ const clickedCardHandler = async (card) => {
 const removeCardFromGrid = (name, grid) => {
   const card = grid.querySelector(`[data-pokemon=${name}]`);
   updateGridStats("subtract", card.classList[1], grid);
-  card.style.transform = "scale(0)";
-  //smooth animation
-  setTimeout(() => {
-    grid.removeChild(card);
-  }, 200);
-  return card;
+  return new Promise((resolve) => {
+    card.style.transform = "scale(0)";
+    setTimeout(() => {
+      grid.removeChild(card);
+      resolve(card);
+    }, 200);
+  });
 };
 
 const deployInGrid = (card, grid) => {
