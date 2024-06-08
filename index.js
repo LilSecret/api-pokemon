@@ -114,17 +114,18 @@ const toggleInStorage = (card, parent) => {
   localStorage.setItem(pokemonFavs, JSON.stringify(favoredPokemon));
 };
 
-const clickedCardHandler = (card) => {
+const clickedCardHandler = async (card) => {
   const parent = card.parentElement;
   const name = card.dataset.pokemon;
   const newParent = parent.id === "pokedex-grid" ? favoritesGrid : pokedexGrid;
   removeCardFromGrid(name, parent);
   toggleInStorage(card, parent);
-  //smooth animation
-  setTimeout(() => {
-    handleFavsError();
-    deployInGrid(card, newParent);
-  }, 500);
+  newParent === favoritesGrid
+    ? toggleCardHeart(card, "favorite")
+    : toggleCardHeart(card);
+  validateGridError(parent);
+  deployInGrid(card, newParent);
+  handleGridError(newParent);
 };
 
 const removeCardFromGrid = (name, grid) => {
