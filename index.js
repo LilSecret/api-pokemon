@@ -304,12 +304,11 @@ const loadMoreType = async () => {
   const completion = offset + gridLoadLimit;
   if (!siteLoading) toggleLoadingSpinner(true);
   for (let i = offset; i < completion; i++) {
-    console.log(currentData);
-    // const currentPokemon = currentData.pokemon[i];
-    // if (!validateMorePokemon(currentPokemon, loadAction)) return;
-    // const url = currentData.pokemon[i].pokemon.url;
-    // const card = await buildPokemonCard(url);
-    // deployInGrid(card, pokedexGrid);
+    const currentPokemon = currentData.pokemon[i];
+    if (!validateMorePokemon(currentPokemon, loadAction)) return;
+    const name = currentData.pokemon[i].pokemon.name;
+    const card = await buildPokemonCard(name);
+    deployInGrid(card, pokedexGrid);
   }
   removeFaves();
   offset = completion;
