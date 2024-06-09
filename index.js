@@ -131,6 +131,13 @@ const clickedCardHandler = async (card) => {
 
 const removeCardFromGrid = (name, grid) => {
   const card = grid.querySelector(`[data-pokemon=${name}]`);
+
+  if (!card) {
+    console.error(
+      `The Pokemon card by the name of ${name} is not in the ${grid}`
+    );
+    return;
+  }
   updateGridStats("subtract", card.classList[1], grid);
   return new Promise((resolve) => {
     card.style.transform = "scale(0)";
@@ -286,8 +293,8 @@ const pokedexToType = async (type) => {
   getData(url)
     .then((response) => {
       currentData = response;
-      resetPokedex();
       pokedexGrid.setAttribute(pokedexFilter, type);
+      resetPokedex();
     })
     .then(() => {
       loadMoreType();
@@ -315,15 +322,14 @@ const loadMoreAllTypes = async (limit) => {
   const url = `${BASE_URL}pokemon/?limit=${limit}&offset=${offset}`;
 
   getData(url)
-    .then((response) => {
-      response.results.forEach((pokemon) => {
-        buildPokemonCard(pokemon.name).then((card) => {
-          deployInGrid(card, pokedexGrid);
-        });
+    .then(async (response) => {
+      const unfavoredPokemon = getUnfavoredPokemonFromAPIList(response.results);
+      unfavoredPokemon.forEach(async (pokemon) => {
+        const card = await buildPokemonCard(pokemon);
+        deployInGrid(card, pokedexGrid);
       });
     })
     .then(() => {
-      // removeFaves();
       offset += limit;
     })
     .catch((err) => {
@@ -337,15 +343,16 @@ const loadMoreAllTypes = async (limit) => {
 
 const loadMoreType = async () => {
   const completion = offset + gridLoadLimit;
+  const currentDataPokemonArray = currentData.pokemon.slice(offset, completion);
+  const unfavoredPokemon = getUnfavoredPokemonFromAPIList(
+    currentDataPokemonArray
+  );
+
   if (!siteLoading) toggleLoadingSpinner(true);
-  for (let i = offset; i < completion; i++) {
-    const currentPokemon = currentData.pokemon[i];
-    if (!validateMorePokemon(currentPokemon, loadAction)) return;
-    const name = currentData.pokemon[i].pokemon.name;
-    const card = await buildPokemonCard(name);
+  unfavoredPokemon.forEach(async (pokemon) => {
+    const card = await buildPokemonCard(pokemon);
     deployInGrid(card, pokedexGrid);
-  }
-  removeFaves();
+  });
   offset = completion;
   toggleLoadingSpinner(false);
 };
@@ -399,12 +406,25 @@ const validateMorePokemon = (item, action) => {
   if (!item) {
     if (action === loadAction) {
       disableLoadMore();
-      alert("You have loaded the rest of the Pokemon");
+      alert("You have loaded the rest of the Pokemon of this kind");
     }
     return false;
   } else {
     return true;
   }
+};
+
+const getUnfavoredPokemonFromAPIList = (pokemonAPIList) => {
+  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
+  const pokemonNamesArray = [];
+
+  pokemonAPIList.forEach((pokemonObject) => {
+    pokemonNamesArray.push(pokemonObject.name || pokemonObject.pokemon.name);
+  });
+
+  return pokemonNamesArray.filter(
+    (pokemon) => !favoredPokemon.includes(pokemon)
+  );
 };
 
 const titleCase = (string) => {
