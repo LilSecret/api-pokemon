@@ -118,15 +118,20 @@ const clickedCardHandler = async (card) => {
   const parent = card.parentElement;
   const name = card.dataset.pokemon;
   const newParent = parent.id === "pokedex-grid" ? favoritesGrid : pokedexGrid;
+  const cardStatus = getCardStatus(card);
 
-  await removeCardFromGrid(name, parent);
-  toggleInStorage(card, parent);
-  newParent === favoritesGrid
-    ? toggleCardHeart(card, "favorite")
-    : toggleCardHeart(card);
-  validateGrid(parent);
-  deployInGrid(card, newParent);
-  handleGridError(newParent);
+  if (cardStatus === "favorited" && parent === pokedexGrid) {
+    alert(`${name} is already in your favorites`);
+  } else {
+    await removeCardFromGrid(name, parent);
+    newParent === favoritesGrid
+      ? toggleCardHeart(card, "favorite")
+      : toggleCardHeart(card);
+    validateGrid(parent);
+    toggleInStorage(card, parent);
+    deployInGrid(card, newParent);
+    handleGridError(newParent);
+  }
 };
 
 const removeCardFromGrid = (name, grid) => {
@@ -385,6 +390,13 @@ const toggleCardHeart = (card, favored) => {
   icon.classList.add(`${favored === "favorite" ? "fa-solid" : "fa-regular"}`);
 
   return card;
+};
+
+const getCardStatus = (card) => {
+  const icon = card.querySelector(".fa-heart");
+  const isCardFavored = icon.classList.contains("fa-solid");
+
+  return isCardFavored ? "favorited" : "unfavorited";
 };
 
 const toggleExpandNavSearch = () => {
