@@ -425,7 +425,10 @@ const getUnfavoredPokemonFromAPIList = (pokemonAPIList) => {
   const pokemonNamesArray = [];
 
   pokemonAPIList.forEach((pokemonObject) => {
-    pokemonNamesArray.push(pokemonObject.name || pokemonObject.pokemon.name);
+    const pokemonName =
+      pokemonObject.name || pokemonObject.pokemon.name || pokemonObject;
+
+    pokemonNamesArray.push(pokemonName);
   });
 
   return pokemonNamesArray.filter(
