@@ -96,13 +96,6 @@ const handleFavsError = () => {
   }
 };
 
-const removeFaves = () => {
-  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
-  favoredPokemon.forEach((pokemon) => {
-    removeCardFromGrid(pokemon, pokedexGrid);
-  });
-};
-
 const toggleInStorage = (card, parent) => {
   const name = card.dataset.pokemon;
   const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
