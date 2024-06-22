@@ -20,7 +20,7 @@ const pokedexSearchBtn = document.querySelector(".pokedex-search-button");
 const rarityTypes = ["common", "baby", "legendary", "mythical"];
 
 const loadAction = "load-more";
-const loadMoreBtn = document.querySelector("[data-load]");
+const loadMoreBtn = document.querySelector("#load-more-btn");
 const loaderIcon = document.querySelector(".pokedex-loader");
 
 const sortButtons = document.querySelectorAll(".sort-btn");
@@ -226,7 +226,6 @@ const getRarity = (data) => {
 const resetPokedex = () => {
   pokedexGrid.innerHTML = "";
   offset = 0;
-  loadMoreBtn.setAttribute("data-load", true);
   resetGridStats(pokedexGrid);
 };
 
@@ -310,7 +309,7 @@ const pokedexToType = async (type) => {
 const loadMoreHandler = () => {
   const currentFilter = pokedexGrid.getAttribute(pokedexFilter);
 
-  if (loadMoreBtn.getAttribute("data-load") == "true") {
+  if (loadMoreBtn.getAttribute("data-disabled") === "false") {
     currentFilter === "all" ? loadMoreAllTypes(gridLoadLimit) : loadMoreType();
   }
 };
@@ -356,8 +355,8 @@ const loadMoreType = async () => {
   toggleLoadingSpinner(false);
 };
 
-const disableLoadMore = () => {
-  loadMoreBtn.setAttribute("data-load", false);
+const toggleLoadMoreBtn = (boolean) => {
+  loadMoreBtn.setAttribute("data-disabled", `${boolean}`);
 };
 
 const toggleLoadingSpinner = (boolean) => {
@@ -411,7 +410,7 @@ const getPokemonImg = (data) => {
 const validateMorePokemon = (item, action) => {
   if (!item) {
     if (action === loadAction) {
-      disableLoadMore();
+      toggleLoadMoreBtn(false);
       alert("You have loaded the rest of the Pokemon of this kind");
     }
     return false;
@@ -578,8 +577,8 @@ pokedexSearchBtn.addEventListener("input", (event) => {
 
     // fetch cards if input is 3 length or backspace is pressed
     if (inputValue.length === 3 || keyAction === "deleteContentBackward") {
-      disableLoadMore();
       resetPokedex();
+      toggleLoadMoreBtn(true);
       pokedexGrid.setAttribute(pokedexFilter, "custom");
       pokemonNames.forEach(async (name) => {
         const card = await buildPokemonCard(name);

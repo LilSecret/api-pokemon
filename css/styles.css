@@ -337,7 +337,7 @@
   margin-top: 55px;
 }
 
-.load-more-btn[data-load="false"] {
+.load-more-btn[data-disabled="true"] {
   pointer-events: none;
   user-select: none;
   opacity: 0.4;
