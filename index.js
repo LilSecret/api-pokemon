@@ -557,20 +557,44 @@ pokedexSearchBtn.addEventListener("click", () => {
   }
 });
 
-pokedexSearchBtn.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const inputValue = document.getElementById("pokemon").value;
-  if (inputValue.length > 3) {
+pokedexSearchBtn.addEventListener("input", (event) => {
+  const inputValue = event.target.value;
+  const keyAction = event.inputType;
+
+  if (inputValue.length > 2) {
     const pokemonNames = validatePokemonName(inputValue);
-    if (pokemonNames) {
-      resetPokedex();
+    const favoredPokemon = localStorage.getItem(pokemonFavs);
+
+    if (!pokemonNames) {
+      gridError(
+        "The word you entered does not match a pokemon name",
+        pokedexGrid
+      );
+      throw new Error(`${inputValue} is not a pokemon name`);
+    }
+
+    // fetch cards if input is 3 length or backspace is pressed
+    if (inputValue.length === 3 || keyAction === "deleteContentBackward") {
       disableLoadMore();
+      resetPokedex();
       pokedexGrid.setAttribute(pokedexFilter, "custom");
       pokemonNames.forEach(async (name) => {
         const card = await buildPokemonCard(name);
+
+        if (favoredPokemon.includes(name)) {
+          toggleCardHeart(card, "favorite");
+        }
         deployInGrid(card, pokedexGrid);
       });
-      pokedexSearchBtn.reset();
+      // filter out cards
+    } else {
+      Array.from(pokedexGrid.children).forEach((card) => {
+        const pokemonCardName = card.getAttribute("data-pokemon");
+
+        if (!pokemonNames.includes(pokemonCardName)) {
+          removeCardFromGrid(pokemonCardName, pokedexGrid);
+        }
+      });
     }
   }
 });
