@@ -227,6 +227,7 @@ const resetPokedex = () => {
   pokedexGrid.innerHTML = "";
   offset = 0;
   loadMoreBtn.setAttribute("data-load", true);
+  resetGridStats(pokedexGrid);
 };
 
 const gridError = (message, grid) => {
