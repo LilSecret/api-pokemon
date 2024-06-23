@@ -1,3 +1,5 @@
+const BASE_URL = "https://pokeapi.co/api/v2/";
+
 const siteTheme = "pokeTheme";
 
 const html = document.querySelector("html");
@@ -15,11 +17,11 @@ const pokedexGrid = document.querySelector(".pokedex-grid");
 const favoritesGrid = document.querySelector(".favorites-grid");
 const pokedexSearchBtn = document.querySelector(".pokedex-search-button");
 
-const specialCards = ["baby", "legendary", "mythical", "common"];
+const rarityTypes = ["common", "baby", "legendary", "mythical"];
 
 const loadAction = "load-more";
-const loadMoreBtn = document.querySelector("[data-load]");
-const loaderIcon = document.querySelector(".pokedex-spinner");
+const loadMoreBtn = document.querySelector("#load-more-btn");
+const loaderIcon = document.querySelector(".pokedex-loader");
 
 const sortButtons = document.querySelectorAll(".sort-btn");
 
@@ -72,8 +74,10 @@ const favoritesStartup = () => {
       favoritesGrid
     );
   } else {
-    favoredPokemon.forEach((pokemon) => {
-      fetchSinglePokemon(pokemon, favoritesGrid);
+    favoredPokemon.forEach(async (pokemon) => {
+      const card = await buildPokemonCard(pokemon);
+      toggleCardHeart(card, "favorite");
+      deployInGrid(card, favoritesGrid);
     });
   }
 };
@@ -92,13 +96,6 @@ const handleFavsError = () => {
   }
 };
 
-const removeFaves = () => {
-  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
-  favoredPokemon.forEach((pokemon) => {
-    removeCard(pokemon, pokedexGrid);
-  });
-};
-
 const toggleInStorage = (card, parent) => {
   const name = card.dataset.pokemon;
   const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
@@ -110,127 +107,126 @@ const toggleInStorage = (card, parent) => {
   localStorage.setItem(pokemonFavs, JSON.stringify(favoredPokemon));
 };
 
-const clickedCardHandler = (card) => {
+const clickedCardHandler = async (card) => {
   const parent = card.parentElement;
   const name = card.dataset.pokemon;
   const newParent = parent.id === "pokedex-grid" ? favoritesGrid : pokedexGrid;
-  removeCard(name, parent);
-  toggleInStorage(card, parent);
-  //smooth animation
-  setTimeout(() => {
-    handleFavsError();
+  const cardStatus = getCardStatus(card);
+
+  if (cardStatus === "favorited" && parent === pokedexGrid) {
+    alert(`${name} is already in your favorites`);
+  } else {
+    await removeCardFromGrid(name, parent);
+    newParent === favoritesGrid
+      ? toggleCardHeart(card, "favorite")
+      : toggleCardHeart(card);
+    validateGrid(parent);
+    toggleInStorage(card, parent);
     deployInGrid(card, newParent);
-  }, 500);
+    handleGridError(newParent);
+  }
 };
 
-const removeCard = (name, grid) => {
+const removeCardFromGrid = (name, grid) => {
   const card = grid.querySelector(`[data-pokemon=${name}]`);
-  if (!card) return; // wasn't fetched in pokedex
-  if (card.classList[1]) changeGridStats(false, card.classList[1], grid);
-  card.style.transform = "scale(0)";
-  //smooth animation
-  setTimeout(() => {
-    grid.removeChild(card);
-  }, 200);
+
+  if (!card) {
+    console.error(
+      `The Pokemon card by the name of ${name} is not in the ${grid}`
+    );
+    return;
+  }
+  updateGridStats("subtract", card.classList[1], grid);
+  return new Promise((resolve) => {
+    card.style.transform = "scale(0)";
+    setTimeout(() => {
+      grid.removeChild(card);
+      resolve(card);
+    }, 200);
+  });
 };
 
 const deployInGrid = (card, grid) => {
   grid.appendChild(card);
-  toggleCardHeart(card);
-  if (card.classList[1]) {
-    changeGridStats(true, card.classList[1], grid);
-  }
+  updateGridStats("add", card.classList[1], grid);
   //smooth animation
   setTimeout(() => {
     card.style.transform = "scale(1)";
   }, 100);
 };
 
-const placePokemonCard = async (url, destination) => {
-  try {
-    let res = await fetch(url);
-    res = await res.json();
-    let species = await fetch(res.species.url);
-    species = await species.json();
-    const special = logSpecial(species, destination);
-    const pokemonImg = getPokemonImg(
-      res.sprites.other.dream_world.front_default,
-      res.sprites.other["official-artwork"].front_default
-    );
-    const pokemonName = res.name;
-    const baseHp = res.stats[0].base_stat;
-    const baseAtt = res.stats[1].base_stat;
-    const baseDef = res.stats[2].base_stat;
-    let type1 = res.types[0].type.name;
-    let type2 = res.types.length === 2 ? res.types[1].type.name : null;
-
-    const pokemonCard = document.createElement("div");
-    pokemonCard.classList.add("pokemon-card");
-    pokemonCard.classList.add(special);
-    pokemonCard.setAttribute("data-pokemon", pokemonName);
-
-    const content = `
-      <div class="card-body">
-        <div class="left">
-          <div class="pokemon-img-wrapper">
-            <img
-              src="${pokemonImg}"
-              alt="pokemon"
-            />
-          </div>
-          <h3 class="pokemon-card-name">${titleCase(pokemonName)}</h3>
-        </div>
-        <div class="right stats-grid">
-          <div class="icon-wrapper">
-            <img src="./assets/images/stat-icons/heart.png" alt="heart" />
-          </div>
-          <div class="stat">${baseHp}</div>
-          <div class="icon-wrapper">
-            <img src="/assets/images/stat-icons/sword.png" alt="sword" />
-          </div>
-          <div class="stat">${baseAtt}</div>
-          <div class="icon-wrapper">
-            <img src="./assets/images/stat-icons/shield.png" alt="shield" />
-          </div>
-          <div class="stat">${baseDef}</div>
-        </div>
-        <div class="base">
-          <div class="type-tag" data-type="${type1}">${type1}</div>
-          ${
-            type2 !== null
-              ? `<div class="type-tag" data-type="${type2}">${type2}</div>`
-              : ""
-          }
-        </div>
-      </div>
-      <div class="card-tab">
-        <i class="fa-regular fa-heart"></i>
-      </div>`;
-
-    pokemonCard.innerHTML = content;
-    destination.appendChild(pokemonCard);
-  } catch (err) {
-    const errorMessage =
-      "It looks like the Pokemon you have entered does not exist. Please Try again.";
-    gridError(errorMessage, pokedexGrid);
-    disableLoadMore();
-    console.error(err.message);
-  }
+const getData = (url) => {
+  return fetch(url).then((res) => res.json());
 };
 
-const logSpecial = (data, grid) => {
-  let special = specialCards[3];
-  if (data.is_baby) special = specialCards[0];
-  if (data.is_legendary) special = specialCards[1];
-  if (data.is_mythical) special = specialCards[2];
-  changeGridStats(true, special, grid);
-  return special;
+const buildPokemonCard = async (pokemon) => {
+  const url = BASE_URL + "pokemon/" + pokemon;
+  const data = await getData(url);
+  const species = await getData(data.species.url);
+  const rarity = getRarity(species);
+  const pokemonImg = getPokemonImg(data);
+  const pokemonName = data.name;
+  const baseHp = data.stats[0].base_stat;
+  const baseAtt = data.stats[1].base_stat;
+  const baseDef = data.stats[2].base_stat;
+  const pokemonCard = document.createElement("div");
+
+  pokemonCard.classList.add("pokemon-card");
+  pokemonCard.classList.add(rarity);
+  pokemonCard.setAttribute("data-pokemon", pokemonName);
+
+  const content = `
+    <div class="card-body">
+      <div class="left">
+        <div class="pokemon-img-wrapper">
+          <img
+            src="${pokemonImg}"
+            alt="pokemon"
+          />
+        </div>
+        <h3 class="pokemon-card-name">${titleCase(pokemonName)}</h3>
+      </div>
+      <div class="right stats-grid">
+        <div class="icon-wrapper">
+          <img src="./assets/images/stat-icons/heart.png" alt="heart" />
+        </div>
+        <div class="stat">${baseHp}</div>
+        <div class="icon-wrapper">
+          <img src="/assets/images/stat-icons/sword.png" alt="sword" />
+        </div>
+        <div class="stat">${baseAtt}</div>
+        <div class="icon-wrapper">
+          <img src="./assets/images/stat-icons/shield.png" alt="shield" />
+        </div>
+        <div class="stat">${baseDef}</div>
+      </div>
+      <div class="base"></div>
+    </div>
+    <div class="card-tab">
+      <i class="fa-regular fa-heart"></i>
+    </div>`;
+
+  pokemonCard.innerHTML = content;
+  data.types.forEach((type) => {
+    const name = type.type.name;
+    const cardBase = pokemonCard.querySelector(".base");
+    const typeDiv = `<div class="type-tag" data-type="${name}">${name}</div>`;
+    cardBase.innerHTML += typeDiv;
+  });
+  return pokemonCard;
+};
+
+const getRarity = (data) => {
+  if (data.is_baby) return rarityTypes[1];
+  if (data.is_legendary) return rarityTypes[2];
+  if (data.is_mythical) return rarityTypes[3];
+  return rarityTypes[0];
 };
 
 const resetPokedex = () => {
   pokedexGrid.innerHTML = "";
   offset = 0;
-  loadMoreBtn.setAttribute("data-load", true);
+  resetGridStats(pokedexGrid);
 };
 
 const gridError = (message, grid) => {
@@ -249,109 +245,154 @@ const gridError = (message, grid) => {
   grid.appendChild(errorWrapper);
 };
 
+const validateGrid = (grid) => {
+  if (grid.children.length === 0) {
+    switch (grid) {
+      case pokedexGrid:
+        gridError(
+          "Click the all tag in the navigation for more pokemon",
+          pokedexGrid
+        );
+        break;
+      case favoritesGrid:
+        gridError(
+          "Why don't you love Pokemon. Go love those Pokemon...",
+          favoritesGrid
+        );
+        break;
+
+      default:
+        throw new Error(`Your ${grid} does not exist`);
+    }
+  }
+};
+
+const handleGridError = (grid) => {
+  if (
+    grid.getAttribute("data-error") === "true" &&
+    grid.children.length === 2
+  ) {
+    grid.removeChild(grid.firstChild);
+    grid.setAttribute("data-error", false);
+  }
+};
+
 const pokedexToType = async (type) => {
-  const typeNum = pokemonTypeData[type];
+  const typeId = pokemonTypeID[type];
+  const url = BASE_URL + "type/" + typeId;
   if (siteLoading || pokedexGrid.getAttribute(pokedexFilter) === type) {
     console.error(
       "Something is Loading or You Clicked the Same Type of Pokemon"
     );
     return;
   }
-  startLoadSpinner();
-  try {
-    const response = await fetch(`https://pokeapi.co/api/v2/type/${typeNum}`);
-    const data = await response.json();
-    currentData = data;
-    resetPokedex();
-    pokedexGrid.setAttribute(pokedexFilter, type);
-    await loadMoreType();
-  } catch (err) {
-    console.error(err.message);
-    gridError("The Pokemon Type was unable to load.", pokedexGrid);
-    stopLoadSpinner();
-  }
+
+  toggleLoadingSpinner(true);
+  getData(url)
+    .then((response) => {
+      currentData = response;
+      pokedexGrid.setAttribute(pokedexFilter, type);
+      resetPokedex();
+    })
+    .then(() => {
+      loadMoreType();
+    })
+    .catch((err) => {
+      console.error(err.message);
+      gridError(err.message, pokedexGrid);
+    })
+    .finally(() => {
+      toggleLoadingSpinner(false);
+    });
 };
 
 const loadMoreHandler = () => {
   const currentFilter = pokedexGrid.getAttribute(pokedexFilter);
 
-  if (loadMoreBtn.getAttribute("data-load") == "true") {
+  if (loadMoreBtn.getAttribute("data-disabled") === "false") {
     currentFilter === "all" ? loadMoreAllTypes(gridLoadLimit) : loadMoreType();
   }
 };
 
 const loadMoreAllTypes = async (limit) => {
   if (siteLoading) return;
-  startLoadSpinner();
-  try {
-    const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`;
-    let response = await fetch(url);
-    response = await response.json();
-    for (let result of response.results) {
-      await placePokemonCard(result.url, pokedexGrid);
-    }
-  } catch (err) {
-    console.error(err.message);
-    gridError("An unexpected error has occurred.", pokedexGrid);
-  } finally {
-    removeFaves();
-    offset += limit;
-    stopLoadSpinner();
-  }
+  toggleLoadingSpinner(true);
+  const url = `${BASE_URL}pokemon/?limit=${limit}&offset=${offset}`;
+
+  getData(url)
+    .then(async (response) => {
+      const unfavoredPokemon = getUnfavoredPokemonFromAPIList(response.results);
+      unfavoredPokemon.forEach(async (pokemon) => {
+        const card = await buildPokemonCard(pokemon);
+        deployInGrid(card, pokedexGrid);
+      });
+    })
+    .then(() => {
+      offset += limit;
+    })
+    .catch((err) => {
+      console.error(err.message);
+      gridError(err.message, pokedexGrid);
+    })
+    .finally(() => {
+      toggleLoadingSpinner(false);
+    });
 };
 
 const loadMoreType = async () => {
   const completion = offset + gridLoadLimit;
-  if (!siteLoading) startLoadSpinner();
-  for (let i = offset; i < completion; i++) {
-    const currentPokemon = currentData.pokemon[i];
-    if (!validateMorePokemon(currentPokemon, loadAction)) return;
-    const url = currentData.pokemon[i].pokemon.url;
-    await placePokemonCard(url, pokedexGrid);
-  }
-  removeFaves();
+  const currentDataPokemonArray = currentData.pokemon.slice(offset, completion);
+  const unfavoredPokemon = getUnfavoredPokemonFromAPIList(
+    currentDataPokemonArray
+  );
+
+  if (!siteLoading) toggleLoadingSpinner(true);
+  unfavoredPokemon.forEach(async (pokemon) => {
+    const card = await buildPokemonCard(pokemon);
+    deployInGrid(card, pokedexGrid);
+  });
   offset = completion;
-  stopLoadSpinner();
+  toggleLoadingSpinner(false);
 };
 
-const disableLoadMore = () => {
-  loadMoreBtn.setAttribute("data-load", false);
+const toggleLoadMoreBtn = (boolean) => {
+  loadMoreBtn.setAttribute("data-disabled", `${boolean}`);
 };
 
-const startLoadSpinner = () => {
-  loaderIcon.setAttribute("data-visible", true);
-  siteLoading = true;
-};
-
-const stopLoadSpinner = () => {
-  loaderIcon.setAttribute("data-visible", false);
-  siteLoading = false;
+const toggleLoadingSpinner = (boolean) => {
+  siteLoading = boolean;
+  loaderIcon.setAttribute("data-visible", boolean);
 };
 
 const fetchSinglePokemon = async (pokemon, destination) => {
   const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
-  const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
   pokemon = pokemon.toLowerCase();
-  startLoadSpinner();
+  toggleLoadingSpinner(true);
   resetGridStats(pokedexGrid);
-  await placePokemonCard(url, destination);
-  stopLoadSpinner();
-  const card = document.querySelector(`[data-pokemon=${pokemon}]`);
-  if (favoredPokemon.includes(pokemon)) {
-    toggleCardHeart(card);
-  }
+  const card = await buildPokemonCard(pokemon);
+  deployInGrid(card, pokedexGrid);
+  toggleLoadingSpinner(false);
+  if (favoredPokemon.includes(pokemon)) toggleCardHeart(card);
 };
 
-const toggleCardHeart = (card) => {
+const toggleCardHeart = (card, favored) => {
   const icon = card.querySelector(".fa-heart");
-  const regularIcon = icon.classList.contains("fa-regular");
-  icon.classList.remove(`${regularIcon === true ? "fa-regular" : "fa-solid"}`);
-  icon.classList.add(`${regularIcon === true ? "fa-solid" : "fa-regular"}`);
+  icon.classList.remove(
+    `${favored === "favorite" ? "fa-regular" : "fa-solid"}`
+  );
+  icon.classList.add(`${favored === "favorite" ? "fa-solid" : "fa-regular"}`);
 
-  return `${regularIcon === true ? "favored" : "unfavored"}`;
+  return card;
 };
 
-const toggleSearchNavigation = () => {
+const getCardStatus = (card) => {
+  const icon = card.querySelector(".fa-heart");
+  const isCardFavored = icon.classList.contains("fa-solid");
+
+  return isCardFavored ? "favorited" : "unfavorited";
+};
+
+const toggleExpandNavSearch = () => {
   const value = pokedexSearchBtn.getAttribute("data-expanded");
   pokedexSearchBtn.setAttribute(
     "data-expanded",
@@ -359,26 +400,39 @@ const toggleSearchNavigation = () => {
   );
 };
 
-const getPokemonImg = (attempt1, attempt2) => {
-  if (attempt1) {
-    return attempt1;
-  }
-  if (attempt2) {
-    return attempt2;
-  }
-  return defaultPokemonImg;
+const getPokemonImg = (data) => {
+  const img =
+    data.sprites.other.dream_world.front_default ||
+    data.sprites.other["official-artwork"].front_default;
+  return img ? img : defaultPokemonImg;
 };
 
 const validateMorePokemon = (item, action) => {
   if (!item) {
     if (action === loadAction) {
-      disableLoadMore();
-      alert("You have loaded the rest of the Pokemon");
+      toggleLoadMoreBtn(false);
+      alert("You have loaded the rest of the Pokemon of this kind");
     }
     return false;
   } else {
     return true;
   }
+};
+
+const getUnfavoredPokemonFromAPIList = (pokemonAPIList) => {
+  const favoredPokemon = JSON.parse(localStorage.getItem(pokemonFavs));
+  const pokemonNamesArray = [];
+
+  pokemonAPIList.forEach((pokemonObject) => {
+    const pokemonName =
+      pokemonObject.name || pokemonObject.pokemon.name || pokemonObject;
+
+    pokemonNamesArray.push(pokemonName);
+  });
+
+  return pokemonNamesArray.filter(
+    (pokemon) => !favoredPokemon.includes(pokemon)
+  );
 };
 
 const titleCase = (string) => {
@@ -393,7 +447,7 @@ const addGlobalEventListener = (type, selector, callback) => {
 
 const onStartup = async () => {
   setSiteTheme();
-  loadMoreAllTypes(gridLoadLimit);
+  await loadMoreAllTypes(gridLoadLimit);
   favoritesStartup();
 };
 
@@ -438,21 +492,24 @@ const toggleSortCards = (button, deck) => {
 
 const resetGridStats = (grid) => {
   const parent = grid.parentElement;
-  specialCards.forEach((special) => {
-    const stat = parent.querySelector(`[data-type="${special}"]`);
+  rarityTypes.forEach((rarity) => {
+    const stat = parent.querySelector(`[data-type="${rarity}"]`);
     stat.innerHTML = 0;
   });
 };
 
-const changeGridStats = (add, special, grid) => {
-  const base = grid.parentElement.querySelector(".grid-data");
-  const specialAmount = base.querySelector(`[data-type="${special}"]`);
-  add
-    ? (specialAmount.innerHTML = +specialAmount.innerHTML + 1)
-    : (specialAmount.innerHTML = +specialAmount.innerHTML - 1);
+const updateGridStats = (add, rarityType, grid) => {
+  const gridBase = grid.parentElement.querySelector(".grid-data");
+  const rarityAmount = gridBase.querySelector(`[data-type="${rarityType}"]`);
+
+  if (add === "add") {
+    rarityAmount.innerHTML = +rarityAmount.innerHTML + 1;
+  } else {
+    rarityAmount.innerHTML = +rarityAmount.innerHTML - 1;
+  }
 };
 
-const pokemonTypeData = {
+const pokemonTypeID = {
   normal: "1",
   fighting: "2",
   flying: "3",
@@ -486,7 +543,7 @@ pokedexNav.forEach((type) => {
       pokedexToType(type);
     }
     if (pokedexSearchBtn.getAttribute("data-expanded") === "true") {
-      toggleSearchNavigation();
+      toggleExpandNavSearch();
     }
     resetGridStats(pokedexGrid);
   });
@@ -498,18 +555,50 @@ addGlobalEventListener("click", pokemonCard, (e) => {
 
 pokedexSearchBtn.addEventListener("click", () => {
   if (pokedexSearchBtn.getAttribute("data-expanded") === "false") {
-    toggleSearchNavigation();
+    toggleExpandNavSearch();
   }
 });
 
-pokedexSearchBtn.addEventListener("submit", (event) => {
-  const pokemon = document.getElementById("pokemon").value;
-  event.preventDefault(); // stops auto submit
-  resetPokedex();
-  disableLoadMore();
-  fetchSinglePokemon(pokemon, pokedexGrid);
-  pokedexGrid.setAttribute(pokedexFilter, pokemon);
-  pokedexSearchBtn.reset();
+pokedexSearchBtn.addEventListener("input", (event) => {
+  const inputValue = event.target.value;
+  const keyAction = event.inputType;
+
+  if (inputValue.length > 2) {
+    const pokemonNames = validatePokemonName(inputValue);
+    const favoredPokemon = localStorage.getItem(pokemonFavs);
+
+    if (!pokemonNames) {
+      gridError(
+        "The word you entered does not match a pokemon name",
+        pokedexGrid
+      );
+      throw new Error(`${inputValue} is not a pokemon name`);
+    }
+
+    // fetch cards if input is 3 length or backspace is pressed
+    if (inputValue.length === 3 || keyAction === "deleteContentBackward") {
+      resetPokedex();
+      toggleLoadMoreBtn(true);
+      pokedexGrid.setAttribute(pokedexFilter, "custom");
+      pokemonNames.forEach(async (name) => {
+        const card = await buildPokemonCard(name);
+
+        if (favoredPokemon.includes(name)) {
+          toggleCardHeart(card, "favorite");
+        }
+        deployInGrid(card, pokedexGrid);
+      });
+      // filter out cards
+    } else {
+      Array.from(pokedexGrid.children).forEach((card) => {
+        const pokemonCardName = card.getAttribute("data-pokemon");
+
+        if (!pokemonNames.includes(pokemonCardName)) {
+          removeCardFromGrid(pokemonCardName, pokedexGrid);
+        }
+      });
+    }
+  }
 });
 
 themeBtn.addEventListener("click", () => {
