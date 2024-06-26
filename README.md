@@ -24,7 +24,7 @@ You can heart your favorite pokémon monsters. Adding the Pokémon card to your 
 
 ## 🏗️ Development
 
-I build this project for an assignment for Devslopes academy as a 'vanilla js' project. We were tasked to build a favorites card web app that shows list of data and user is able to save there likings. This is the first project I made using an API.
+I built this project for an assignment for Devslopes Academy as a 'vanilla JS' project. We were tasked with creating a favorites card web app that displays a list of cards created from fetched data. Additionally, we were required to allow users to save their preferences. This is the first project I have completed using an API.
 
 ## 🤔 Improvements
 
