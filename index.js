@@ -29,6 +29,7 @@ const gridLoadLimit = 30;
 let siteLoading = false;
 let offset = 0;
 let currentData;
+let lastSetOfPokemonNames;
 
 const modalBackdrop = document.querySelector(".modal-backdrop");
 
@@ -577,7 +578,12 @@ pokedexSearchBtn.addEventListener("input", (event) => {
     }
 
     // fetch cards if input is 3 length or backspace is pressed
-    if (inputValue.length === 3 || keyAction === "deleteContentBackward") {
+    if (
+      inputValue.length === 3 ||
+      (keyAction === "deleteContentBackward" &&
+        !arraysAreEqual(pokemonNames, lastSetOfPokemonNames))
+    ) {
+      lastSetOfPokemonNames = pokemonNames;
       resetPokedex();
       toggleLoadMoreBtn(true);
       pokedexGrid.setAttribute(pokedexFilter, "custom");
