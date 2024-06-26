@@ -35,7 +35,7 @@ I built this project for an assignment for Devslopes Academy as a 'vanilla JS' p
 
 ## 🐞 Bugs
 
-- **Navigation Search Input:** The user has to spell the pokémon in capitalized format or the won't be fetched.
+- **None so far:** I tested it and haven't found any currently.
 
 <details>
   <summary><h3>🎥 Demos</h3></summary>
