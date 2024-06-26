@@ -16,25 +16,22 @@ You can heart your favorite pokémon monsters. Adding the Pokémon card to your 
 - **Responsive Design:** App works on mobile and desktop screens.
 - **Handy Search UI:** Typing the pokemon can start fetching for the pokemon already and display it inside pokedex.
 
-## 🤔 Improvements
-
-- **UX-Search:**
-  1. It would be better to display all pokémon all at once when they have all been fetched and loaded.
-  2. Also to display a load progress bar to show how much more is being loaded.
-  3. If pokedex is empty it can fetch all pokémon.
-  4. Clicking enter or the search Icon should start the fetch for the single pokémon.
-- **Navigation UI:** Clicking on search won't with other elements. Make when user types 3 characters in search, then its fetches all pokémon that match so far: caps or no-caps.
-- **Code Cleanup:** Code is little messy. Needs some better organization.
-
-## 🏗️ Development
-
-I build this project for an assignment for Devslopes academy as a 'vanilla js' project. We were tasked to build a favorites card web app that shows list of data and user is able to save there likings. This is the first project I made using an API.
-
 ## ⚒️ Technologies
 
 - `HTML`
 - `CSS`
 - `Vanilla JS`
+
+## 🏗️ Development
+
+I build this project for an assignment for Devslopes academy as a 'vanilla js' project. We were tasked to build a favorites card web app that shows list of data and user is able to save there likings. This is the first project I made using an API.
+
+## 🤔 Improvements
+
+- **User Experience:**
+  1. It would be better to display all pokémon all at once when they have all been fetched and loaded.
+  2. Add a load progress bar to show how close things are to be loaded.
+- **Code Cleanup:** Code is little messy. Needs some better organization.
 
 ## 🐞 Bugs
 
