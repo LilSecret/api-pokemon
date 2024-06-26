@@ -280,12 +280,6 @@ const handleGridError = (grid) => {
 const pokedexToType = async (type) => {
   const typeId = pokemonTypeID[type];
   const url = BASE_URL + "type/" + typeId;
-  if (siteLoading || pokedexGrid.getAttribute(pokedexFilter) === type) {
-    console.error(
-      "Something is Loading or You Clicked the Same Type of Pokemon"
-    );
-    return;
-  }
 
   toggleLoadingSpinner(true);
   getData(url)
@@ -535,13 +529,20 @@ onStartup();
 pokedexNav.forEach((type) => {
   type.addEventListener("click", (e) => {
     const type = e.target.getAttribute("data-type");
+    if (siteLoading) {
+      return;
+    }
+
     if (type === "all") {
       pokedexGrid.setAttribute(pokedexFilter, "all");
       resetPokedex();
       loadMoreAllTypes(gridLoadLimit);
-    } else {
+    }
+
+    if (pokedexGrid.getAttribute(pokedexFilter) != type) {
       pokedexToType(type);
     }
+
     if (pokedexSearchBtn.getAttribute("data-expanded") === "true") {
       toggleExpandNavSearch();
     }
