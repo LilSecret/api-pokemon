@@ -346,6 +346,12 @@ const loadMoreType = async () => {
     const card = await buildPokemonCard(pokemon);
     deployInGrid(card, pokedexGrid);
   });
+
+  // disable load more when no more pokemon
+  if (currentDataPokemonArray.length < gridLoadLimit) {
+    toggleLoadMoreBtn(true);
+  }
+
   offset = completion;
   toggleLoadingSpinner(false);
 };
