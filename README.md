@@ -37,7 +37,7 @@ I built this project for an assignment for Devslopes Academy as a 'vanilla JS' p
 
 ## 🐞 Bugs
 
-- **None so far:** I tested it and haven't found any currently.
+- **Pokedex Base Stats:** Sometimes the base stats bug out.
 
 <details>
   <summary><h3>🎥 Demos</h3></summary>
