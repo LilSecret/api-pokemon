@@ -534,6 +534,9 @@ pokedexNav.forEach((type) => {
       return;
     }
 
+    resetGridStats(pokedexGrid);
+    toggleLoadMoreBtn(false);
+
     if (type === "all") {
       pokedexGrid.setAttribute(pokedexFilter, "all");
       resetPokedex();
@@ -547,7 +550,6 @@ pokedexNav.forEach((type) => {
     if (pokedexSearchBtn.getAttribute("data-expanded") === "true") {
       toggleExpandNavSearch();
     }
-    resetGridStats(pokedexGrid);
   });
 });
 
