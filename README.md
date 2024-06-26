@@ -4,11 +4,17 @@ You can heart your favorite pokémon monsters. Adding the Pokémon card to your 
 
 ## 🚀 Features
 
+- **Special Cards Effect:** Special cards shows an animation for the rarity of the pokemon.
+  - Legendary cards are orange.
+  - Baby cards are blue with no animation.
+  - Mythic cards are blue and purple.
+  - Common cards have no animation or color change.
 - **Save your Favorites:** Clicking on a Pokémon will add to your favorites' section below.
 - **API Integrated:** All Pokémon data fetched using the **PokiAPI**.
 - **Light/Dark Mode:** Set the theme to your liking.
 - **Saved Cache:** Your theme and favorites are saved inside Local Storage.
 - **Responsive Design:** App works on mobile and desktop screens.
+- **Handy Search UI:** Typing the pokemon can start fetching for the pokemon already and display it inside pokedex.
 
 ## 🤔 Improvements
 
