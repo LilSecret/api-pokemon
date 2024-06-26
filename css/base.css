@@ -152,17 +152,17 @@ a {
   top: -40px;
 }
 
-.pokemon-card.baby:hover .card-body {
+.pokemon-card.baby .card-body {
   background-color: var(--secondary-400);
 }
 
-.pokemon-card.legendary:hover .card-body {
+.pokemon-card.legendary .card-body {
   --clr-one: var(--pokemon-card-bg);
   --clr-two: var(--accent-400);
   animation: 1.5s infinite special;
 }
 
-.pokemon-card.mythical:hover .card-body {
+.pokemon-card.mythical .card-body {
   --clr-one: var(--secondary-400);
   --clr-two: #9d7cb1;
   animation: 1.5s infinite special;
