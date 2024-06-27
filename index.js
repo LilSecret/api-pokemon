@@ -560,6 +560,10 @@ pokedexSearchBtn.addEventListener("click", () => {
   }
 });
 
+pokedexSearchBtn.addEventListener("submit", (event) => {
+  event.preventDefault();
+});
+
 pokedexSearchBtn.addEventListener("input", (event) => {
   const inputValue = event.target.value;
   const keyAction = event.inputType;
