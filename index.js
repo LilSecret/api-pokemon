@@ -349,14 +349,14 @@ const loadMoreType = async () => {
 
   // disable load more when no more pokemon
   if (currentDataPokemonArray.length < gridLoadLimit) {
-    toggleLoadMoreBtn(true);
+    setDisabledLoadMoreBtn(true);
   }
 
   offset = completion;
   toggleLoadingSpinner(false);
 };
 
-const toggleLoadMoreBtn = (boolean) => {
+const setDisabledLoadMoreBtn = (boolean) => {
   loadMoreBtn.setAttribute("data-disabled", `${boolean}`);
 };
 
@@ -411,7 +411,7 @@ const getPokemonImg = (data) => {
 const validateMorePokemon = (item, action) => {
   if (!item) {
     if (action === loadAction) {
-      toggleLoadMoreBtn(false);
+      setDisabledLoadMoreBtn(false);
       alert("You have loaded the rest of the Pokemon of this kind");
     }
     return false;
@@ -541,7 +541,7 @@ pokedexNav.forEach((type) => {
     }
 
     resetGridStats(pokedexGrid);
-    toggleLoadMoreBtn(false);
+    setDisabledLoadMoreBtn(false);
 
     if (type === "all") {
       pokedexGrid.setAttribute(pokedexFilter, "all");
@@ -597,7 +597,7 @@ pokedexSearchBtn.addEventListener("input", (event) => {
     ) {
       lastSetOfPokemonNames = pokemonNames;
       resetPokedex();
-      toggleLoadMoreBtn(true);
+      setDisabledLoadMoreBtn(true);
       pokedexGrid.setAttribute(pokedexFilter, "custom");
       pokemonNames.forEach(async (name) => {
         const card = await buildPokemonCard(name);
