@@ -31,11 +31,13 @@ I built this project for an assignment for Devslopes Academy as a 'vanilla JS' p
 - **User Experience:**
   1. It would be better to display all pokémon all at once when they have all been fetched and loaded.
   2. Add a load progress bar to show how close things are to be loaded.
-- **Code Cleanup:** Code is little messy. Needs some better organization.
+  3. Make some skeleton loader cards.
+- **Pokemon Cards:** If the name is too long to see, I could add a hover effect to display the whole name in a tooltip.
+- **Missing Pokemon Images:** Some of the pokemon don't have images. The api I integrated doesn't come with them so I would have to add the to the app.
 
 ## 🐞 Bugs
 
-- **None so far:** I tested it and haven't found any currently.
+- **Pokedex Base Stats:** Sometimes the base stats bug out.
 
 <details>
   <summary><h3>🎥 Demos</h3></summary>

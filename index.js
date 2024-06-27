@@ -29,6 +29,7 @@ const gridLoadLimit = 30;
 let siteLoading = false;
 let offset = 0;
 let currentData;
+let lastSetOfPokemonNames;
 
 const modalBackdrop = document.querySelector(".modal-backdrop");
 
@@ -345,6 +346,12 @@ const loadMoreType = async () => {
     const card = await buildPokemonCard(pokemon);
     deployInGrid(card, pokedexGrid);
   });
+
+  // disable load more when no more pokemon
+  if (currentDataPokemonArray.length < gridLoadLimit) {
+    toggleLoadMoreBtn(true);
+  }
+
   offset = completion;
   toggleLoadingSpinner(false);
 };
@@ -533,6 +540,9 @@ pokedexNav.forEach((type) => {
       return;
     }
 
+    resetGridStats(pokedexGrid);
+    toggleLoadMoreBtn(false);
+
     if (type === "all") {
       pokedexGrid.setAttribute(pokedexFilter, "all");
       resetPokedex();
@@ -546,7 +556,6 @@ pokedexNav.forEach((type) => {
     if (pokedexSearchBtn.getAttribute("data-expanded") === "true") {
       toggleExpandNavSearch();
     }
-    resetGridStats(pokedexGrid);
   });
 });
 
@@ -581,7 +590,12 @@ pokedexSearchBtn.addEventListener("input", (event) => {
     }
 
     // fetch cards if input is 3 length or backspace is pressed
-    if (inputValue.length === 3 || keyAction === "deleteContentBackward") {
+    if (
+      inputValue.length === 3 ||
+      (keyAction === "deleteContentBackward" &&
+        !arraysAreEqual(pokemonNames, lastSetOfPokemonNames))
+    ) {
+      lastSetOfPokemonNames = pokemonNames;
       resetPokedex();
       toggleLoadMoreBtn(true);
       pokedexGrid.setAttribute(pokedexFilter, "custom");
