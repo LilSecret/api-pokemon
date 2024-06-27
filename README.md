@@ -39,9 +39,8 @@ I built this project for an assignment for Devslopes Academy as a 'vanilla JS' p
 
 - **Pokedex Base Stats:** Sometimes the base stats bug out.
 
-<details>
-  <summary><h3>🎥 Demos</h3></summary>
-  I need to make a demo
-  <br>
-  <video src="" controls="controls"></video>
-</details>
+## 🎥 Demo
+
+https://github.com/LilSecret/favorite-pokemon/assets/72845680/d55b6f25-1bee-4d27-b380-3f175f5f4678
+
+
